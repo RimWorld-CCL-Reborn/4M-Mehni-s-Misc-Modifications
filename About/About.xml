@@ -3,6 +3,12 @@
 	<name>4M Mehni's Misc Modifications</name>
 	<author>Mehni</author>
 	<targetVersion>0.18.0</targetVersion>
-	<url>https://github.com/Mehni/FoodAlert/releases/latest</url>
-	<description>v0.18.0.1\n\n		A beautiful settings window.</description>
+	<url>https://github.com/Mehni/4M-Mehni-s-Misc-Modifications/releases/latest</url>
+	<description>v0.18.0.0\n\n		Adds various settings to customise your RimWorld experience.
+	
+	Current features include:
+	- Bugfixes for vanilla issues
+	- Extend the time for pawns to undraft themselves
+	- Change the threshold at which pawns retreat
+	- Extend the time before you get kicked out of caravan maps</description>
 </ModMetaData>
