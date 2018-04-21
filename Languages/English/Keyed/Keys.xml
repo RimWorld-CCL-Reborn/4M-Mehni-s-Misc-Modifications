@@ -3,7 +3,7 @@
 
     <M4.GreySettingsIgnored>Greyed out settings are ignored</M4.GreySettingsIgnored>
 	<M4.SettingCatsCanHunt>Cats Can Hunt Again</M4.SettingCatsCanHunt>
-    <M4.SettingCatsCanHuntToolTip>Vanilla bugfix: Allows animals (e.g. cats) to hunt smaller critters (like rats) again.</M4.SettingCatsCanHuntToolTip>
+    <M4.SettingCatsCanHuntToolTip>Vanilla bugfix: Allows animals (like cats) to hunt smaller critters (like rats) again.</M4.SettingCatsCanHuntToolTip>
 
     <M4.SettingModifyAutoUndrafter>Modify the Auto Undrafter</M4.SettingModifyAutoUndrafter>
     <M4.SettingModifyAutoUndrafterToolTip>Various options for lengthening the time it takes for a colonist to undraft themselves.</M4.SettingModifyAutoUndrafterToolTip>
@@ -21,9 +21,10 @@
     <M4.SettingVariableRaidToolTip>By default, raiders give up at 50% losses. This allows you to change it. Does not apply to mechanoids and other factions which don't flee.</M4.SettingVariableRaidToolTip>
     <M4.SettingRandomRaidRetreat>Flee at random value?</M4.SettingRandomRaidRetreat>
     <M4.SettingRandomRaidRetreatToolTip>Sets a random value per raid incident between 30 and 70% losses.</M4.SettingRandomRaidRetreatToolTip>
-    <M4.SettingRetreatAtPercentageDefeated>Flee when this many raiders died:</M4.SettingRetreatAtPercentageDefeated>
+    <M4.SettingRetreatAtPercentageDefeated>Flee when this many raiders have died:</M4.SettingRetreatAtPercentageDefeated>
 
     <M4.SettingDontLeaveJustYet>Lengthen the time on caravan maps</M4.SettingDontLeaveJustYet>
+    <M4.SettingDontLeaveJustYetToolTip>NOTE: Does not apply to existing caravan maps and changes to these settings are not applied until you restart the game.</M4.SettingDontLeaveJustYetToolTip>
     <M4.SettingDaysUntilKickedOut>... by this many days:</M4.SettingDaysUntilKickedOut>
 
 </LanguageData>

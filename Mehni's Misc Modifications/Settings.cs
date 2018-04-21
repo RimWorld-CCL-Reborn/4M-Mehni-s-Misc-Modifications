@@ -12,35 +12,35 @@ namespace Mehni.Misc.Modifications
     public class MeMiMoSettings : ModSettings
     {
         #region CatHunting
-        public bool catsCanHunt = true;
+        public static bool catsCanHunt = true;
         #endregion
 
         #region AutoUndrafter
-        public bool modifyAutoUndrafter = false;
-        public bool whenGunsAreFiring = true;
-        public int extendUndraftTimeBy = 5000;
-        public bool allowAutoUndraftAtLowMood = true;
-        public string dontExtendWhenMoodAt = "  Major Break Risk";
+        public static bool modifyAutoUndrafter = false;
+        public static bool whenGunsAreFiring = true;
+        public static int extendUndraftTimeBy = 5000;
+        public static bool allowAutoUndraftAtLowMood = true;
+        public static string dontExtendWhenMoodAt = "  Major Break Risk";
         public static string[] mentalBreakRisks = { "   Minor Break Risk", "   Major Break Risk", "   Extreme Break Risk" };
         #endregion
 
         #region BigManhunterPacks
-        public bool enableLargePacks = true;
+        public static bool enableLargePacks = true;
         #endregion
 
         #region VariableRaidRetreat
-        public bool variableRaidRetreat = false;
-        public bool randomRaidRetreat = false;
-        public float retreatAtPercentageDefeated = 0.5f;
+        public static bool variableRaidRetreat = false;
+        public static bool randomRaidRetreat = false;
+        public static float retreatAtPercentageDefeated = 0.5f;
         #endregion
 
         #region DontLeaveJustYet
-        public bool allowLongerStays = false;
-        public int daysUntilKickedOut = 3;
+        public static bool allowLongerStays = false;
+        public static int extraDaysUntilKickedOut = 3;
         #endregion
 
         //#region RerollingPawns
-        //public bool enableTutorialStyleRolling = false;
+        //public static bool enableTutorialStyleRolling = false;
         //#endregion
 
         public void DoWindowContents(Rect wrect)
@@ -48,14 +48,20 @@ namespace Mehni.Misc.Modifications
             Listing_Standard options = new Listing_Standard();
             Color defaultColor = GUI.color;
             options.Begin(wrect);
+
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
+            GUI.color = Color.yellow;
             options.Label("M4.GreySettingsIgnored".Translate());
+            GUI.color = defaultColor;
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
             options.Gap();
             options.CheckboxLabeled("M4.SettingCatsCanHunt".Translate(), ref catsCanHunt, "M4.SettingCatsCanHuntToolTip".Translate());
-            options.Gap();
+            options.GapLine();
+
+            options.CheckboxLabeled("M4.SettingEnableLargePacks".Translate(), ref enableLargePacks, "M4.SettingLargePackToolTip".Translate());
+            options.GapLine();
 
             #region AutoUndrafter
             options.CheckboxLabeled("M4.SettingModifyAutoUndrafter".Translate(), ref modifyAutoUndrafter, "M4.SettingModifyAutoUndrafterToolTip".Translate());
@@ -67,17 +73,14 @@ namespace Mehni.Misc.Modifications
             options.CheckboxLabeled("M4.SettingWithGunsBlazing".Translate(), ref whenGunsAreFiring, "M4.SettingGunsBlazingToolTip".Translate());
             options.CheckboxLabeled("M4.SettingLowMoodUndraft".Translate(), ref allowAutoUndraftAtLowMood, "M4.SettingLowMoodUndraftDesc".Translate());
             GUI.color = defaultColor;
-            if (!allowAutoUndraftAtLowMood)
+            if (!modifyAutoUndrafter || !allowAutoUndraftAtLowMood)
             {
                 GUI.color = Color.grey;
             }
             options.AddLabeledRadioList(string.Empty, mentalBreakRisks, ref dontExtendWhenMoodAt);
             GUI.color = defaultColor;
-            options.Gap();
+            options.GapLine();
             #endregion AutoUndrafter
-
-            options.CheckboxLabeled("M4.SettingEnableLargePacks".Translate(), ref enableLargePacks, "M4.SettingLargePackToolTip".Translate());
-            options.Gap();
 
             options.CheckboxLabeled("M4.SettingVariableRaidRetreat".Translate(), ref variableRaidRetreat, "M4.SettingVariableRaidToolTip".Translate());
             if (!variableRaidRetreat)
@@ -92,16 +95,15 @@ namespace Mehni.Misc.Modifications
             }
             options.SliderLabeled("M4.SettingRetreatAtPercentageDefeated".Translate(), ref retreatAtPercentageDefeated, retreatAtPercentageDefeated.ToStringPercent(), 0.1f, 1f);
             GUI.color = defaultColor;
-            options.Gap();
+            options.GapLine();
 
-            options.CheckboxLabeled("M4.SettingDontLeaveJustYet".Translate(), ref allowLongerStays);
+            options.CheckboxLabeled("M4.SettingDontLeaveJustYet".Translate(), ref allowLongerStays, "M4.SettingDontLeaveJustYetToolTip".Translate());
             if (!allowLongerStays)
             {
                 GUI.color = Color.grey;
             }
-            options.SliderLabeled("M4.SettingDaysUntilKickedOut".Translate(), ref daysUntilKickedOut, daysUntilKickedOut.ToString(), 1, 5);
+            options.SliderLabeled("M4.SettingDaysUntilKickedOut".Translate(), ref extraDaysUntilKickedOut, extraDaysUntilKickedOut.ToString(), 1, 5);
             GUI.color = defaultColor;
-
             options.Gap();
 
             options.End();
@@ -122,19 +124,20 @@ namespace Mehni.Misc.Modifications
             Scribe_Values.Look(ref randomRaidRetreat, "randomRaidRetreat", false);
             Scribe_Values.Look(ref retreatAtPercentageDefeated, "retreatAtPercentageDefeated", 0.5f);
             Scribe_Values.Look(ref allowLongerStays, "allowLongerStays", false);
-            Scribe_Values.Look(ref daysUntilKickedOut, "daysUntilKickedOut", 3);
+            Scribe_Values.Look(ref extraDaysUntilKickedOut, "daysUntilKickedOut", 3);
         }
     }
 
-    class MehniMiscMods : Mod
+    public class MehniMiscMods : Mod
     {
+        public MeMiMoSettings settings;
 
         public MehniMiscMods(ModContentPack content) : base(content)
         {
             GetSettings<MeMiMoSettings>();
         }
 
-        public override string SettingsCategory() => "Mehni's Misc Settings";
+        public override string SettingsCategory() => "Mehni's Miscellaneous Modifications";
 
         public override void DoSettingsWindowContents(Rect inRect)
         {

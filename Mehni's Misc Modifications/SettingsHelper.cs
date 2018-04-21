@@ -12,8 +12,7 @@ namespace Mehni.Misc.Modifications
     //thanks to AlexTD for the below
     internal static class SettingsHelper
     {
-        private static float gap = 12f;
-
+        //private static float gap = 12f;
 
         public static void SliderLabeled(this Listing_Standard ls, string label, ref int val, string format, float min = 0f, float max = 100f, string tooltip = null)
         {
@@ -50,6 +49,7 @@ namespace Mehni.Misc.Modifications
             return listing_Standard.GetRect(height ?? Text.LineHeight);
         }
 
+        //thanks to Why_is_that for the below
         public static void AddLabeledRadioList(this Listing_Standard listing_Standard, string header, string[] labels, ref string val, float? headerHeight = null)
         {
             //listing_Standard.Gap();
