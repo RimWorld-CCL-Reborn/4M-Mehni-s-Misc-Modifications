@@ -111,13 +111,11 @@ namespace Mehni.Misc.Modifications
                     || (s.subDef.parentDef == SoundDefOf.BulletImpactGround)))
                 {
                     lastShotHeardAt = Find.TickManager.TicksGame;
-                    Log.Message("1");
                     return false;
                 }
                 if (Find.TickManager.TicksGame - lastShotHeardAt > ticksToWait)
                 {
                     //slight delay between last shot and undraft
-                    Log.Message("2");
                     return false;
                 }
             }
