@@ -44,6 +44,30 @@ namespace Mehni.Misc.Modifications
             ls.Gap(ls.verticalSpacing);
         }
 
+        public static void FloatRange(this Listing_Standard ls, string label, ref FloatRange range, float min = 0f, float max = 1f, string tooltip = null, ToStringStyle valueStyle = ToStringStyle.FloatTwo)
+        {
+            Rect rect = ls.GetRect(Text.LineHeight);
+            Rect rect2 = rect.LeftPart(.70f).Rounded();
+            Rect rect3 = rect.RightPart(.30f).Rounded().LeftPart(.9f).Rounded();
+            rect3.yMin -= 5f;
+            //Rect rect4 = rect.RightPart(.10f).Rounded();
+
+            TextAnchor anchor = Text.Anchor;
+            Text.Anchor = TextAnchor.MiddleLeft;
+            Widgets.Label(rect2, label);
+
+            Text.Anchor = TextAnchor.MiddleRight;
+            int id = ls.CurHeight.GetHashCode();
+            Widgets.FloatRange(rect3, id, ref range, min, max, null, valueStyle);
+            if (!tooltip.NullOrEmpty())
+            {
+                TooltipHandler.TipRegion(rect, tooltip);
+            }
+            Text.Anchor = anchor;
+            ls.Gap(ls.verticalSpacing);
+        }
+
+
         public static Rect GetRect(this Listing_Standard listing_Standard, float? height = null)
         {
             return listing_Standard.GetRect(height ?? Text.LineHeight);

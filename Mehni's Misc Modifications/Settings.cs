@@ -32,11 +32,16 @@ namespace Mehni.Misc.Modifications
         public static bool variableRaidRetreat = false;
         public static bool randomRaidRetreat = false;
         public static float retreatAtPercentageDefeated = 0.5f;
+        public static FloatRange retreatDefeatRange = new FloatRange(0.5f, 0.5f);
         #endregion
 
         #region DontLeaveJustYet
         public static bool allowLongerStays = false;
         public static int extraDaysUntilKickedOut = 3;
+        #endregion
+
+        #region ShowLovers
+        public static bool showLoversOnAssignBed = true;
         #endregion
 
         //#region RerollingPawns
@@ -87,14 +92,12 @@ namespace Mehni.Misc.Modifications
             {
                 GUI.color = Color.grey;
             }
-            options.CheckboxLabeled("M4.SettingRandomRaidRetreat".Translate(), ref randomRaidRetreat, "M4.SettingRandomRaidRetreatToolTip".Translate());
-            GUI.color = defaultColor;
-            if (!variableRaidRetreat || randomRaidRetreat)
+            options.Gap(2);
+            options.FloatRange("M4.SettingRetreatAtPercentageDefeated".Translate(), ref retreatDefeatRange, 0f, 1f, "M4.SettingRandomRaidRetreatToolTip".Translate(new object[] 
             {
-                GUI.color = Color.grey;
-            }
-            options.SliderLabeled("M4.SettingRetreatAtPercentageDefeated".Translate(), ref retreatAtPercentageDefeated, retreatAtPercentageDefeated.ToStringPercent(), 0.1f, 1f);
-            GUI.color = defaultColor;
+                retreatDefeatRange.min.ToStringByStyle(ToStringStyle.PercentZero),
+                retreatDefeatRange.max.ToStringByStyle(ToStringStyle.PercentZero)
+            }), ToStringStyle.PercentZero);
             options.GapLine();
 
             options.CheckboxLabeled("M4.SettingDontLeaveJustYet".Translate(), ref allowLongerStays, "M4.SettingDontLeaveJustYetToolTip".Translate());
@@ -120,11 +123,18 @@ namespace Mehni.Misc.Modifications
             Scribe_Values.Look(ref allowAutoUndraftAtLowMood, "allowAutoUndraftAtLowMood", true);
             Scribe_Values.Look(ref dontExtendWhenMoodAt, "dontExtendWhenMoodAt", "  Major Break Risk");
             Scribe_Values.Look(ref enableLargePacks, "enableLargePacks", true);
-            Scribe_Values.Look(ref variableRaidRetreat, "variableRaidRetreat", false);
-            Scribe_Values.Look(ref randomRaidRetreat, "randomRaidRetreat", false);
-            Scribe_Values.Look(ref retreatAtPercentageDefeated, "retreatAtPercentageDefeated", 0.5f);
+            Scribe_Values.Look(ref variableRaidRetreat, "variableRaidRetreat", false); 
+            Scribe_Values.Look(ref randomRaidRetreat, "randomRaidRetreat", false); //kept for backwards comp
+            Scribe_Values.Look(ref retreatAtPercentageDefeated, "retreatAtPercentageDefeated", 0.5f); //kept for backwards comp
+            Scribe_Values.Look(ref retreatDefeatRange, "retreatDefeatRange", new FloatRange(0.5f, 0.5f));
             Scribe_Values.Look(ref allowLongerStays, "allowLongerStays", false);
             Scribe_Values.Look(ref extraDaysUntilKickedOut, "daysUntilKickedOut", 3);
+            
+            //backwards compatibility
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                BackwardsCompatibility.DynamicFleeingPostLoadInit();
+            }
         }
     }
 

@@ -44,9 +44,11 @@ namespace Mehni.Misc.Modifications
 
             harmony.Patch(AccessTools.Method(typeof(Site), "CheckStartForceExitAndRemoveMapCountdown"), null, null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(CheckStartForceExitAndRemoveMapCountdown_Transpiler)));
+
+            //harmony.Patch(AccessTools.Method(typeof(Dialog_AssignBuildingOwner), nameof(Dialog_AssignBuildingOwner.DoWindowContents)), null, null,
+            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(DoWindowContents_Transpiler)));
         }
-
-
+        
 
         #region CatsCanHunt
         private static bool IsAcceptablePreyForBugFix_Prefix(ref Pawn predator, ref Pawn prey, ref bool __result)
@@ -135,33 +137,10 @@ namespace Mehni.Misc.Modifications
         #endregion
 
         #region DynamicFleeing
-        //public static IEnumerable<CodeInstruction> FleeTrigger_Transpiler(IEnumerable<CodeInstruction> instructions)
-        //{
-        //    // I like this.
-        //    // It doesn't work.
-        //    // Specifically: changing settings in a running game don't get respected because this is a constructor patch.
-        //    List<CodeInstruction> instructionList = instructions.ToList();
-
-        //    for (int i = 0; i < instructionList.Count; i++)
-        //    {
-        //        CodeInstruction instruction = instructionList[i];
-        //        if (MeMiMoSettings.variableRaidRetreat && instruction.opcode == OpCodes.Ldc_R4)
-        //        {
-        //            {
-        //                if (MeMiMoSettings.randomRaidRetreat) instruction.operand = (Rand.Range(0.3f, 0.7f));
-
-        //                else instruction.operand = (MeMiMoSettings.retreatAtPercentageDefeated);
-        //            }
-        //        }
-        //        yield return instruction;
-        //    }
-        //}
 
         private static void FleeTrigger_PostFix(ref LordJob lordJob)
         {
-            // I hate it.
-            // It works.
-            float randomRetreatvalue = Rand.Range(0.3f, 0.7f);
+            float randomRetreatvalue = Rand.Range(MeMiMoSettings.retreatDefeatRange.min, MeMiMoSettings.retreatDefeatRange.max);
             if (lordJob.lord.faction != null && lordJob.lord.faction.def.autoFlee && MeMiMoSettings.variableRaidRetreat)
             {
                 for (int j = 0; j < lordJob.lord.Graph.transitions.Count; j++)
@@ -172,10 +151,9 @@ namespace Mehni.Misc.Modifications
                         {
                             if (lordJob.lord.Graph.transitions[j].triggers[i].GetType() == typeof(Trigger_FractionPawnsLost))
                             {
-                                if (MeMiMoSettings.randomRaidRetreat)
+                                if (MeMiMoSettings.variableRaidRetreat)
                                     lordJob.lord.Graph.transitions[j].triggers[i] = new Trigger_FractionPawnsLost(randomRetreatvalue);
-                                else
-                                    lordJob.lord.Graph.transitions[j].triggers[i] = new Trigger_FractionPawnsLost(MeMiMoSettings.retreatAtPercentageDefeated);
+                                Log.Message(randomRetreatvalue.ToString());
                             }
                         }
                     }
@@ -187,6 +165,7 @@ namespace Mehni.Misc.Modifications
         #region BigManhunterPacks
         private static bool BigManhunterPackFix(PawnKindDef animal, float points, ref float __result)
         {
+            //6000 is based on the Manhunter results table in the devtools. At around 6~7k points, there's only one or two critters dangerous enough.
             if (MeMiMoSettings.enableLargePacks && points >= 6000)
             {
                 if (animal.combatPower > 89)
@@ -206,7 +185,7 @@ namespace Mehni.Misc.Modifications
                 bool patched = false;
                 MethodInfo countDown = AccessTools.Method(typeof(TimedForcedExit), nameof(TimedForcedExit.StartForceExitAndRemoveMapCountdown), new Type[] { } );
                 MethodInfo countDownWithCount = AccessTools.Method(typeof(TimedForcedExit), nameof(TimedForcedExit.StartForceExitAndRemoveMapCountdown), new Type[] { typeof(int) });
-                int timeInTicksToLeave = 60000 + (MeMiMoSettings.extraDaysUntilKickedOut * 60000);
+                int timeInTicksToLeave = GenDate.TicksPerDay + (MeMiMoSettings.extraDaysUntilKickedOut * GenDate.TicksPerDay);
 
                 List<CodeInstruction> instructionList = instructions.ToList();
                 for (int i = 0; i < instructionList.Count; i++)
@@ -229,15 +208,22 @@ namespace Mehni.Misc.Modifications
                     }
                 }
             }
+            else //becomes a no-op otherwise.
+            {
+                foreach (CodeInstruction i in instructions)
+                {
+                    yield return i;
+                }
+            }
         }
 
         public static IEnumerable<CodeInstruction> CheckStartForceExitAndRemoveMapCountdown_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             if (MeMiMoSettings.allowLongerStays)
             {
-                float timeInTicksToLeave = MeMiMoSettings.extraDaysUntilKickedOut * 60000;
-
+                float timeInTicksToLeave = MeMiMoSettings.extraDaysUntilKickedOut * GenDate.TicksPerDay;
                 List<CodeInstruction> instructionList = instructions.ToList();
+
                 for (int i = 0; i < instructionList.Count; i++)
                 {
                     CodeInstruction instruction = instructionList[i];
@@ -249,8 +235,45 @@ namespace Mehni.Misc.Modifications
                     }
                 }
             }
+            else //becomes a no-op otherwise.
+            {
+                foreach (CodeInstruction i in instructions)
+                {
+                    yield return i;
+                }
+            }
         }
-
         #endregion
+
+        //#region showLovers
+        //public static IEnumerable<CodeInstruction> DoWindowContents_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
+        //{
+        //    MethodInfo pawnName = AccessTools.Property(typeof(Entity), nameof(Entity.LabelCap)).GetGetMethod();
+        //    MethodInfo pawnLabel = AccessTools.Property(typeof(Pawn), nameof(Pawn.Label)).GetGetMethod();
+        //    //MethodInfo pawnLongName = AccessTools.Property(typeof(Entity), nameof(Entity.LabelShort)).GetGetMethod();
+
+        //    Pawn pawn = null;
+        //    List<CodeInstruction> instructionList = codeInstructions.ToList();
+
+        //    for (int i = 0; i < instructionList.Count; i++)
+        //    {
+        //        if (instructionList[i].opcode == OpCodes.Ldloc_S && instructionList[(i+1)].operand == pawnName)
+        //        {
+        //            pawn = instructionList[i].operand as Pawn;
+        //            if (LovePartnerRelationUtility.HasAnyLovePartner(pawn))
+        //            {
+
+        //            }
+        //            Log.Message(instructionList[i].operand.ToString());
+        //            instructionList[(i + 1)].operand = ;
+        //            Log.Message(pawn?.Label);
+        //            //instructionList[i].operand = pawnLabel;
+        //            yield return instructionList[i];
+        //        }
+        //        else
+        //            yield return instructionList[i];
+        //    }
+        //}
+        //#endregion showLovers
     }
 }

@@ -20,7 +20,7 @@
     <M4.SettingVariableRaidRetreat>Change the threshold at which raids flee</M4.SettingVariableRaidRetreat>
     <M4.SettingVariableRaidToolTip>By default, raiders give up at 50% losses. This allows you to change it. Does not apply to mechanoids and other factions which don't flee.</M4.SettingVariableRaidToolTip>
     <M4.SettingRandomRaidRetreat>Flee at random value?</M4.SettingRandomRaidRetreat>
-    <M4.SettingRandomRaidRetreatToolTip>Sets a random value per raid incident between 30 and 70% losses.</M4.SettingRandomRaidRetreatToolTip>
+    <M4.SettingRandomRaidRetreatToolTip>Raiders will flee somewhere between {0} and {1} losses.</M4.SettingRandomRaidRetreatToolTip>
     <M4.SettingRetreatAtPercentageDefeated>Flee when this many raiders have died:</M4.SettingRetreatAtPercentageDefeated>
 
     <M4.SettingDontLeaveJustYet>Lengthen the time on caravan maps</M4.SettingDontLeaveJustYet>
