@@ -21,13 +21,13 @@ namespace Mehni.Misc.Modifications
         {
             HarmonyInstance harmony = HarmonyInstance.Create("Mehni.RimWorld.4M.Main");
 
-            harmony.Patch(AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.IsAcceptablePreyFor)), 
+            harmony.Patch(AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.IsAcceptablePreyFor)),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(IsAcceptablePreyForBugFix_Prefix)), null, null);
 
-            harmony.Patch(AccessTools.Method(typeof(AutoUndrafter), "ShouldAutoUndraft"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(StayWhereIPutYou_Prefix)), null, null);
+            harmony.Patch(AccessTools.Method(typeof(AutoUndrafter), "ShouldAutoUndraft"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(StayWhereIPutYou_Postfix)), null);
 
-            harmony.Patch(AccessTools.Method(typeof(Lord), nameof(Lord.SetJob)), null, 
+            harmony.Patch(AccessTools.Method(typeof(Lord), nameof(Lord.SetJob)), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(FleeTrigger_PostFix)), null);
 
             //harmony.Patch(AccessTools.Method(typeof(Lord), nameof(Lord.SetJob)), null, null,
@@ -45,10 +45,19 @@ namespace Mehni.Misc.Modifications
             harmony.Patch(AccessTools.Method(typeof(Site), "CheckStartForceExitAndRemoveMapCountdown"), null, null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(CheckStartForceExitAndRemoveMapCountdown_Transpiler)));
 
-            //harmony.Patch(AccessTools.Method(typeof(Dialog_AssignBuildingOwner), nameof(Dialog_AssignBuildingOwner.DoWindowContents)), null, null,
-            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(DoWindowContents_Transpiler)));
+            harmony.Patch(AccessTools.Method(typeof(PlantProperties), "SpecialDisplayStats"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(DisplayYieldInfo)));
+
+            harmony.Patch(AccessTools.Method(typeof(StartingPawnUtility), nameof(StartingPawnUtility.NewGeneratedStartingPawn)), null, null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(NewGeneratedStartingPawns_Transpiler)));
+
+            harmony.Patch(AccessTools.Method(typeof(Dialog_AssignBuildingOwner), nameof(Dialog_AssignBuildingOwner.DoWindowContents)), null, null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(DoWindowContents_Transpiler)));
+
+            harmony.Patch(AccessTools.Method(typeof(Pawn_HealthTracker), nameof(Pawn_HealthTracker.NotifyPlayerOfKilled)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(NotifyPlayerOfKilledAnimal_Prefix)), null, null);
         }
-        
+
 
         #region CatsCanHunt
         private static bool IsAcceptablePreyForBugFix_Prefix(ref Pawn predator, ref Pawn prey, ref bool __result)
@@ -84,21 +93,18 @@ namespace Mehni.Misc.Modifications
         #endregion
 
         #region StayWhereIPutYou
-        private static bool StayWhereIPutYou_Prefix(AutoUndrafter __instance, ref bool __result)
+        private static void StayWhereIPutYou_Postfix(AutoUndrafter __instance, ref bool __result)
         {
             if (MeMiMoSettings.modifyAutoUndrafter)
             {
                 int lastNonWaitingTick = Traverse.Create(__instance).Field("lastNonWaitingTick").GetValue<int>();
                 Pawn pawn = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
 
-                __result = Find.TickManager.TicksGame - lastNonWaitingTick >= 5000
-                    && !Traverse.Create(__instance).Method("AnyHostilePreventingAutoUndraft").GetValue<bool>()
+                __result = __result
                     && MentalBreakHelper(pawn)
-                    && Find.TickManager.TicksGame - lastNonWaitingTick >= 5000 + MeMiMoSettings.extendUndraftTimeBy
+                    && Find.TickManager.TicksGame - lastNonWaitingTick >= 6000 + MeMiMoSettings.extendUndraftTimeBy
                     && GunsFiringHelper();
-                return false;
             }
-            else return true;
         }
 
         private static bool GunsFiringHelper()
@@ -108,9 +114,10 @@ namespace Mehni.Misc.Modifications
             if (MeMiMoSettings.whenGunsAreFiring)
             {
                 if (Find.SoundRoot.oneShotManager.PlayingOneShots.Any((SampleOneShot s)
-                    => (s.subDef.parentDef == SoundDefOf.BulletImpactFlesh)
-                    || (s.subDef.parentDef == SoundDefOf.BulletImpactMetal)
-                    || (s.subDef.parentDef == SoundDefOf.BulletImpactGround)))
+                    => (s.subDef.parentDef == SoundDefOf_M4.BulletImpact_Flesh)
+                    || (s.subDef.parentDef == SoundDefOf_M4.BulletImpact_Metal)
+                    || (s.subDef.parentDef == SoundDefOf_M4.BulletImpact_Wood)
+                    || (s.subDef.parentDef == SoundDefOf.BulletImpact_Ground)))
                 {
                     lastShotHeardAt = Find.TickManager.TicksGame;
                     return false;
@@ -130,7 +137,7 @@ namespace Mehni.Misc.Modifications
             {
                 if (MeMiMoSettings.dontExtendWhenMoodAt == "   Minor Break Risk") return pawn.mindState.mentalBreaker.BreakMinorIsImminent;
                 if (MeMiMoSettings.dontExtendWhenMoodAt == "   Major Break Risk") return pawn.mindState.mentalBreaker.BreakMajorIsImminent;
-                if (MeMiMoSettings.dontExtendWhenMoodAt == "   Extreme Break Risk")  return pawn.mindState.mentalBreaker.BreakExtremeIsImminent;
+                if (MeMiMoSettings.dontExtendWhenMoodAt == "   Extreme Break Risk") return pawn.mindState.mentalBreaker.BreakExtremeIsImminent;
             }
             return false;
         }
@@ -145,15 +152,14 @@ namespace Mehni.Misc.Modifications
             {
                 for (int j = 0; j < lordJob.lord.Graph.transitions.Count; j++)
                 {
-                    if (lordJob.lord.Graph.transitions[j].target.GetType() == typeof(LordToil_PanicFlee))
+                    if (lordJob.lord.Graph.transitions[j].target is LordToil_PanicFlee)
                     {
                         for (int i = 0; i < lordJob.lord.Graph.transitions[j].triggers.Count; i++)
                         {
-                            if (lordJob.lord.Graph.transitions[j].triggers[i].GetType() == typeof(Trigger_FractionPawnsLost))
+                            if (lordJob.lord.Graph.transitions[j].triggers[i] is Trigger_FractionPawnsLost)
                             {
                                 if (MeMiMoSettings.variableRaidRetreat)
                                     lordJob.lord.Graph.transitions[j].triggers[i] = new Trigger_FractionPawnsLost(randomRetreatvalue);
-                                Log.Message(randomRetreatvalue.ToString());
                             }
                         }
                     }
@@ -179,11 +185,10 @@ namespace Mehni.Misc.Modifications
         #region INeedMoreTime
         public static IEnumerable<CodeInstruction> ForceExitTimeExtender_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-
             if (MeMiMoSettings.allowLongerStays)
             {
                 bool patched = false;
-                MethodInfo countDown = AccessTools.Method(typeof(TimedForcedExit), nameof(TimedForcedExit.StartForceExitAndRemoveMapCountdown), new Type[] { } );
+                MethodInfo countDown = AccessTools.Method(typeof(TimedForcedExit), nameof(TimedForcedExit.StartForceExitAndRemoveMapCountdown), new Type[] { });
                 MethodInfo countDownWithCount = AccessTools.Method(typeof(TimedForcedExit), nameof(TimedForcedExit.StartForceExitAndRemoveMapCountdown), new Type[] { typeof(int) });
                 int timeInTicksToLeave = GenDate.TicksPerDay + (MeMiMoSettings.extraDaysUntilKickedOut * GenDate.TicksPerDay);
 
@@ -199,7 +204,7 @@ namespace Mehni.Misc.Modifications
 
                     yield return instructionList[i];
 
-                    if (!patched && instructionList[(i+1)].operand == countDown)
+                    if (!patched && instructionList[(i + 1)].operand == countDown)
                     {
                         //change actual time to leave
                         patched = true;
@@ -245,35 +250,114 @@ namespace Mehni.Misc.Modifications
         }
         #endregion
 
-        //#region showLovers
-        //public static IEnumerable<CodeInstruction> DoWindowContents_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
-        //{
-        //    MethodInfo pawnName = AccessTools.Property(typeof(Entity), nameof(Entity.LabelCap)).GetGetMethod();
-        //    MethodInfo pawnLabel = AccessTools.Property(typeof(Pawn), nameof(Pawn.Label)).GetGetMethod();
-        //    //MethodInfo pawnLongName = AccessTools.Property(typeof(Entity), nameof(Entity.LabelShort)).GetGetMethod();
+        #region DisplayYieldInfo
+        //Thanks to XeoNovaDan
+        public static void DisplayYieldInfo(PlantProperties __instance, ref IEnumerable<StatDrawEntry> __result)
+        {
+            ThingDef harvestedThingDef = Traverse.Create(__instance).Field("harvestedThingDef").GetValue<ThingDef>();
+            string harvestedThingDefLabel = harvestedThingDef.label;
+            float harvestYield = Traverse.Create(__instance).Field("harvestYield").GetValue<float>();
 
-        //    Pawn pawn = null;
-        //    List<CodeInstruction> instructionList = codeInstructions.ToList();
+            string extendedYieldInfo = String.Format("M4_HarvestYieldThingDetailInit".Translate(), harvestedThingDefLabel) + "\n\n";
+            float thingMarketValue = harvestedThingDef.GetStatValueAbstract(StatDefOf.MarketValue, null);
+            extendedYieldInfo += StatDefOf.MarketValue.label.CapitalizeFirst() + ": " + thingMarketValue.ToString();
+            if (harvestedThingDef.IsNutritionGivingIngestible)
+            {
+                float thingNutrition = harvestedThingDef.GetStatValueAbstract(StatDefOf.Nutrition, null);
+                int thingNutritionType = (int)harvestedThingDef.ingestible.foodType;
+                IDictionary<int, string> nutritionTypeToReportString = new Dictionary<int, string>()
+                {
+                    {1, "M4_PlantYieldNutTypeVeg"}, {2, "M4_PlantYieldNutTypeMeat"}
+                };
+                extendedYieldInfo += "\n" + StatDefOf.Nutrition.label.CapitalizeFirst() + ": " + thingNutrition.ToString() +
+                    " (" + nutritionTypeToReportString[thingNutritionType].Translate() + ")";
+            }
 
-        //    for (int i = 0; i < instructionList.Count; i++)
-        //    {
-        //        if (instructionList[i].opcode == OpCodes.Ldloc_S && instructionList[(i+1)].operand == pawnName)
-        //        {
-        //            pawn = instructionList[i].operand as Pawn;
-        //            if (LovePartnerRelationUtility.HasAnyLovePartner(pawn))
-        //            {
+            if (harvestedThingDef != null && harvestYield > 0)
+            {
+                StatDrawEntry statDrawEntry = new StatDrawEntry(StatCategoryDefOf.Basics, "M4_HarvestYieldThing".Translate(), harvestedThingDef.label.CapitalizeFirst(), 0, extendedYieldInfo);
+                __result = __result.Add(statDrawEntry);
+            }
+        }
+        #endregion DisplayYieldInfo
 
-        //            }
-        //            Log.Message(instructionList[i].operand.ToString());
-        //            instructionList[(i + 1)].operand = ;
-        //            Log.Message(pawn?.Label);
-        //            //instructionList[i].operand = pawnLabel;
-        //            yield return instructionList[i];
-        //        }
-        //        else
-        //            yield return instructionList[i];
-        //    }
-        //}
-        //#endregion showLovers
+        #region TutorialStyleRolling (No non-violents)
+        public static IEnumerable<CodeInstruction> NewGeneratedStartingPawns_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
+        {
+            MethodInfo tutorialMode = AccessTools.Property(typeof(TutorSystem), nameof(TutorSystem.TutorialMode)).GetGetMethod();
+            MethodInfo noNonViolents = AccessTools.Property(typeof(HarmonyPatches), nameof(HarmonyPatches.NoNonViolents)).GetGetMethod();
+
+            List<CodeInstruction> instructionList = codeInstructions.ToList();
+            for (int i = 0; i < instructionList.Count; i++)
+            {
+                if (instructionList[i].operand == tutorialMode) instructionList[i].operand = noNonViolents;
+                yield return instructionList[i];
+            }
+        }
+
+        public static bool NoNonViolents
+        {
+            get
+            {
+                return TutorSystem.TutorialMode || MeMiMoSettings.enableTutorialStyleRolling;
+            }
+        }
+        #endregion
+
+        #region showLovers
+        public static IEnumerable<CodeInstruction> DoWindowContents_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
+        {
+            MethodInfo pawnName = AccessTools.Property(typeof(Entity), nameof(Entity.LabelCap)).GetGetMethod();
+            MethodInfo isLover = AccessTools.Method(typeof(HarmonyPatches), nameof(HarmonyPatches.ShowLovers));
+            MethodInfo concat = AccessTools.Method(typeof(HarmonyPatches), nameof(HarmonyPatches.Concatenate));
+
+            List<CodeInstruction> instructionList = codeInstructions.ToList();
+
+            for (int i = 0; i < instructionList.Count; i++)
+            {
+                if (instructionList[i].opcode == OpCodes.Ldloc_S && instructionList[(i + 1)].operand == pawnName)
+                {
+                    yield return instructionList[i]; //pawn
+                    yield return new CodeInstruction(OpCodes.Callvirt, isLover); //call ShowLovers (pawn), get <3 or empty string back
+                    yield return instructionList[i]; //pawn
+                    yield return new CodeInstruction(OpCodes.Callvirt, pawnName); //get pawn name
+                    yield return new CodeInstruction(OpCodes.Callvirt, concat); //Concatenate Showlovers + Pawn name, load onto stack as single string.
+                    instructionList[i + 1].opcode = OpCodes.Nop; //we already called pawnName. Could remove it from stack, but nop is easier.
+                }
+                else
+                    yield return instructionList[i];
+            }
+        }
+
+        private static string Concatenate(string a, string b)
+        {
+            return b + a;
+        }
+
+        public static string ShowLovers(Pawn pawn)
+        {
+            if (LovePartnerRelationUtility.HasAnyLovePartner(pawn))
+            {
+                return " ♥";
+            }
+            return string.Empty;
+        }
+        #endregion showLovers
+
+        #region DeathMessagesForAnimals;
+        private static bool NotifyPlayerOfKilledAnimal_Prefix(Pawn ___pawn)
+        {
+            if (___pawn.RaceProps.Animal) return MeMiMoSettings.deathMessagesForAnimals;
+            return true;
+        }
+        #endregion DeathMessagesForAnimals
+    }
+
+    [DefOf]
+    public static class SoundDefOf_M4
+    {
+        public static SoundDef BulletImpact_Wood;
+        public static SoundDef BulletImpact_Flesh;
+        public static SoundDef BulletImpact_Metal;
     }
 }

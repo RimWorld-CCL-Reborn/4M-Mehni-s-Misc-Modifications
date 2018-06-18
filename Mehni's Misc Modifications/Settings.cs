@@ -44,9 +44,18 @@ namespace Mehni.Misc.Modifications
         public static bool showLoversOnAssignBed = true;
         #endregion
 
-        //#region RerollingPawns
-        //public static bool enableTutorialStyleRolling = false;
-        //#endregion
+        #region RerollingPawns
+        public static bool enableTutorialStyleRolling = true;
+        #endregion
+
+        #region AlertEmergency
+        //TODO: Maybe implement as option.
+        public static bool enableAlert = false;
+        #endregion
+
+        #region DeathMessages
+        public static bool deathMessagesForAnimals = true;
+        #endregion
 
         public void DoWindowContents(Rect wrect)
         {
@@ -57,26 +66,26 @@ namespace Mehni.Misc.Modifications
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
             GUI.color = Color.yellow;
-            options.Label("M4.GreySettingsIgnored".Translate());
+            options.Label("M4_GreySettingsIgnored".Translate());
             GUI.color = defaultColor;
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
             options.Gap();
-            options.CheckboxLabeled("M4.SettingCatsCanHunt".Translate(), ref catsCanHunt, "M4.SettingCatsCanHuntToolTip".Translate());
+            options.CheckboxLabeled("M4_SettingCatsCanHunt".Translate(), ref catsCanHunt, "M4_SettingCatsCanHuntToolTip".Translate());
             options.GapLine();
 
-            options.CheckboxLabeled("M4.SettingEnableLargePacks".Translate(), ref enableLargePacks, "M4.SettingLargePackToolTip".Translate());
+            options.CheckboxLabeled("M4_SettingEnableLargePacks".Translate(), ref enableLargePacks, "M4_SettingLargePackToolTip".Translate());
             options.GapLine();
 
             #region AutoUndrafter
-            options.CheckboxLabeled("M4.SettingModifyAutoUndrafter".Translate(), ref modifyAutoUndrafter, "M4.SettingModifyAutoUndrafterToolTip".Translate());
+            options.CheckboxLabeled("M4_SettingModifyAutoUndrafter".Translate(), ref modifyAutoUndrafter, "M4_SettingModifyAutoUndrafterToolTip".Translate());
             if (!modifyAutoUndrafter)
             {
                 GUI.color = Color.grey;
             }
-            options.SliderLabeled("M4.SettingExtendUndraftTimeBy".Translate(), ref extendUndraftTimeBy, extendUndraftTimeBy.ToStringTicksToPeriod(), 0, 60000);
-            options.CheckboxLabeled("M4.SettingWithGunsBlazing".Translate(), ref whenGunsAreFiring, "M4.SettingGunsBlazingToolTip".Translate());
-            options.CheckboxLabeled("M4.SettingLowMoodUndraft".Translate(), ref allowAutoUndraftAtLowMood, "M4.SettingLowMoodUndraftDesc".Translate());
+            options.SliderLabeled("M4_SettingExtendUndraftTimeBy".Translate(), ref extendUndraftTimeBy, extendUndraftTimeBy.ToStringTicksToPeriod(), 0, 60000);
+            options.CheckboxLabeled("M4_SettingWithGunsBlazing".Translate(), ref whenGunsAreFiring, "M4_SettingGunsBlazingToolTip".Translate());
+            options.CheckboxLabeled("M4_SettingLowMoodUndraft".Translate(), ref allowAutoUndraftAtLowMood, "M4_SettingLowMoodUndraftDesc".Translate());
             GUI.color = defaultColor;
             if (!modifyAutoUndrafter || !allowAutoUndraftAtLowMood)
             {
@@ -87,26 +96,31 @@ namespace Mehni.Misc.Modifications
             options.GapLine();
             #endregion AutoUndrafter
 
-            options.CheckboxLabeled("M4.SettingVariableRaidRetreat".Translate(), ref variableRaidRetreat, "M4.SettingVariableRaidToolTip".Translate());
+            options.CheckboxLabeled("M4_SettingVariableRaidRetreat".Translate(), ref variableRaidRetreat, "M4_SettingVariableRaidToolTip".Translate());
             if (!variableRaidRetreat)
             {
                 GUI.color = Color.grey;
             }
             options.Gap(2);
-            options.FloatRange("M4.SettingRetreatAtPercentageDefeated".Translate(), ref retreatDefeatRange, 0f, 1f, "M4.SettingRandomRaidRetreatToolTip".Translate(new object[] 
+            options.FloatRange("M4_SettingRetreatAtPercentageDefeated".Translate(), ref retreatDefeatRange, 0f, 1f, "M4_SettingRandomRaidRetreatToolTip".Translate(new object[] 
             {
                 retreatDefeatRange.min.ToStringByStyle(ToStringStyle.PercentZero),
                 retreatDefeatRange.max.ToStringByStyle(ToStringStyle.PercentZero)
             }), ToStringStyle.PercentZero);
             options.GapLine();
 
-            options.CheckboxLabeled("M4.SettingDontLeaveJustYet".Translate(), ref allowLongerStays, "M4.SettingDontLeaveJustYetToolTip".Translate());
+            options.CheckboxLabeled("M4_SettingDontLeaveJustYet".Translate(), ref allowLongerStays, "M4_SettingDontLeaveJustYetToolTip".Translate());
             if (!allowLongerStays)
             {
                 GUI.color = Color.grey;
             }
-            options.SliderLabeled("M4.SettingDaysUntilKickedOut".Translate(), ref extraDaysUntilKickedOut, extraDaysUntilKickedOut.ToString(), 1, 5);
+            options.SliderLabeled("M4_SettingDaysUntilKickedOut".Translate(), ref extraDaysUntilKickedOut, extraDaysUntilKickedOut.ToString(), 1, 5);
             GUI.color = defaultColor;
+            options.GapLine();
+            options.CheckboxLabeled("M4_TutorialStyleRolling".Translate(), ref enableTutorialStyleRolling, "M4_TutorialStyleRollingDesc".Translate());
+            options.GapLine();
+            options.CheckboxLabeled("M4_NotifyDeadAnimals".Translate(), ref deathMessagesForAnimals, "M4_NotifyDeadAnimalsDesc".Translate());
+
             options.Gap();
 
             options.End();
@@ -129,12 +143,8 @@ namespace Mehni.Misc.Modifications
             Scribe_Values.Look(ref retreatDefeatRange, "retreatDefeatRange", new FloatRange(0.5f, 0.5f));
             Scribe_Values.Look(ref allowLongerStays, "allowLongerStays", false);
             Scribe_Values.Look(ref extraDaysUntilKickedOut, "daysUntilKickedOut", 3);
-            
-            //backwards compatibility
-            if (Scribe.mode == LoadSaveMode.PostLoadInit)
-            {
-                BackwardsCompatibility.DynamicFleeingPostLoadInit();
-            }
+            Scribe_Values.Look(ref enableTutorialStyleRolling, "tutorialStyleRolling", true);
+            Scribe_Values.Look(ref deathMessagesForAnimals, "deathMessageForAnimals", true);
         }
     }
 

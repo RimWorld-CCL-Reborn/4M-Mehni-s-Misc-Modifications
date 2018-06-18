@@ -2,13 +2,18 @@
 <ModMetaData>
 	<name>4M Mehni's Misc Modifications</name>
 	<author>Mehni</author>
-	<targetVersion>0.18.0</targetVersion>
+	<targetVersion>1.0.0</targetVersion>
 	<url>https://github.com/Mehni/4M-Mehni-s-Misc-Modifications/releases/latest</url>
-	<description>v0.18.0.1\n\n		Adds various settings to customise your RimWorld experience.
+	<description>v1.0.0.0\n\n		Adds various settings to customise your RimWorld experience.
 	
 	Current features include:
 	- Bugfixes for vanilla issues
 	- Extend the time for pawns to undraft themselves
 	- Change the threshold at which pawns retreat
-	- Extend the time before you get kicked out of caravan maps</description>
+	- Extend the time before you get kicked out of caravan maps
+	- Never roll non-violents again
+	- Show more info on plant yield (Thanks XeoNovaDan!)
+	- A new alert to notify you of severe illnesses
+	- Show what pawns are in a relationship when assigning beds
+	- Disable messages for dying animals - who cares about Chicken #357 dying?</description>
 </ModMetaData>

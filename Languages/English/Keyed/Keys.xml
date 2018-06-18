@@ -1,30 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 
-    <M4.GreySettingsIgnored>Greyed out settings are ignored</M4.GreySettingsIgnored>
-	<M4.SettingCatsCanHunt>Cats Can Hunt Again</M4.SettingCatsCanHunt>
-    <M4.SettingCatsCanHuntToolTip>Vanilla bugfix: Allows animals (like cats) to hunt smaller critters (like rats) again.</M4.SettingCatsCanHuntToolTip>
+    <M4_GreySettingsIgnored>Greyed out settings are ignored</M4_GreySettingsIgnored>
+	<M4_SettingCatsCanHunt>Cats Can Hunt Again</M4_SettingCatsCanHunt>
+    <M4_SettingCatsCanHuntToolTip>Vanilla bugfix: Allows animals (like cats) to hunt smaller critters (like rats) again.</M4_SettingCatsCanHuntToolTip>
 
-    <M4.SettingModifyAutoUndrafter>Modify the Auto Undrafter</M4.SettingModifyAutoUndrafter>
-    <M4.SettingModifyAutoUndrafterToolTip>Various options for lengthening the time it takes for a colonist to undraft themselves.</M4.SettingModifyAutoUndrafterToolTip>
-    <M4.SettingWithGunsBlazing>Stay drafted when there's gunfire on the map.</M4.SettingWithGunsBlazing>
-    <M4.SettingGunsBlazingToolTip>Pawns stay drafted as long as someone is firing a gun on the map.</M4.SettingGunsBlazingToolTip>
-    <M4.SettingExtendUndraftTimeBy>Extend the time to undraft by:</M4.SettingExtendUndraftTimeBy>
-    <M4.SettingExtendUndraftTimeByToolTip>The vanilla value is 5000 ticks, a little under a RimWorld hour. This setting *adds* to the 5000 ticks. Note that colonists actively engaged in combat will not undraft themselves (under normal circumstances).</M4.SettingExtendUndraftTimeByToolTip>
-    <M4.SettingLowMoodUndraft>... but undraft when at:</M4.SettingLowMoodUndraft>
-    <M4.SettingLowMoodUndraftDesc>Allow the regular AutoUndrafter to kick in when colonists are at low mood.</M4.SettingLowMoodUndraftDesc>
+    <M4_SettingModifyAutoUndrafter>Modify the Auto Undrafter</M4_SettingModifyAutoUndrafter>
+    <M4_SettingModifyAutoUndrafterToolTip>Various options for lengthening the time it takes for a colonist to undraft themselves.</M4_SettingModifyAutoUndrafterToolTip>
+    <M4_SettingWithGunsBlazing>Stay drafted when there's gunfire on the map.</M4_SettingWithGunsBlazing>
+    <M4_SettingGunsBlazingToolTip>Pawns stay drafted as long as someone is firing a gun on the map.</M4_SettingGunsBlazingToolTip>
+    <M4_SettingExtendUndraftTimeBy>Extend the time to undraft by:</M4_SettingExtendUndraftTimeBy>
+    <M4_SettingExtendUndraftTimeByToolTip>The vanilla value is 5000 ticks, a little under a RimWorld hour. This setting *adds* to the 5000 ticks. Note that colonists actively engaged in combat will not undraft themselves (under normal circumstances).</M4_SettingExtendUndraftTimeByToolTip>
+    <M4_SettingLowMoodUndraft>... but undraft when at:</M4_SettingLowMoodUndraft>
+    <M4_SettingLowMoodUndraftDesc>Allow the regular AutoUndrafter to kick in when colonists are at low mood.</M4_SettingLowMoodUndraftDesc>
 
-    <M4.SettingEnableLargePacks>Allow large manhunter packs?</M4.SettingEnableLargePacks>
-    <M4.SettingLargePackToolTip>By default, RimWorld stops sending manhunter packs at high raid points. This changes that.</M4.SettingLargePackToolTip>
+    <M4_SettingEnableLargePacks>Allow large manhunter packs?</M4_SettingEnableLargePacks>
+    <M4_SettingLargePackToolTip>By default, RimWorld stops sending manhunter packs at high raid points. This changes that.</M4_SettingLargePackToolTip>
 
-    <M4.SettingVariableRaidRetreat>Change the threshold at which raids flee</M4.SettingVariableRaidRetreat>
-    <M4.SettingVariableRaidToolTip>By default, raiders give up at 50% losses. This allows you to change it. Does not apply to mechanoids and other factions which don't flee.</M4.SettingVariableRaidToolTip>
-    <M4.SettingRandomRaidRetreat>Flee at random value?</M4.SettingRandomRaidRetreat>
-    <M4.SettingRandomRaidRetreatToolTip>Raiders will flee somewhere between {0} and {1} losses.</M4.SettingRandomRaidRetreatToolTip>
-    <M4.SettingRetreatAtPercentageDefeated>Flee when this many raiders have died:</M4.SettingRetreatAtPercentageDefeated>
+    <M4_SettingVariableRaidRetreat>Change the threshold at which raids flee</M4_SettingVariableRaidRetreat>
+    <M4_SettingVariableRaidToolTip>By default, raiders give up at 50% losses. This allows you to change it. Does not apply to mechanoids and other factions which don't flee.</M4_SettingVariableRaidToolTip>
+    <M4_SettingRandomRaidRetreat>Flee at random value?</M4_SettingRandomRaidRetreat>
+    <M4_SettingRandomRaidRetreatToolTip>Raiders will flee somewhere between {0} and {1} losses.</M4_SettingRandomRaidRetreatToolTip>
+    <M4_SettingRetreatAtPercentageDefeated>Flee when this many raiders have died:</M4_SettingRetreatAtPercentageDefeated>
 
-    <M4.SettingDontLeaveJustYet>Lengthen the time on caravan maps</M4.SettingDontLeaveJustYet>
-    <M4.SettingDontLeaveJustYetToolTip>NOTE: Does not apply to existing caravan maps and changes to these settings are not applied until you restart the game.</M4.SettingDontLeaveJustYetToolTip>
-    <M4.SettingDaysUntilKickedOut>... by this many days:</M4.SettingDaysUntilKickedOut>
+    <M4_SettingDontLeaveJustYet>Lengthen the time on caravan maps</M4_SettingDontLeaveJustYet>
+    <M4_SettingDontLeaveJustYetToolTip>NOTE: Does not apply to existing caravan maps and changes to these settings are not applied until you restart the game.</M4_SettingDontLeaveJustYetToolTip>
+    <M4_SettingDaysUntilKickedOut>... by this many days:</M4_SettingDaysUntilKickedOut>
+
+    <M4_ColonistNeedsUrgentCare>Colonist needs urgent treatment</M4_ColonistNeedsUrgentCare>
+    
+    <M4_HarvestYieldThing>Harvest product</M4_HarvestYieldThing>
+    <M4_HarvestYieldThingDetailInit>What this plant yields when harvested by a colonist. Information about {0} is as follows...</M4_HarvestYieldThingDetailInit>
+    <M4_PlantYieldNutTypeVeg>Vegetarian</M4_PlantYieldNutTypeVeg>
+    <M4_PlantYieldNutTypeMeat>Meat substitute</M4_PlantYieldNutTypeMeat>
+
+    <M4_TutorialStyleRolling>Disable non-violents during rolling</M4_TutorialStyleRolling>
+    <M4_TutorialStyleRollingDesc>If this is enabled, non-violents will be removed from the available colonist pool during the starting screen. That means you'll never roll Emmie the Sex Slave, or Roughchild the Reporter</M4_TutorialStyleRollingDesc>
+
+    <M4_NotifyDeadAnimals>Tell me about every dead colony animal!</M4_NotifyDeadAnimals>
+    <M4_NotifyDeadAnimalsDesc>When disabled, this removes the Death notification message for colony animals. This includes bonded animals.</M4_NotifyDeadAnimalsDesc>
+
 
 </LanguageData>
