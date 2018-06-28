@@ -39,7 +39,7 @@ namespace Mehni.Misc.Modifications
             harmony.Patch(AccessTools.Method(typeof(CaravansBattlefield), "CheckWonBattle"), null, null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(ForceExitTimeExtender_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(FactionBaseDefeatUtility), nameof(FactionBaseDefeatUtility.CheckDefeated)), null, null,
+            harmony.Patch(AccessTools.Method(typeof(SettlementDefeatUtility), nameof(SettlementDefeatUtility.CheckDefeated)), null, null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(ForceExitTimeExtender_Transpiler)));
 
             harmony.Patch(AccessTools.Method(typeof(Site), "CheckStartForceExitAndRemoveMapCountdown"), null, null,
@@ -255,8 +255,11 @@ namespace Mehni.Misc.Modifications
         public static void DisplayYieldInfo(PlantProperties __instance, ref IEnumerable<StatDrawEntry> __result)
         {
             ThingDef harvestedThingDef = Traverse.Create(__instance).Field("harvestedThingDef").GetValue<ThingDef>();
-            string harvestedThingDefLabel = harvestedThingDef.label;
             float harvestYield = Traverse.Create(__instance).Field("harvestYield").GetValue<float>();
+
+            if (harvestedThingDef == null) return;
+
+            string harvestedThingDefLabel = harvestedThingDef.label;
 
             string extendedYieldInfo = String.Format("M4_HarvestYieldThingDetailInit".Translate(), harvestedThingDefLabel) + "\n\n";
             float thingMarketValue = harvestedThingDef.GetStatValueAbstract(StatDefOf.MarketValue, null);
@@ -264,13 +267,14 @@ namespace Mehni.Misc.Modifications
             if (harvestedThingDef.IsNutritionGivingIngestible)
             {
                 float thingNutrition = harvestedThingDef.GetStatValueAbstract(StatDefOf.Nutrition, null);
-                int thingNutritionType = (int)harvestedThingDef.ingestible.foodType;
-                IDictionary<int, string> nutritionTypeToReportString = new Dictionary<int, string>()
+                FoodTypeFlags thingNutritionType = harvestedThingDef.ingestible.foodType;
+                IDictionary<FoodTypeFlags, string> nutritionTypeToReportString = new Dictionary<FoodTypeFlags, string>()
                 {
-                    {1, "M4_PlantYieldNutTypeVeg"}, {2, "M4_PlantYieldNutTypeMeat"}
+                    {FoodTypeFlags.VegetableOrFruit, "FoodTypeFlags_VegetableOrFruit"}, {FoodTypeFlags.Meat, "FoodTypeFlags_Meat"}, {FoodTypeFlags.Seed, "FoodTypeFlags_Seed"}
                 };
+                string nutritionTypeReportString = nutritionTypeToReportString.TryGetValue(thingNutritionType, out nutritionTypeReportString) ? nutritionTypeReportString : "StatsReport_OtherStats";
                 extendedYieldInfo += "\n" + StatDefOf.Nutrition.label.CapitalizeFirst() + ": " + thingNutrition.ToString() +
-                    " (" + nutritionTypeToReportString[thingNutritionType].Translate() + ")";
+                    " (" + nutritionTypeReportString.Translate() + ")";
             }
 
             if (harvestedThingDef != null && harvestYield > 0)
