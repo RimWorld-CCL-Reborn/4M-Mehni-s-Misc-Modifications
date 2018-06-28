@@ -56,6 +56,9 @@ namespace Mehni.Misc.Modifications
 
             harmony.Patch(AccessTools.Method(typeof(Pawn_HealthTracker), nameof(Pawn_HealthTracker.NotifyPlayerOfKilled)),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(NotifyPlayerOfKilledAnimal_Prefix)), null, null);
+
+            harmony.Patch(AccessTools.Method(typeof(PawnUtility), nameof(PawnUtility.HumanFilthChancePerCell)), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(HumanFilthChancePerCell_Postfix)));
         }
 
 
@@ -355,6 +358,13 @@ namespace Mehni.Misc.Modifications
             return true;
         }
         #endregion DeathMessagesForAnimals
+
+        #region LessLitterLouting
+        public static void HumanFilthChancePerCell_Postfix(ref float __result)
+        {
+            __result *= (MeMiMoSettings.humanFilthRate / 5);
+        }
+        #endregion
     }
 
     [DefOf]
