@@ -38,5 +38,8 @@
     <M4_NotifyDeadAnimals>Tell me about every dead colony animal!</M4_NotifyDeadAnimals>
     <M4_NotifyDeadAnimalsDesc>When disabled, this removes the Death notification message for colony animals. This includes bonded animals.</M4_NotifyDeadAnimalsDesc>
 
+    <M4_LessLitterLouting>Human filth rate</M4_LessLitterLouting>
+    <M4_LessLitterLoutingToolTip>How much filth and trash a human produces per 1000 cells. Default value is 5.</M4_LessLitterLoutingToolTip>
+
 
 </LanguageData>
