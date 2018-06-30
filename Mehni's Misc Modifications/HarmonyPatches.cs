@@ -96,24 +96,22 @@ namespace Mehni.Misc.Modifications
         #endregion
 
         #region StayWhereIPutYou
-        private static void StayWhereIPutYou_Postfix(AutoUndrafter __instance, ref bool __result)
+        private static void StayWhereIPutYou_Postfix(ref bool __result, int ___lastNonWaitingTick, Pawn ___pawn)
         {
             if (MeMiMoSettings.modifyAutoUndrafter)
             {
-                int lastNonWaitingTick = Traverse.Create(__instance).Field("lastNonWaitingTick").GetValue<int>();
-                Pawn pawn = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
-
-                __result = __result
-                    && MentalBreakHelper(pawn)
-                    && Find.TickManager.TicksGame - lastNonWaitingTick >= 6000 + MeMiMoSettings.extendUndraftTimeBy
-                    && GunsFiringHelper();
+                if (__result)
+                {
+                    if (!MentalBreakHelper(___pawn))
+                    {
+                        __result = (Find.TickManager.TicksGame - ___lastNonWaitingTick >= 6000 + MeMiMoSettings.extendUndraftTimeBy && GunsFiringHelper());
+                    }
+                }
             }
         }
 
         private static bool GunsFiringHelper()
         {
-            int lastShotHeardAt = 0;
-            int ticksToWait = 100;
             if (MeMiMoSettings.whenGunsAreFiring)
             {
                 if (Find.SoundRoot.oneShotManager.PlayingOneShots.Any((SampleOneShot s)
@@ -122,12 +120,6 @@ namespace Mehni.Misc.Modifications
                     || (s.subDef.parentDef == SoundDefOf_M4.BulletImpact_Wood)
                     || (s.subDef.parentDef == SoundDefOf.BulletImpact_Ground)))
                 {
-                    lastShotHeardAt = Find.TickManager.TicksGame;
-                    return false;
-                }
-                if (Find.TickManager.TicksGame - lastShotHeardAt > ticksToWait)
-                {
-                    //slight delay between last shot and undraft
                     return false;
                 }
             }
@@ -138,9 +130,15 @@ namespace Mehni.Misc.Modifications
         {
             if (MeMiMoSettings.allowAutoUndraftAtLowMood)
             {
-                if (MeMiMoSettings.dontExtendWhenMoodAt == "   Minor Break Risk") return pawn.mindState.mentalBreaker.BreakMinorIsImminent;
-                if (MeMiMoSettings.dontExtendWhenMoodAt == "   Major Break Risk") return pawn.mindState.mentalBreaker.BreakMajorIsImminent;
-                if (MeMiMoSettings.dontExtendWhenMoodAt == "   Extreme Break Risk") return pawn.mindState.mentalBreaker.BreakExtremeIsImminent;
+                switch (MeMiMoSettings.dontExtendWhenMoodAt)
+                {
+                    case "   Minor Break Risk":
+                        return pawn.mindState.mentalBreaker.BreakMinorIsImminent || pawn.mindState.mentalBreaker.BreakMajorIsImminent || pawn.mindState.mentalBreaker.BreakExtremeIsImminent;
+                    case "   Major Break Risk":
+                        return pawn.mindState.mentalBreaker.BreakMajorIsImminent || pawn.mindState.mentalBreaker.BreakExtremeIsImminent;
+                    case "   Extreme Break Risk":
+                        return pawn.mindState.mentalBreaker.BreakExtremeIsImminent;
+                }
             }
             return false;
         }
@@ -207,12 +205,12 @@ namespace Mehni.Misc.Modifications
 
                     yield return instructionList[i];
 
-                    if (!patched && instructionList[(i + 1)].operand == countDown)
+                    if (!patched && instructionList[i + 1].operand == countDown)
                     {
                         //change actual time to leave
                         patched = true;
                         yield return new CodeInstruction(OpCodes.Ldc_I4, timeInTicksToLeave);
-                        instructionList[(i + 1)].operand = countDownWithCount;
+                        instructionList[i + 1].operand = countDownWithCount;
                     }
                 }
             }
@@ -264,7 +262,7 @@ namespace Mehni.Misc.Modifications
 
             string harvestedThingDefLabel = harvestedThingDef.label;
 
-            string extendedYieldInfo = String.Format("M4_HarvestYieldThingDetailInit".Translate(), harvestedThingDefLabel) + "\n\n";
+            string extendedYieldInfo = string.Format("M4_HarvestYieldThingDetailInit".Translate(), harvestedThingDefLabel) + "\n\n";
             float thingMarketValue = harvestedThingDef.GetStatValueAbstract(StatDefOf.MarketValue, null);
             extendedYieldInfo += StatDefOf.MarketValue.label.CapitalizeFirst() + ": " + thingMarketValue.ToString();
             if (harvestedThingDef.IsNutritionGivingIngestible)
@@ -280,7 +278,7 @@ namespace Mehni.Misc.Modifications
                     " (" + nutritionTypeReportString.Translate() + ")";
             }
 
-            if (harvestedThingDef != null && harvestYield > 0)
+            if (harvestYield > 0)
             {
                 StatDrawEntry statDrawEntry = new StatDrawEntry(StatCategoryDefOf.Basics, "M4_HarvestYieldThing".Translate(), harvestedThingDef.label.CapitalizeFirst(), 0, extendedYieldInfo);
                 __result = __result.Add(statDrawEntry);
@@ -295,10 +293,10 @@ namespace Mehni.Misc.Modifications
             MethodInfo noNonViolents = AccessTools.Property(typeof(HarmonyPatches), nameof(HarmonyPatches.NoNonViolents)).GetGetMethod();
 
             List<CodeInstruction> instructionList = codeInstructions.ToList();
-            for (int i = 0; i < instructionList.Count; i++)
+            foreach (CodeInstruction t in instructionList)
             {
-                if (instructionList[i].operand == tutorialMode) instructionList[i].operand = noNonViolents;
-                yield return instructionList[i];
+                if (t.operand == tutorialMode) t.operand = noNonViolents;
+                yield return t;
             }
         }
 
