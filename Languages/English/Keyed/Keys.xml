@@ -41,5 +41,8 @@
     <M4_LessLitterLouting>Human filth rate</M4_LessLitterLouting>
     <M4_LessLitterLoutingToolTip>How much filth and trash a human produces per 1000 cells. Default value is 5.</M4_LessLitterLoutingToolTip>
 
+    <M4_NoForcedMortarSlowDown>Remove mortar shot slowdown</M4_NoForcedMortarSlowDown>
+    <M4_NoForcedMortarSlowDownDesc>If there is an X here, game will slow down when you fire a mortar.</M4_NoForcedMortarSlowDownDesc>
+
 
 </LanguageData>

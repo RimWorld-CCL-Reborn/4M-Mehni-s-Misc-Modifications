@@ -59,7 +59,11 @@ namespace Mehni.Misc.Modifications
 
             harmony.Patch(AccessTools.Method(typeof(PawnUtility), nameof(PawnUtility.HumanFilthChancePerCell)), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(HumanFilthChancePerCell_Postfix)));
+
+            harmony.Patch(AccessTools.Method(typeof(Building_Turret), "OnAttackedTarget"), null, null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(OnAttackedTarget_Transpiler)));
         }
+
 
 
         #region CatsCanHunt
@@ -361,6 +365,31 @@ namespace Mehni.Misc.Modifications
         public static void HumanFilthChancePerCell_Postfix(ref float __result)
         {
             __result *= (MeMiMoSettings.humanFilthRate / 5);
+        }
+        #endregion
+
+        #region NoMortarSlowdown
+        //real quick, REALLY dirty. You're welcome, Sparty.
+        private static IEnumerable<CodeInstruction> OnAttackedTarget_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
+        {
+            if (MeMiMoSettings.forcedSlowDownOnMortarFire)
+            {
+                List<CodeInstruction> ciList = codeInstructions.ToList();
+                for (int i = 0; i < codeInstructions.ToList().Count; i++)
+                {
+                    //if (base.Faction == Faction.OfPlayer || (target.HasThing && target.Thing.Faction == Faction.OfPlayer))
+                    //      => removal of base.Faction == Faction.OfPlayer check.
+                    ciList[i].operand = OpCodes.Nop;
+                    if (i == 4) break;
+                }
+            }
+            else
+            {
+                foreach (CodeInstruction ci in codeInstructions)
+                {
+                    yield return ci;
+                }
+            }
         }
         #endregion
     }

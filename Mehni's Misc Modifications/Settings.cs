@@ -61,6 +61,10 @@ namespace Mehni.Misc.Modifications
         public static float humanFilthRate = 5f;
         #endregion
 
+        #region NoMortarForcedSlowdown
+        public static bool forcedSlowDownOnMortarFire = true;
+        #endregion
+
         public void DoWindowContents(Rect wrect)
         {
             Listing_Standard options = new Listing_Standard();
@@ -126,7 +130,8 @@ namespace Mehni.Misc.Modifications
             options.CheckboxLabeled("M4_NotifyDeadAnimals".Translate(), ref deathMessagesForAnimals, "M4_NotifyDeadAnimalsDesc".Translate());
             options.GapLine();
             options.SliderLabeled("M4_LessLitterLouting".Translate(), ref humanFilthRate, Math.Round(humanFilthRate, 2).ToString(), 0, 25, "M4_LessLitterLoutingToolTip".Translate());
-
+            options.GapLine();
+            options.CheckboxLabeled("M4_NoForcedMortarSlowDown".Translate(), ref forcedSlowDownOnMortarFire, "M4_NoForcedMortarSlowDownDesc".Translate());
             options.Gap();
 
             options.End();
@@ -152,6 +157,7 @@ namespace Mehni.Misc.Modifications
             Scribe_Values.Look(ref enableTutorialStyleRolling, "tutorialStyleRolling", true);
             Scribe_Values.Look(ref deathMessagesForAnimals, "deathMessageForAnimals", true);
             Scribe_Values.Look(ref humanFilthRate, "humanFilthRate", 5f);
+            Scribe_Values.Look(ref forcedSlowDownOnMortarFire, "forcedSlowDownOnMortarFire", false);
         }
     }
 
