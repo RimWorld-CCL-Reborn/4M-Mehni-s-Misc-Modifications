@@ -44,5 +44,11 @@
     <M4_NoForcedMortarSlowDown>Remove mortar shot slowdown</M4_NoForcedMortarSlowDown>
     <M4_NoForcedMortarSlowDownDesc>If there is an X here, game will slow down when you fire a mortar.</M4_NoForcedMortarSlowDownDesc>
 
+    <M4_ObedientPredatorsDontHuntTameDesignatedPawns>Reduce tamed predator annoyance</M4_ObedientPredatorsDontHuntTameDesignatedPawns>
+    <M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc>When enabled, any tame predator that is also obedience-trained will defer hunting any wild animals that are designated to be tamed</M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc>
+    <M4_AnimalInteractionHourLimit>Stop interacting with animals past</M4_AnimalInteractionHourLimit>
+    <M4_AnimalInteractionHourLimit_Desc>Colonists that are assigned to animal handling will stop trying to interact with animals past this hour of the day, so that animals are less likely to fall asleep on them during taming/training which wastes food. Set to 24 to effectively disable.</M4_AnimalInteractionHourLimit_Desc>
+    <M4_CantInteractAnimalWillFallAsleepSoon></M4_CantInteractAnimalWillFallAsleepSoon>
+
 
 </LanguageData>
