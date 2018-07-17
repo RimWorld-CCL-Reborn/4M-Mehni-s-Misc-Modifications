@@ -65,6 +65,11 @@ namespace Mehni.Misc.Modifications
         public static bool forcedSlowDownOnMortarFire = true;
         #endregion
 
+        #region AnimalHandlingSanity
+        public static bool obedientPredatorsDeferHuntingTameDesignatedAnimals = true;
+        public static int animalInteractionHourLimit = 20;
+        #endregion
+
         public void DoWindowContents(Rect wrect)
         {
             Listing_Standard options = new Listing_Standard();
@@ -86,22 +91,22 @@ namespace Mehni.Misc.Modifications
             options.GapLine();
 
             #region AutoUndrafter
-            options.CheckboxLabeled("M4_SettingModifyAutoUndrafter".Translate(), ref modifyAutoUndrafter, "M4_SettingModifyAutoUndrafterToolTip".Translate());
-            if (!modifyAutoUndrafter)
-            {
-                GUI.color = Color.grey;
-            }
-            options.SliderLabeled("M4_SettingExtendUndraftTimeBy".Translate(), ref extendUndraftTimeBy, extendUndraftTimeBy.ToStringTicksToPeriod(), 0, 60000);
-            options.CheckboxLabeled("M4_SettingWithGunsBlazing".Translate(), ref whenGunsAreFiring, "M4_SettingGunsBlazingToolTip".Translate());
-            options.CheckboxLabeled("M4_SettingLowMoodUndraft".Translate(), ref allowAutoUndraftAtLowMood, "M4_SettingLowMoodUndraftDesc".Translate());
-            GUI.color = defaultColor;
-            if (!modifyAutoUndrafter || !allowAutoUndraftAtLowMood)
-            {
-                GUI.color = Color.grey;
-            }
-            options.AddLabeledRadioList(string.Empty, mentalBreakRisks, ref dontExtendWhenMoodAt);
-            GUI.color = defaultColor;
-            options.GapLine();
+            //options.CheckboxLabeled("M4_SettingModifyAutoUndrafter".Translate(), ref modifyAutoUndrafter, "M4_SettingModifyAutoUndrafterToolTip".Translate());
+            //if (!modifyAutoUndrafter)
+            //{
+            //    GUI.color = Color.grey;
+            //}
+            //options.SliderLabeled("M4_SettingExtendUndraftTimeBy".Translate(), ref extendUndraftTimeBy, extendUndraftTimeBy.ToStringTicksToPeriod(), 0, 60000);
+            //options.CheckboxLabeled("M4_SettingWithGunsBlazing".Translate(), ref whenGunsAreFiring, "M4_SettingGunsBlazingToolTip".Translate());
+            //options.CheckboxLabeled("M4_SettingLowMoodUndraft".Translate(), ref allowAutoUndraftAtLowMood, "M4_SettingLowMoodUndraftDesc".Translate());
+            //GUI.color = defaultColor;
+            //if (!modifyAutoUndrafter || !allowAutoUndraftAtLowMood)
+            //{
+            //    GUI.color = Color.grey;
+            //}
+            //options.AddLabeledRadioList(string.Empty, mentalBreakRisks, ref dontExtendWhenMoodAt);
+            //GUI.color = defaultColor;
+            //options.GapLine();
             #endregion AutoUndrafter
 
             options.CheckboxLabeled("M4_SettingVariableRaidRetreat".Translate(), ref variableRaidRetreat, "M4_SettingVariableRaidToolTip".Translate());
@@ -132,6 +137,9 @@ namespace Mehni.Misc.Modifications
             options.SliderLabeled("M4_LessLitterLouting".Translate(), ref humanFilthRate, Math.Round(humanFilthRate, 2).ToString(), 0, 25, "M4_LessLitterLoutingToolTip".Translate());
             options.GapLine();
             options.CheckboxLabeled("M4_NoForcedMortarSlowDown".Translate(), ref forcedSlowDownOnMortarFire, "M4_NoForcedMortarSlowDownDesc".Translate());
+            options.GapLine();
+            options.CheckboxLabeled("M4_ObedientPredatorsDontHuntTameDesignatedPawns".Translate(), ref obedientPredatorsDeferHuntingTameDesignatedAnimals, "M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc".Translate());
+            options.SliderLabeled("M4_AnimalInteractionHourLimit".Translate(), ref animalInteractionHourLimit, animalInteractionHourLimit.ToString() + "h", 0, 24, "M4_AnimalInteractionHourLimit_Desc".Translate());
             options.Gap();
 
             options.End();
@@ -158,6 +166,8 @@ namespace Mehni.Misc.Modifications
             Scribe_Values.Look(ref deathMessagesForAnimals, "deathMessageForAnimals", true);
             Scribe_Values.Look(ref humanFilthRate, "humanFilthRate", 5f);
             Scribe_Values.Look(ref forcedSlowDownOnMortarFire, "forcedSlowDownOnMortarFire", false);
+            Scribe_Values.Look(ref obedientPredatorsDeferHuntingTameDesignatedAnimals, "obedientPredatorsDeferHuntingTameDesignatedAnimals", true);
+            Scribe_Values.Look(ref animalInteractionHourLimit, "animalInteractionHourLimit", 20);
         }
     }
 

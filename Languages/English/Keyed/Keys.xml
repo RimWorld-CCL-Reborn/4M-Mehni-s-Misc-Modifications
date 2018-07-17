@@ -29,7 +29,7 @@
 
     <M4_ColonistNeedsUrgentCare>Colonist needs urgent treatment</M4_ColonistNeedsUrgentCare>
     
-    <M4_HarvestYieldThing>Harvest product</M4_HarvestYieldThing>
+    <M4_HarvestYieldThing>Harvested product</M4_HarvestYieldThing>
     <M4_HarvestYieldThingDetailInit>What this plant yields when harvested by a colonist. Information about {0} is as follows...</M4_HarvestYieldThingDetailInit>
 
     <M4_TutorialStyleRolling>Disable non-violents during rolling</M4_TutorialStyleRolling>
@@ -43,6 +43,12 @@
 
     <M4_NoForcedMortarSlowDown>Remove mortar shot slowdown</M4_NoForcedMortarSlowDown>
     <M4_NoForcedMortarSlowDownDesc>If there is an X here, game will slow down when you fire a mortar.</M4_NoForcedMortarSlowDownDesc>
+
+    <M4_ObedientPredatorsDontHuntTameDesignatedPawns>Animals marked for taming aren't tasty to your predators</M4_ObedientPredatorsDontHuntTameDesignatedPawns>
+    <M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc>When enabled, any tame predator that is obedience-trained will defer hunting any wild animals that are designated to be tamed.</M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc>
+    <M4_AnimalInteractionHourLimit>Stop interacting with animals past</M4_AnimalInteractionHourLimit>
+    <M4_AnimalInteractionHourLimit_Desc>Colonists that are assigned to animal handling will stop trying to interact with animals past this hour of the day, so that animals are less likely to fall asleep on them during taming/training which wastes food. Set to 24 to effectively disable.</M4_AnimalInteractionHourLimit_Desc>
+    <M4_CantInteractAnimalWillFallAsleepSoon>animal will fall asleep soon</M4_CantInteractAnimalWillFallAsleepSoon>
 
 
 </LanguageData>

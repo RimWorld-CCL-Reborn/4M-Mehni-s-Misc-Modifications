@@ -392,6 +392,27 @@ namespace Mehni.Misc.Modifications
             }
         }
         #endregion
+
+        #region AnimalHandlingSanity
+        // 'Totally didn't almost forget to actually copypaste the testing code' edition
+        public static void GetPreyScoreFor_Postfix(Pawn predator, Pawn prey, ref float __result)
+        {
+            if (predator.Faction == Faction.OfPlayer && predator.training.HasLearned(TrainableDefOf.Obedience) && prey.Map.designationManager.DesignationOn(prey, DesignationDefOf.Tame) != null && MeMiMoSettings.obedientPredatorsDeferHuntingTameDesignatedAnimals)
+            {
+                __result -= 35f;
+            }
+        }
+
+        public static void CanInteractWithAnimal_Postfix(Pawn pawn, ref bool __result)
+        {
+            int hourInteger = GenDate.HourInteger(Find.TickManager.TicksAbs, Find.WorldGrid.LongLatOf(pawn.MapHeld.Tile).x);
+            if (hourInteger >= MeMiMoSettings.animalInteractionHourLimit && __result)
+            {
+                JobFailReason.Is("M4_CantInteractAnimalWillFallAsleepSoon".Translate());
+                __result = false;
+            }
+        }
+        #endregion
     }
 
     [DefOf]
