@@ -62,6 +62,12 @@ namespace Mehni.Misc.Modifications
 
             harmony.Patch(AccessTools.Method(typeof(Building_Turret), "OnAttackedTarget"), null, null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(OnAttackedTarget_Transpiler)));
+
+            harmony.Patch(AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.GetPreyScoreFor)), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(GetPreyScoreFor_Postfix)));
+
+            harmony.Patch(AccessTools.Method(typeof(WorkGiver_InteractAnimal), "CanInteractWithAnimal"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(CanInteractWithAnimal_Postfix)));
         }
 
 
@@ -304,14 +310,9 @@ namespace Mehni.Misc.Modifications
             }
         }
 
-        public static bool NoNonViolents
-        {
-            get
-            {
-                return TutorSystem.TutorialMode || MeMiMoSettings.enableTutorialStyleRolling;
-            }
-        }
-        #endregion
+        public static bool NoNonViolents => TutorSystem.TutorialMode || MeMiMoSettings.enableTutorialStyleRolling;
+
+    #endregion
 
         #region showLovers
         public static IEnumerable<CodeInstruction> DoWindowContents_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
@@ -338,20 +339,11 @@ namespace Mehni.Misc.Modifications
             }
         }
 
-        private static string Concatenate(string a, string b)
-        {
-            return b + a;
-        }
+        private static string Concatenate(string a, string b) => b + a;
 
-        public static string ShowLovers(Pawn pawn)
-        {
-            if (LovePartnerRelationUtility.HasAnyLovePartner(pawn))
-            {
-                return " ♥";
-            }
-            return string.Empty;
-        }
-        #endregion showLovers
+        public static string ShowLovers(Pawn pawn) => LovePartnerRelationUtility.HasAnyLovePartner(pawn) ? " ♥" : string.Empty;
+
+    #endregion showLovers
 
         #region DeathMessagesForAnimals;
         private static bool NotifyPlayerOfKilledAnimal_Prefix(Pawn ___pawn)
@@ -375,7 +367,7 @@ namespace Mehni.Misc.Modifications
             if (MeMiMoSettings.forcedSlowDownOnMortarFire)
             {
                 List<CodeInstruction> ciList = codeInstructions.ToList();
-                for (int i = 0; i < codeInstructions.ToList().Count; i++)
+                for (int i = 0; i < ciList.Count; i++)
                 {
                     //if (base.Faction == Faction.OfPlayer || (target.HasThing && target.Thing.Faction == Faction.OfPlayer))
                     //      => removal of base.Faction == Faction.OfPlayer check.
@@ -393,11 +385,12 @@ namespace Mehni.Misc.Modifications
         }
         #endregion
 
+        //Courtesy XND
         #region AnimalHandlingSanity
         // 'Totally didn't almost forget to actually copypaste the testing code' edition
         public static void GetPreyScoreFor_Postfix(Pawn predator, Pawn prey, ref float __result)
         {
-            if (predator.Faction == Faction.OfPlayer && predator.training.HasLearned(TrainableDefOf.Obedience) && prey.Map.designationManager.DesignationOn(prey, DesignationDefOf.Tame) != null && MeMiMoSettings.obedientPredatorsDeferHuntingTameDesignatedAnimals)
+            if (predator.Faction == Faction.OfPlayer && MeMiMoSettings.obedientPredatorsDeferHuntingTameDesignatedAnimals && predator.training.HasLearned(TrainableDefOf.Obedience) && prey.Map.designationManager.DesignationOn(prey, DesignationDefOf.Tame) != null)
             {
                 __result -= 35f;
             }
