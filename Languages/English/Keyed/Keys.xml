@@ -32,7 +32,7 @@
     <M4_HarvestYieldThing>Harvested product</M4_HarvestYieldThing>
     <M4_HarvestYieldThingDetailInit>What this plant yields when harvested by a colonist. Information about {0} is as follows...</M4_HarvestYieldThingDetailInit>
 
-    <M4_TutorialStyleRolling>Disable non-violents during rolling</M4_TutorialStyleRolling>
+    <M4_TutorialStyleRolling>Disable pacifists during rolling</M4_TutorialStyleRolling>
     <M4_TutorialStyleRollingDesc>If this is enabled, non-violents will be removed from the available colonist pool during the starting screen. That means you'll never roll Emmie the Sex Slave, or Roughchild the Reporter</M4_TutorialStyleRollingDesc>
 
     <M4_NotifyDeadAnimals>Tell me about every dead colony animal!</M4_NotifyDeadAnimals>

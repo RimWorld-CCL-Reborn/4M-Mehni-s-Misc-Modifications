@@ -30,8 +30,8 @@ namespace Mehni.Misc.Modifications
 
         #region VariableRaidRetreat
         public static bool variableRaidRetreat = false;
-        public static bool randomRaidRetreat = false;
-        public static float retreatAtPercentageDefeated = 0.5f;
+        //public static bool randomRaidRetreat = false;
+        //public static float retreatAtPercentageDefeated = 0.5f;
         public static FloatRange retreatDefeatRange = new FloatRange(0.5f, 0.5f);
         #endregion
 
@@ -70,6 +70,15 @@ namespace Mehni.Misc.Modifications
         public static int animalInteractionHourLimit = 20;
         #endregion
 
+        //[TweakValue("AAAMehniMiscMods")]
+        private static float yPos = 43f;
+
+        //[TweakValue("AAAMehniMiscMods", max: 350f)]
+        private static float moreOptionsRecty = 170f;
+
+        //[TweakValue("AAAMehniMiscMods")]
+        private static float widthFiddler = 9f;
+
         public void DoWindowContents(Rect wrect)
         {
             Listing_Standard options = new Listing_Standard();
@@ -84,65 +93,79 @@ namespace Mehni.Misc.Modifications
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
             options.Gap();
+
+            options.ColumnWidth = wrect.width / 2 - widthFiddler;
+
+            options.CheckboxLabeled("M4_NotifyDeadAnimals".Translate(), ref deathMessagesForAnimals, "M4_NotifyDeadAnimalsDesc".Translate());
+            options.GapLine();
+
+            options.CheckboxLabeled("M4_ObedientPredatorsDontHuntTameDesignatedPawns".Translate(), ref obedientPredatorsDeferHuntingTameDesignatedAnimals, "M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc".Translate());
+            options.SliderLabeled("M4_AnimalInteractionHourLimit".Translate(), ref animalInteractionHourLimit, animalInteractionHourLimit.ToString() + "h", 0, 24, "M4_AnimalInteractionHourLimit_Desc".Translate());
+
+            options.NewColumn();
+            options.Gap(yPos);
+
             options.CheckboxLabeled("M4_SettingCatsCanHunt".Translate(), ref catsCanHunt, "M4_SettingCatsCanHuntToolTip".Translate());
             options.GapLine();
 
             options.CheckboxLabeled("M4_SettingEnableLargePacks".Translate(), ref enableLargePacks, "M4_SettingLargePackToolTip".Translate());
-            options.GapLine();
 
-            #region AutoUndrafter
-            //options.CheckboxLabeled("M4_SettingModifyAutoUndrafter".Translate(), ref modifyAutoUndrafter, "M4_SettingModifyAutoUndrafterToolTip".Translate());
-            //if (!modifyAutoUndrafter)
-            //{
-            //    GUI.color = Color.grey;
-            //}
-            //options.SliderLabeled("M4_SettingExtendUndraftTimeBy".Translate(), ref extendUndraftTimeBy, extendUndraftTimeBy.ToStringTicksToPeriod(), 0, 60000);
-            //options.CheckboxLabeled("M4_SettingWithGunsBlazing".Translate(), ref whenGunsAreFiring, "M4_SettingGunsBlazingToolTip".Translate());
-            //options.CheckboxLabeled("M4_SettingLowMoodUndraft".Translate(), ref allowAutoUndraftAtLowMood, "M4_SettingLowMoodUndraftDesc".Translate());
-            //GUI.color = defaultColor;
-            //if (!modifyAutoUndrafter || !allowAutoUndraftAtLowMood)
-            //{
-            //    GUI.color = Color.grey;
-            //}
-            //options.AddLabeledRadioList(string.Empty, mentalBreakRisks, ref dontExtendWhenMoodAt);
-            //GUI.color = defaultColor;
-            //options.GapLine();
-            #endregion AutoUndrafter
+            options.Gap();
+            options.End();
 
-            options.CheckboxLabeled("M4_SettingVariableRaidRetreat".Translate(), ref variableRaidRetreat, "M4_SettingVariableRaidToolTip".Translate());
+            Listing_Standard moreOptions = new Listing_Standard();
+            Rect moreOptionsRect = wrect;
+            moreOptionsRect.y = moreOptionsRecty;
+            moreOptions.Begin(moreOptionsRect);
+            moreOptions.GapLine();
+
+            moreOptions.CheckboxLabeled("M4_SettingModifyAutoUndrafter".Translate(), ref modifyAutoUndrafter, "M4_SettingModifyAutoUndrafterToolTip".Translate());
+            if (!modifyAutoUndrafter)
+            {
+                GUI.color = Color.grey;
+            }
+            moreOptions.SliderLabeled("M4_SettingExtendUndraftTimeBy".Translate(), ref extendUndraftTimeBy, extendUndraftTimeBy.ToStringTicksToPeriod(), 0, 60000);
+            moreOptions.CheckboxLabeled("M4_SettingWithGunsBlazing".Translate(), ref whenGunsAreFiring,         "M4_SettingGunsBlazingToolTip".Translate());
+            moreOptions.CheckboxLabeled("M4_SettingLowMoodUndraft".Translate(),  ref allowAutoUndraftAtLowMood, "M4_SettingLowMoodUndraftDesc".Translate());
+            GUI.color = defaultColor;
+            if (!modifyAutoUndrafter || !allowAutoUndraftAtLowMood)
+            {
+                GUI.color = Color.grey;
+            }
+            moreOptions.AddLabeledRadioList(string.Empty, mentalBreakRisks, ref dontExtendWhenMoodAt);
+            GUI.color = defaultColor;
+            moreOptions.GapLine();
+
+            moreOptions.CheckboxLabeled("M4_SettingVariableRaidRetreat".Translate(), ref variableRaidRetreat, "M4_SettingVariableRaidToolTip".Translate());
             if (!variableRaidRetreat)
             {
                 GUI.color = Color.grey;
             }
-            options.Gap(2);
-            options.FloatRange("M4_SettingRetreatAtPercentageDefeated".Translate(), ref retreatDefeatRange, 0f, 1f, "M4_SettingRandomRaidRetreatToolTip".Translate(new object[] 
+            moreOptions.Gap(2);
+            moreOptions.FloatRange("M4_SettingRetreatAtPercentageDefeated".Translate(), ref retreatDefeatRange, 0f, 1f, "M4_SettingRandomRaidRetreatToolTip".Translate(new object[] 
             {
                 retreatDefeatRange.min.ToStringByStyle(ToStringStyle.PercentZero),
                 retreatDefeatRange.max.ToStringByStyle(ToStringStyle.PercentZero)
             }), ToStringStyle.PercentZero);
-            options.GapLine();
+            moreOptions.GapLine();
 
-            options.CheckboxLabeled("M4_SettingDontLeaveJustYet".Translate(), ref allowLongerStays, "M4_SettingDontLeaveJustYetToolTip".Translate());
+            moreOptions.CheckboxLabeled("M4_SettingDontLeaveJustYet".Translate(), ref allowLongerStays, "M4_SettingDontLeaveJustYetToolTip".Translate());
             if (!allowLongerStays)
             {
                 GUI.color = Color.grey;
             }
-            options.SliderLabeled("M4_SettingDaysUntilKickedOut".Translate(), ref extraDaysUntilKickedOut, extraDaysUntilKickedOut.ToString(), 1, 5);
+            moreOptions.SliderLabeled("M4_SettingDaysUntilKickedOut".Translate(), ref extraDaysUntilKickedOut, extraDaysUntilKickedOut.ToString(), 1, 5);
             GUI.color = defaultColor;
-            options.GapLine();
-            options.CheckboxLabeled("M4_TutorialStyleRolling".Translate(), ref enableTutorialStyleRolling, "M4_TutorialStyleRollingDesc".Translate());
-            options.GapLine();
-            options.CheckboxLabeled("M4_NotifyDeadAnimals".Translate(), ref deathMessagesForAnimals, "M4_NotifyDeadAnimalsDesc".Translate());
-            options.GapLine();
-            options.SliderLabeled("M4_LessLitterLouting".Translate(), ref humanFilthRate, Math.Round(humanFilthRate, 2).ToString(), 0, 25, "M4_LessLitterLoutingToolTip".Translate());
-            options.GapLine();
-            options.CheckboxLabeled("M4_NoForcedMortarSlowDown".Translate(), ref forcedSlowDownOnMortarFire, "M4_NoForcedMortarSlowDownDesc".Translate());
-            options.GapLine();
-            options.CheckboxLabeled("M4_ObedientPredatorsDontHuntTameDesignatedPawns".Translate(), ref obedientPredatorsDeferHuntingTameDesignatedAnimals, "M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc".Translate());
-            options.SliderLabeled("M4_AnimalInteractionHourLimit".Translate(), ref animalInteractionHourLimit, animalInteractionHourLimit.ToString() + "h", 0, 24, "M4_AnimalInteractionHourLimit_Desc".Translate());
-            options.Gap();
+            moreOptions.GapLine();
 
-            options.End();
+            moreOptions.CheckboxLabeled("M4_TutorialStyleRolling".Translate(), ref enableTutorialStyleRolling, "M4_TutorialStyleRollingDesc".Translate());
+            moreOptions.GapLine();
+
+            moreOptions.SliderLabeled("M4_LessLitterLouting".Translate(), ref humanFilthRate, Math.Round(humanFilthRate, 2).ToString(), 0, 25, "M4_LessLitterLoutingToolTip".Translate());
+            moreOptions.GapLine();
+
+            moreOptions.CheckboxLabeled("M4_NoForcedMortarSlowDown".Translate(), ref forcedSlowDownOnMortarFire, "M4_NoForcedMortarSlowDownDesc".Translate());
+            moreOptions.End();
 
             Mod.GetSettings<MeMiMoSettings>().Write();
         }
@@ -157,8 +180,8 @@ namespace Mehni.Misc.Modifications
             Scribe_Values.Look(ref dontExtendWhenMoodAt, "dontExtendWhenMoodAt", "  Major Break Risk");
             Scribe_Values.Look(ref enableLargePacks, "enableLargePacks", true);
             Scribe_Values.Look(ref variableRaidRetreat, "variableRaidRetreat", false); 
-            Scribe_Values.Look(ref randomRaidRetreat, "randomRaidRetreat", false); //kept for backwards comp
-            Scribe_Values.Look(ref retreatAtPercentageDefeated, "retreatAtPercentageDefeated", 0.5f); //kept for backwards comp
+            //Scribe_Values.Look(ref randomRaidRetreat, "randomRaidRetreat", false); //kept for backwards comp
+            //Scribe_Values.Look(ref retreatAtPercentageDefeated, "retreatAtPercentageDefeated", 0.5f); //kept for backwards comp
             Scribe_Values.Look(ref retreatDefeatRange, "retreatDefeatRange", new FloatRange(0.5f, 0.5f));
             Scribe_Values.Look(ref allowLongerStays, "allowLongerStays", false);
             Scribe_Values.Look(ref extraDaysUntilKickedOut, "daysUntilKickedOut", 3);
@@ -173,7 +196,6 @@ namespace Mehni.Misc.Modifications
 
     public class MehniMiscMods : Mod
     {
-        public MeMiMoSettings settings;
 
         public MehniMiscMods(ModContentPack content) : base(content)
         {
