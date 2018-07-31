@@ -164,7 +164,7 @@ namespace Mehni.Misc.Modifications
             moreOptions.SliderLabeled("M4_LessLitterLouting".Translate(), ref humanFilthRate, Math.Round(humanFilthRate, 2).ToString(), 0, 25, "M4_LessLitterLoutingToolTip".Translate());
             moreOptions.GapLine();
 
-            moreOptions.CheckboxLabeled("M4_NoForcedMortarSlowDown".Translate(), ref forcedSlowDownOnMortarFire, "M4_NoForcedMortarSlowDownDesc".Translate());
+            //moreOptions.CheckboxLabeled("Cursed at Mehni yet?", ref forcedSlowDownOnMortarFire, "GODDAMMIT MEHNI I DON'T WANT CHINCHILLA FUR");
             moreOptions.End();
 
             Mod.GetSettings<MeMiMoSettings>().Write();

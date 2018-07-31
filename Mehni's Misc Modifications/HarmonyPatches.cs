@@ -11,6 +11,8 @@ using Harmony;
 using RimWorld.Planet;
 using System.Reflection.Emit;
 using System.Reflection;
+using Verse.Steam;
+
 
 namespace Mehni.Misc.Modifications
 {
@@ -60,20 +62,27 @@ namespace Mehni.Misc.Modifications
             harmony.Patch(AccessTools.Method(typeof(PawnUtility), nameof(PawnUtility.HumanFilthChancePerCell)), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(HumanFilthChancePerCell_Postfix)));
 
-            harmony.Patch(AccessTools.Method(typeof(Building_Turret), "OnAttackedTarget"), null, null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(OnAttackedTarget_Transpiler)));
+            //harmony.Patch(AccessTools.Method(typeof(Building_Turret), "OnAttackedTarget"), null, null,
+            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(OnAttackedTarget_Transpiler)));
 
             harmony.Patch(AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.GetPreyScoreFor)), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(GetPreyScoreFor_Postfix)));
 
             harmony.Patch(AccessTools.Method(typeof(WorkGiver_InteractAnimal), "CanInteractWithAnimal"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(CanInteractWithAnimal_Postfix)));
-        }
+
+			harmony.Patch(AccessTools.Property(typeof(Dialog_MessageBox), "InteractionDelayExpired").GetGetMethod(true), null,
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(YesImAModderStopAskingMe)));
+		}
+
+		private static void YesImAModderStopAskingMe(ref bool __result)
+		{
+			__result = true;
+		}
 
 
-
-        #region CatsCanHunt
-        private static bool IsAcceptablePreyForBugFix_Prefix(ref Pawn predator, ref Pawn prey, ref bool __result)
+		#region CatsCanHunt
+		private static bool IsAcceptablePreyForBugFix_Prefix(ref Pawn predator, ref Pawn prey, ref bool __result)
         {
             if (MeMiMoSettings.catsCanHunt)
             {
@@ -348,8 +357,7 @@ namespace Mehni.Misc.Modifications
         #region DeathMessagesForAnimals;
         private static bool NotifyPlayerOfKilledAnimal_Prefix(Pawn ___pawn)
         {
-            if (___pawn.RaceProps.Animal) return MeMiMoSettings.deathMessagesForAnimals;
-            return true;
+            return !___pawn.RaceProps.Animal || MeMiMoSettings.deathMessagesForAnimals;
         }
         #endregion DeathMessagesForAnimals
 
@@ -360,37 +368,39 @@ namespace Mehni.Misc.Modifications
         }
         #endregion
 
-        #region NoMortarSlowdown
-        //real quick, REALLY dirty. You're welcome, Sparty.
-        private static IEnumerable<CodeInstruction> OnAttackedTarget_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
-        {
-            if (MeMiMoSettings.forcedSlowDownOnMortarFire)
-            {
-                List<CodeInstruction> ciList = codeInstructions.ToList();
-                for (int i = 0; i < ciList.Count; i++)
-                {
-                    //if (base.Faction == Faction.OfPlayer || (target.HasThing && target.Thing.Faction == Faction.OfPlayer))
-                    //      => removal of base.Faction == Faction.OfPlayer check.
-                    ciList[i].operand = OpCodes.Nop;
-                    if (i == 4) break;
-                }
-            }
-            else
-            {
-                foreach (CodeInstruction ci in codeInstructions)
-                {
-                    yield return ci;
-                }
-            }
-        }
-        #endregion
+        //#region NoMortarSlowdown
+        ////real quick, REALLY dirty. You're welcome, Sparty.
+        //private static IEnumerable<CodeInstruction> OnAttackedTarget_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
+        //{
+        //    if (MeMiMoSettings.forcedSlowDownOnMortarFire)
+        //    {
+        //        List<CodeInstruction> ciList = codeInstructions.ToList();
+        //        for (int i = 0; i < ciList.Count; i++)
+        //        {
+        //            //if (base.Faction == Faction.OfPlayer || (target.HasThing && target.Thing.Faction == Faction.OfPlayer))
+        //            //      => removal of base.Faction == Faction.OfPlayer check.
+        //            ciList[i].operand = OpCodes.Nop;
+        //            if (i == 4) break;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        foreach (CodeInstruction ci in codeInstructions)
+        //        {
+        //            yield return ci;
+        //        }
+        //    }
+        //}
+        //#endregion
 
         //Courtesy XND
         #region AnimalHandlingSanity
         // 'Totally didn't almost forget to actually copypaste the testing code' edition
         public static void GetPreyScoreFor_Postfix(Pawn predator, Pawn prey, ref float __result)
         {
-            if (predator.Faction == Faction.OfPlayer && MeMiMoSettings.obedientPredatorsDeferHuntingTameDesignatedAnimals && predator.training.HasLearned(TrainableDefOf.Obedience) && prey.Map.designationManager.DesignationOn(prey, DesignationDefOf.Tame) != null)
+            if (predator.Faction == Faction.OfPlayer && MeMiMoSettings.obedientPredatorsDeferHuntingTameDesignatedAnimals 
+                                                     && predator.training.HasLearned(TrainableDefOf.Obedience) 
+                                                     && prey.Map.designationManager.DesignationOn(prey, DesignationDefOf.Tame) != null)
             {
                 __result -= 35f;
             }
