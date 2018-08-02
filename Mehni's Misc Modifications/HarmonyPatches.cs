@@ -22,6 +22,8 @@ namespace Mehni.Misc.Modifications
         {
             HarmonyInstance harmony = HarmonyInstance.Create("Mehni.RimWorld.4M.Main");
 
+            //HarmonyInstance.DEBUG = true;
+
             harmony.Patch(AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.IsAcceptablePreyFor)),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(IsAcceptablePreyForBugFix_Prefix)), null, null);
 
@@ -72,6 +74,9 @@ namespace Mehni.Misc.Modifications
 
             harmony.Patch(AccessTools.Property(typeof(Dialog_MessageBox), "InteractionDelayExpired").GetGetMethod(true), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(YesImAModderStopAskingMe)));
+
+            //harmony.Patch(AccessTools.Method(typeof(RelationsUtility), nameof(RelationsUtility.IsDisfigured)), null,
+            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(IsDisfigured_Postfix)));
         }
 
         private static void YesImAModderStopAskingMe(ref bool __result)
@@ -444,6 +449,35 @@ namespace Mehni.Misc.Modifications
             }
         }
         #endregion
+
+        //#region HideDisfigurement
+        //public static void IsDisfigured_Postfix(ref bool __result, Pawn pawn)
+        //{
+        //    if (MeMiMoSettings.apparelHidesDisfigurement && Find.TickManager.TicksGame % 200 == 0 && __result)
+        //    {
+        //        List<Apparel> wornApparel = pawn.apparel.WornApparel;
+        //        List<Hediff> disfiguringHediffs = pawn.health.hediffSet.hediffs.Where(h => h.Part.def.beautyRelated).ToList();
+        //        List<bool?> eachHediffCovered = new List<bool?>();
+        //        // Stairway to heaven
+        //        foreach (Hediff hediff in pawn.health.hediffSet.hediffs)
+        //        {
+        //            foreach (BodyPartGroupDef hediffGroup in hediff.Part.groups)
+        //                foreach (Apparel apparel in wornApparel)
+        //                {
+        //                    foreach (BodyPartGroupDef apparelGroup in apparel.def.apparel.bodyPartGroups)
+        //                        if (apparelGroup == hediffGroup)
+        //                        {
+        //                            eachHediffCovered.Add(true);
+        //                            goto NextHediff;
+        //                        }
+        //                    eachHediffCovered.Add(false);
+        //                }
+        //            NextHediff:;
+        //        }
+        //        __result = eachHediffCovered.First(b => false) == null;
+        //    }
+        //}
+        //#endregion
     }
 
     [DefOf]

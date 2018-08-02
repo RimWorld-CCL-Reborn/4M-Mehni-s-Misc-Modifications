@@ -1,0 +1,10 @@
+<Patch>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>*/StatDef[defName="WorkSpeedGlobal"]/parts</xpath>
+        <value>
+            <li Class="Mehni.Misc.Modifications.StatPart_TimeTable"/>
+        </value>
+    </Operation>
+
+</Patch>
