@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using RimWorld;
 using Verse;
 using Verse.Sound;
@@ -11,7 +10,7 @@ using Harmony;
 using RimWorld.Planet;
 using System.Reflection.Emit;
 using System.Reflection;
-using Verse.Steam;
+using UnityEngine;
 
 
 namespace Mehni.Misc.Modifications
@@ -23,53 +22,53 @@ namespace Mehni.Misc.Modifications
         {
             HarmonyInstance harmony = HarmonyInstance.Create("Mehni.RimWorld.4M.Main");
 
-            harmony.Patch(AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.IsAcceptablePreyFor)),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(IsAcceptablePreyForBugFix_Prefix)), null, null);
+			harmony.Patch(AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.IsAcceptablePreyFor)),
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(IsAcceptablePreyForBugFix_Prefix)), null, null);
 
-            harmony.Patch(AccessTools.Method(typeof(AutoUndrafter), "ShouldAutoUndraft"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(StayWhereIPutYou_Postfix)), null);
+			harmony.Patch(AccessTools.Method(typeof(AutoUndrafter), "ShouldAutoUndraft"), null,
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(StayWhereIPutYou_Postfix)), null);
 
-            harmony.Patch(AccessTools.Method(typeof(Lord), nameof(Lord.SetJob)), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(FleeTrigger_PostFix)), null);
+			harmony.Patch(AccessTools.Method(typeof(Lord), nameof(Lord.SetJob)), null,
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(FleeTrigger_PostFix)), null);
 
-            //harmony.Patch(AccessTools.Method(typeof(Lord), nameof(Lord.SetJob)), null, null,
-            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(FleeTrigger_Transpiler)));
+			//harmony.Patch(AccessTools.Method(typeof(Lord), nameof(Lord.SetJob)), null, null,
+			//    new HarmonyMethod(typeof(HarmonyPatches), nameof(FleeTrigger_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(ManhunterPackIncidentUtility), nameof(ManhunterPackIncidentUtility.ManhunterAnimalWeight)),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(BigManhunterPackFix)), null, null);
+			harmony.Patch(AccessTools.Method(typeof(ManhunterPackIncidentUtility), nameof(ManhunterPackIncidentUtility.ManhunterAnimalWeight)),
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(BigManhunterPackFix)), null, null);
 
-            harmony.Patch(AccessTools.Method(typeof(CaravansBattlefield), "CheckWonBattle"), null, null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(ForceExitTimeExtender_Transpiler)));
+			harmony.Patch(AccessTools.Method(typeof(CaravansBattlefield), "CheckWonBattle"), null, null,
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(ForceExitTimeExtender_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(SettlementDefeatUtility), nameof(SettlementDefeatUtility.CheckDefeated)), null, null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(ForceExitTimeExtender_Transpiler)));
+			harmony.Patch(AccessTools.Method(typeof(SettlementDefeatUtility), nameof(SettlementDefeatUtility.CheckDefeated)), null, null,
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(ForceExitTimeExtender_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(Site), "CheckStartForceExitAndRemoveMapCountdown"), null, null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(CheckStartForceExitAndRemoveMapCountdown_Transpiler)));
+			harmony.Patch(AccessTools.Method(typeof(Site), "CheckStartForceExitAndRemoveMapCountdown"), null, null,
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(CheckStartForceExitAndRemoveMapCountdown_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(PlantProperties), "SpecialDisplayStats"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(DisplayYieldInfo)));
+			harmony.Patch(AccessTools.Method(typeof(PlantProperties), "SpecialDisplayStats"), null,
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(DisplayYieldInfo)));
 
-            harmony.Patch(AccessTools.Method(typeof(StartingPawnUtility), nameof(StartingPawnUtility.NewGeneratedStartingPawn)), null, null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(NewGeneratedStartingPawns_Transpiler)));
+			harmony.Patch(AccessTools.Method(typeof(StartingPawnUtility), nameof(StartingPawnUtility.NewGeneratedStartingPawn)), null, null,
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(NewGeneratedStartingPawns_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(Dialog_AssignBuildingOwner), nameof(Dialog_AssignBuildingOwner.DoWindowContents)), null, null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(DoWindowContents_Transpiler)));
+			harmony.Patch(AccessTools.Method(typeof(Dialog_AssignBuildingOwner), nameof(Dialog_AssignBuildingOwner.DoWindowContents)), null, null,
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(DoWindowContents_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(Pawn_HealthTracker), nameof(Pawn_HealthTracker.NotifyPlayerOfKilled)),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(NotifyPlayerOfKilledAnimal_Prefix)), null, null);
+			harmony.Patch(AccessTools.Method(typeof(Pawn_HealthTracker), nameof(Pawn_HealthTracker.NotifyPlayerOfKilled)),
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(NotifyPlayerOfKilledAnimal_Prefix)), null, null);
 
-            harmony.Patch(AccessTools.Method(typeof(PawnUtility), nameof(PawnUtility.HumanFilthChancePerCell)), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(HumanFilthChancePerCell_Postfix)));
+			harmony.Patch(AccessTools.Method(typeof(PawnUtility), nameof(PawnUtility.HumanFilthChancePerCell)), null,
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(HumanFilthChancePerCell_Postfix)));
 
-            //harmony.Patch(AccessTools.Method(typeof(Building_Turret), "OnAttackedTarget"), null, null,
-            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(OnAttackedTarget_Transpiler)));
+			//harmony.Patch(AccessTools.Method(typeof(Building_Turret), "OnAttackedTarget"), null, null,
+			//    new HarmonyMethod(typeof(HarmonyPatches), nameof(OnAttackedTarget_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.GetPreyScoreFor)), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(GetPreyScoreFor_Postfix)));
+			harmony.Patch(AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.GetPreyScoreFor)), null,
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(GetPreyScoreFor_Postfix)));
 
-            harmony.Patch(AccessTools.Method(typeof(WorkGiver_InteractAnimal), "CanInteractWithAnimal"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(CanInteractWithAnimal_Postfix)));
+			harmony.Patch(AccessTools.Method(typeof(WorkGiver_InteractAnimal), "CanInteractWithAnimal"), null,
+				new HarmonyMethod(typeof(HarmonyPatches), nameof(CanInteractWithAnimal_Postfix)));
 
 			harmony.Patch(AccessTools.Property(typeof(Dialog_MessageBox), "InteractionDelayExpired").GetGetMethod(true), null,
 				new HarmonyMethod(typeof(HarmonyPatches), nameof(YesImAModderStopAskingMe)));
@@ -324,38 +323,67 @@ namespace Mehni.Misc.Modifications
     #endregion
 
         #region showLovers
-        public static IEnumerable<CodeInstruction> DoWindowContents_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
-        {
-            MethodInfo pawnName = AccessTools.Property(typeof(Entity), nameof(Entity.LabelCap)).GetGetMethod();
-            MethodInfo isLover = AccessTools.Method(typeof(HarmonyPatches), nameof(HarmonyPatches.ShowLovers));
-            MethodInfo concat = AccessTools.Method(typeof(HarmonyPatches), nameof(HarmonyPatches.Concatenate));
+		public static IEnumerable<CodeInstruction> DoWindowContents_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
+		{
+			MethodInfo getViewRectWidth = AccessTools.Property(typeof(Rect), nameof(Rect.width)).GetGetMethod();
+			MethodInfo getPawnName = AccessTools.Property(typeof(Entity), nameof(Entity.LabelCap)).GetGetMethod();
+			MethodInfo makeReeect  = AccessTools.Method(typeof(HarmonyPatches), nameof(HarmonyPatches.ShowHeart));
 
-            List<CodeInstruction> instructionList = codeInstructions.ToList();
+			List<CodeInstruction> instructionList = codeInstructions.ToList();
 
-            for (int i = 0; i < instructionList.Count; i++)
-            {
-                if (instructionList[i].opcode == OpCodes.Ldloc_S && instructionList[(i + 1)].operand == pawnName)
-                {
-                    yield return instructionList[i]; //pawn
-                    yield return new CodeInstruction(OpCodes.Callvirt, isLover); //call ShowLovers (pawn), get <3 or empty string back
-                    yield return instructionList[i]; //pawn
-                    yield return new CodeInstruction(OpCodes.Callvirt, pawnName); //get pawn name
-                    yield return new CodeInstruction(OpCodes.Callvirt, concat); //Concatenate Showlovers + Pawn name, load onto stack as single string.
-                    instructionList[i + 1].opcode = OpCodes.Nop; //we already called pawnName. Could remove it from stack, but nop is easier.
-                }
-                else
-                    yield return instructionList[i];
-            }
-        }
+			for (int i = 0; i < instructionList.Count; i++)
+			{
+				if ( i > 2  && instructionList[i - 1].operand == getPawnName)
+				{
+					yield return instructionList[i];
+					yield return new CodeInstruction(OpCodes.Ldc_R4, 300f);
+					//yield return new CodeInstruction(OpCodes.Ldloca_S);
+					//yield return new CodeInstruction(OpCodes.Call, getViewRectWidth);
+					//yield return new CodeInstruction(OpCodes.Ldc_R4, 0.55f);
+					//yield return new CodeInstruction(OpCodes.Mul);
 
-        private static string Concatenate(string a, string b) => b + a;
+					yield return new CodeInstruction(OpCodes.Ldloc_2); //y
+					yield return instructionList[i - 2]; //pawn
+					yield return new CodeInstruction(OpCodes.Call, makeReeect);
+					
 
-        public static string ShowLovers(Pawn pawn) => LovePartnerRelationUtility.HasAnyLovePartner(pawn) ? " ♥" : string.Empty;
+				}
+				else
+					yield return instructionList[i];
+			}
+		}
 
-    #endregion showLovers
+		private static readonly Texture2D BondIcon       = ContentFinder<Texture2D>.Get("UI/Icons/Animal/Bond");
+		private static readonly Texture2D BondBrokenIcon = ContentFinder<Texture2D>.Get("UI/Icons/Animal/BondBroken");
 
-        #region DeathMessagesForAnimals;
-        private static bool NotifyPlayerOfKilledAnimal_Prefix(Pawn ___pawn)
+		private static void ShowHeart(float x, float y, Pawn pawn)
+		{
+			Texture2D iconFor;
+			DirectPawnRelation directPawnRelation = LovePartnerRelationUtility.ExistingMostLikedLovePartnerRel(pawn, false);
+			if (directPawnRelation == null)
+				iconFor = null;
+			
+			else if (!directPawnRelation.otherPawn.IsColonist || directPawnRelation.otherPawn.IsWorldPawn() || !directPawnRelation.otherPawn.relations.everSeenByPlayer)
+				iconFor = null;
+			
+			else if (pawn.ownership.OwnedBed != null && pawn.ownership.OwnedBed == directPawnRelation.otherPawn.ownership.OwnedBed)
+				iconFor = BondIcon;
+
+			else
+				iconFor = BondBrokenIcon;
+
+			if (iconFor)
+			{
+				Vector2 iconSize = new Vector2(iconFor.width, iconFor.height);
+				Rect drawRect = new Rect(x, y, iconSize.x, iconSize.y);
+				TooltipHandler.TipRegion(drawRect, directPawnRelation.otherPawn.LabelCap);
+				GUI.DrawTexture(drawRect, iconFor);
+			}
+		}
+		#endregion showLovers
+
+		#region DeathMessagesForAnimals;
+		private static bool NotifyPlayerOfKilledAnimal_Prefix(Pawn ___pawn)
         {
             return !___pawn.RaceProps.Animal || MeMiMoSettings.deathMessagesForAnimals;
         }
