@@ -30,8 +30,6 @@ namespace Mehni.Misc.Modifications
 
         #region VariableRaidRetreat
         public static bool variableRaidRetreat = false;
-        //public static bool randomRaidRetreat = false;
-        //public static float retreatAtPercentageDefeated = 0.5f;
         public static FloatRange retreatDefeatRange = new FloatRange(0.5f, 0.5f);
         #endregion
 
@@ -40,17 +38,8 @@ namespace Mehni.Misc.Modifications
         public static int extraDaysUntilKickedOut = 3;
         #endregion
 
-        #region ShowLovers
-        public static bool showLoversOnAssignBed = true;
-        #endregion
-
         #region RerollingPawns
         public static bool enableTutorialStyleRolling = true;
-        #endregion
-
-        #region AlertEmergency
-        //TODO: Maybe implement as option.
-        public static bool enableAlert = false;
         #endregion
 
         #region DeathMessages
@@ -61,18 +50,27 @@ namespace Mehni.Misc.Modifications
         public static float humanFilthRate = 5f;
         #endregion
 
-        #region NoMortarForcedSlowdown
-        public static bool forcedSlowDownOnMortarFire = true;
-        #endregion
-
         #region AnimalHandlingSanity
         public static bool obedientPredatorsDeferHuntingTameDesignatedAnimals = true;
         public static int animalInteractionHourLimit = 20;
         #endregion
 
+
+
         #region WorkAssignmentMatters
         public static bool workAssignmentMatters = false;
         #endregion
+
+        #region ToolsForModders
+
+        public static bool iAmAModder = false;
+        #region DevModeSpawnTweaks
+        public static bool chooseItemStuff = true;
+        public static string stuffDefName = "";
+        public static bool forceItemQuality = true;
+        public static int forcedItemQuality = 2;
+        #endregion
+        #endregion ToolsForModders
 
         //#region HideDisfigurement
         //public static bool apparelHidesDisfigurement = true;
@@ -108,7 +106,7 @@ namespace Mehni.Misc.Modifications
             options.GapLine();
 
             options.CheckboxLabeled("M4_ObedientPredatorsDontHuntTameDesignatedPawns".Translate(), ref obedientPredatorsDeferHuntingTameDesignatedAnimals, "M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc".Translate());
-            options.SliderLabeled("M4_AnimalInteractionHourLimit".Translate(), ref animalInteractionHourLimit, animalInteractionHourLimit.ToString() + "h", 0, 24, "M4_AnimalInteractionHourLimit_Desc".Translate());
+            options.SliderLabeled("M4_AnimalInteractionHourLimit".Translate(), ref animalInteractionHourLimit, animalInteractionHourLimit + "h", 0, 24, "M4_AnimalInteractionHourLimit_Desc".Translate());
 
             options.NewColumn();
             options.Gap(yPos);
@@ -127,20 +125,24 @@ namespace Mehni.Misc.Modifications
             moreOptions.Begin(moreOptionsRect);
             moreOptions.GapLine();
 
-            moreOptions.CheckboxLabeled("M4_SettingModifyAutoUndrafter".Translate(), ref modifyAutoUndrafter, "M4_SettingModifyAutoUndrafterToolTip".Translate());
             if (!modifyAutoUndrafter)
             {
                 GUI.color = Color.grey;
             }
-            moreOptions.SliderLabeled("M4_SettingExtendUndraftTimeBy".Translate(), ref extendUndraftTimeBy, extendUndraftTimeBy.ToStringTicksToPeriod(), 0, 60000);
-            moreOptions.CheckboxLabeled("M4_SettingWithGunsBlazing".Translate(), ref whenGunsAreFiring,         "M4_SettingGunsBlazingToolTip".Translate());
-            moreOptions.CheckboxLabeled("M4_SettingLowMoodUndraft".Translate(),  ref allowAutoUndraftAtLowMood, "M4_SettingLowMoodUndraftDesc".Translate());
-            GUI.color = defaultColor;
-            if (!modifyAutoUndrafter || !allowAutoUndraftAtLowMood)
+            moreOptions.CheckboxLabeled("M4_SettingModifyAutoUndrafter".Translate(), ref modifyAutoUndrafter, "M4_SettingModifyAutoUndrafterToolTip".Translate());
+            if (modifyAutoUndrafter)
             {
-                GUI.color = Color.grey;
+                moreOptions.SliderLabeled("M4_SettingExtendUndraftTimeBy".Translate(), ref extendUndraftTimeBy, extendUndraftTimeBy.ToStringTicksToPeriod(), 0, 60000);
+                moreOptions.CheckboxLabeled("M4_SettingWithGunsBlazing".Translate(), ref whenGunsAreFiring,         "M4_SettingGunsBlazingToolTip".Translate());
+                moreOptions.CheckboxLabeled("M4_SettingLowMoodUndraft".Translate(),  ref allowAutoUndraftAtLowMood, "M4_SettingLowMoodUndraftDesc".Translate());
+                GUI.color = defaultColor;
+                if (!modifyAutoUndrafter || !allowAutoUndraftAtLowMood)
+                {
+                    GUI.color = Color.grey;
+                }
+                moreOptions.AddLabeledRadioList(string.Empty, mentalBreakRisks, ref dontExtendWhenMoodAt);
             }
-            moreOptions.AddLabeledRadioList(string.Empty, mentalBreakRisks, ref dontExtendWhenMoodAt);
+
             GUI.color = defaultColor;
             moreOptions.GapLine();
 
@@ -150,11 +152,10 @@ namespace Mehni.Misc.Modifications
                 GUI.color = Color.grey;
             }
             moreOptions.Gap(2);
-            moreOptions.FloatRange("M4_SettingRetreatAtPercentageDefeated".Translate(), ref retreatDefeatRange, 0f, 1f, "M4_SettingRandomRaidRetreatToolTip".Translate(new object[] 
-            {
+            moreOptions.FloatRange("M4_SettingRetreatAtPercentageDefeated".Translate(), ref retreatDefeatRange, 0f, 1f, "M4_SettingRandomRaidRetreatToolTip".Translate(
                 retreatDefeatRange.min.ToStringByStyle(ToStringStyle.PercentZero),
                 retreatDefeatRange.max.ToStringByStyle(ToStringStyle.PercentZero)
-            }), ToStringStyle.PercentZero);
+            ), ToStringStyle.PercentZero);
             moreOptions.GapLine();
 
             moreOptions.CheckboxLabeled("M4_SettingDontLeaveJustYet".Translate(), ref allowLongerStays, "M4_SettingDontLeaveJustYetToolTip".Translate());
@@ -172,7 +173,19 @@ namespace Mehni.Misc.Modifications
             moreOptions.SliderLabeled("M4_LessLitterLouting".Translate(), ref humanFilthRate, Math.Round(humanFilthRate, 2).ToString(), 0, 25, "M4_LessLitterLoutingToolTip".Translate());
             moreOptions.GapLine();
 
-            //moreOptions.CheckboxLabeled("Cursed at Mehni yet?", ref forcedSlowDownOnMortarFire, "GODDAMMIT MEHNI I DON'T WANT CHINCHILLA FUR");
+            moreOptions.CheckboxLabeled("I am a modders FFS", ref iAmAModder, "Removes the 6 second cooldown on workshop submissions, unlocks special options.");
+            if (iAmAModder)
+            {
+                moreOptions.Label("Dev mode spawn tweaks [Unsaved. Setting wiped on restart.]");
+                moreOptions.CheckboxLabeled("Choose item stuff", ref chooseItemStuff);
+                moreOptions.Gap();
+                moreOptions.AddLabeledTextField("Stuff defName (blank = default stuff)", ref stuffDefName);
+                moreOptions.Gap();
+                moreOptions.CheckboxLabeled("Force item quality", ref forceItemQuality);
+                moreOptions.Gap();
+                moreOptions.SliderLabeled("Item quality", ref forcedItemQuality, ((QualityCategory)forcedItemQuality).ToString(), 0, 6);
+                moreOptions.GapLine();
+            }
             moreOptions.End();
 
             Mod.GetSettings<MeMiMoSettings>().Write();
@@ -187,18 +200,16 @@ namespace Mehni.Misc.Modifications
             Scribe_Values.Look(ref allowAutoUndraftAtLowMood, "allowAutoUndraftAtLowMood", true);
             Scribe_Values.Look(ref dontExtendWhenMoodAt, "dontExtendWhenMoodAt", "  Major Break Risk");
             Scribe_Values.Look(ref enableLargePacks, "enableLargePacks", true);
-            Scribe_Values.Look(ref variableRaidRetreat, "variableRaidRetreat", false); 
-            //Scribe_Values.Look(ref randomRaidRetreat, "randomRaidRetreat", false); //kept for backwards comp
-            //Scribe_Values.Look(ref retreatAtPercentageDefeated, "retreatAtPercentageDefeated", 0.5f); //kept for backwards comp
+            Scribe_Values.Look(ref variableRaidRetreat, "variableRaidRetreat", false);
             Scribe_Values.Look(ref retreatDefeatRange, "retreatDefeatRange", new FloatRange(0.5f, 0.5f));
             Scribe_Values.Look(ref allowLongerStays, "allowLongerStays", false);
             Scribe_Values.Look(ref extraDaysUntilKickedOut, "daysUntilKickedOut", 3);
             Scribe_Values.Look(ref enableTutorialStyleRolling, "tutorialStyleRolling", true);
             Scribe_Values.Look(ref deathMessagesForAnimals, "deathMessageForAnimals", true);
             Scribe_Values.Look(ref humanFilthRate, "humanFilthRate", 5f);
-            Scribe_Values.Look(ref forcedSlowDownOnMortarFire, "forcedSlowDownOnMortarFire", false);
             Scribe_Values.Look(ref obedientPredatorsDeferHuntingTameDesignatedAnimals, "obedientPredatorsDeferHuntingTameDesignatedAnimals", true);
             Scribe_Values.Look(ref animalInteractionHourLimit, "animalInteractionHourLimit", 20);
+            Scribe_Values.Look(ref iAmAModder, "iAmAModder", false);
         }
     }
 

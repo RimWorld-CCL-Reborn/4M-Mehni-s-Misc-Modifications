@@ -73,7 +73,9 @@ namespace Mehni.Misc.Modifications
             return listing_Standard.GetRect(height ?? Text.LineHeight);
         }
 
-        //thanks to Why_is_that for the below
+        //thanks to Why_is_that for the below, who in turn got his stuff from
+        // REFERENCE: https://github.com/erdelf/GodsOfRimworld/blob/master/Source/Ankh/ModControl.cs
+        // REFERENCE: https://github.com/erdelf/PrisonerRansom/
         public static void AddLabeledRadioList(this Listing_Standard listing_Standard, string header, string[] labels, ref string val, float? headerHeight = null)
         {
             //listing_Standard.Gap();
@@ -107,6 +109,50 @@ namespace Mehni.Misc.Modifications
                 list.Add(new LabeledRadioValue<string>(label, label));
             }
             return list;
+        }
+
+        public static void AddLabeledTextField(this Listing_Standard listing_Standard, string label, ref string settingsValue, float leftPartPct = 0.5f)
+        {
+            //listing_Standard.Gap(Gap);
+            listing_Standard.LineRectSpilter(out Rect leftHalf, out Rect rightHalf, leftPartPct);
+
+            // TODO: tooltips
+            //Widgets.DrawHighlightIfMouseover(lineRect);
+            //TooltipHandler.TipRegion(lineRect, "TODO: TIP GOES HERE");
+
+            Widgets.Label(leftHalf, label);
+
+            string buffer = settingsValue.ToString();
+            settingsValue = Widgets.TextField(rightHalf, buffer);
+        }
+
+        public static void AddLabeledNumericalTextField<T>(this Listing_Standard listing_Standard, string label, ref T settingsValue, float leftPartPct = 0.5f, float minValue = 1f, float maxValue = 100000f) where T : struct
+        {
+            //listing_Standard.Gap(Gap);
+            listing_Standard.LineRectSpilter(out Rect leftHalf, out Rect rightHalf, leftPartPct);
+
+            // TODO: tooltips
+            //Widgets.DrawHighlightIfMouseover(lineRect);
+            //TooltipHandler.TipRegion(lineRect, "TODO: TIP GOES HERE");
+
+            Widgets.Label(leftHalf, label);
+
+            string buffer = settingsValue.ToString();
+            Widgets.TextFieldNumeric<T>(rightHalf, ref settingsValue, ref buffer, minValue, maxValue);
+        }
+
+        public static Rect LineRectSpilter(this Listing_Standard listing_Standard, out Rect leftHalf, float leftPartPct = 0.5f, float? height = null)
+        {
+            Rect lineRect = listing_Standard.GetRect(height);
+            leftHalf = lineRect.LeftPart(leftPartPct).Rounded();
+            return lineRect;
+        }
+
+        public static Rect LineRectSpilter(this Listing_Standard listing_Standard, out Rect leftHalf, out Rect rightHalf, float leftPartPct = 0.5f, float? height = null)
+        {
+            Rect lineRect = listing_Standard.LineRectSpilter(out leftHalf, leftPartPct, height);
+            rightHalf = lineRect.RightPart(1f - leftPartPct).Rounded();
+            return lineRect;
         }
 
         //// (label, value) => (key, value)

@@ -15,6 +15,8 @@ using UnityEngine;
 
 namespace Mehni.Misc.Modifications
 {
+    using System.Runtime.Remoting.Messaging;
+
     [StaticConstructorOnStartup]
     static class HarmonyPatches
     {
@@ -75,15 +77,15 @@ namespace Mehni.Misc.Modifications
             harmony.Patch(AccessTools.Property(typeof(Dialog_MessageBox), "InteractionDelayExpired").GetGetMethod(true), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(YesImAModderStopAskingMe)));
 
+            harmony.Patch(AccessTools.Method(typeof(DebugThingPlaceHelper), nameof(DebugThingPlaceHelper.DebugSpawn)), null, null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(TranspileDebugSpawn)));
+
             //harmony.Patch(AccessTools.Method(typeof(RelationsUtility), nameof(RelationsUtility.IsDisfigured)), null,
             //    new HarmonyMethod(typeof(HarmonyPatches), nameof(IsDisfigured_Postfix)));
-        }
 
-        private static void YesImAModderStopAskingMe(ref bool __result)
-        {
-            __result = true;
+            harmony.Patch(AccessTools.Method(typeof(Page_ConfigureStartingPawns), "DoNext"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(ConfigureStartingPawnsDoNextPrefix)));
         }
-
 
         #region CatsCanHunt
         private static bool IsAcceptablePreyForBugFix_Prefix(ref Pawn predator, ref Pawn prey, ref bool __result)
@@ -138,9 +140,9 @@ namespace Mehni.Misc.Modifications
             if (MeMiMoSettings.whenGunsAreFiring)
             {
                 if (Find.SoundRoot.oneShotManager.PlayingOneShots.Any((SampleOneShot s)
-                    => (s.subDef.parentDef == SoundDefOf_M4.BulletImpact_Flesh)
-                    || (s.subDef.parentDef == SoundDefOf_M4.BulletImpact_Metal)
-                    || (s.subDef.parentDef == SoundDefOf_M4.BulletImpact_Wood)
+                    => (s.subDef.parentDef == DefOf_M4.BulletImpact_Flesh)
+                    || (s.subDef.parentDef == DefOf_M4.BulletImpact_Metal)
+                    || (s.subDef.parentDef == DefOf_M4.BulletImpact_Wood)
                     || (s.subDef.parentDef == SoundDefOf.BulletImpact_Ground)))
                 {
                     return false;
@@ -325,6 +327,24 @@ namespace Mehni.Misc.Modifications
 
         public static bool NoNonViolents => TutorSystem.TutorialMode || MeMiMoSettings.enableTutorialStyleRolling;
 
+        static bool returnvalue = false;
+
+        public static bool ConfigureStartingPawnsDoNextPrefix(Page_ConfigureStartingPawns __instance, Pawn ___curPawn)
+        {
+            MethodInfo runMe = AccessTools.Method(typeof(Page_ConfigureStartingPawns), "DoNext");
+            
+            List<Pawn> tmpList = new List<Pawn>(Find.GameInitData.startingPawnCount);
+            tmpList.AddRange(Find.GameInitData.startingAndOptionalPawns.Take(Find.GameInitData.startingPawnCount));
+            if (!tmpList.Contains(___curPawn))
+            {
+                Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation($"Currently viewed colonist is not selected for landing. Are you sure you wish to embark without {___curPawn.LabelCap}?",
+                                                            () => { returnvalue = true;  runMe.Invoke(__instance, new object[] { }); }));
+            }
+            else returnvalue = true;
+            tmpList.Clear();
+            return returnvalue;
+        }
+
         #endregion
 
         #region showLovers
@@ -405,7 +425,7 @@ namespace Mehni.Misc.Modifications
         ////real quick, REALLY dirty. You're welcome, Sparty.
         //private static IEnumerable<CodeInstruction> OnAttackedTarget_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
         //{
-        //    if (MeMiMoSettings.forcedSlowDownOnMortarFire)
+        //    if (MeMiMoSettings.noForcedMortarSlowdown)
         //    {
         //        List<CodeInstruction> ciList = codeInstructions.ToList();
         //        for (int i = 0; i < ciList.Count; i++)
@@ -478,13 +498,77 @@ namespace Mehni.Misc.Modifications
         //    }
         //}
         //#endregion
+
+        #region ToolsForModders
+        private static void YesImAModderStopAskingMe(ref bool __result)
+        {
+            if (MeMiMoSettings.iAmAModder)
+                __result = true;
+        }
+
+        #region DevModeSpawning
+        public static IEnumerable<CodeInstruction> TranspileDebugSpawn(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> instructionList = instructions.ToList();
+
+            MethodInfo randomStuffFor = AccessTools.Method(typeof(GenStuff), nameof(GenStuff.RandomStuffFor));
+            MethodInfo getStuffDefFromSettings = AccessTools.Method(typeof(HarmonyPatches), nameof(GetStuffDefFromSettings));
+            MethodInfo generateQualityRandomEqualChance = AccessTools.Method(typeof(QualityUtility), nameof(QualityUtility.GenerateQualityRandomEqualChance));
+            MethodInfo generateQualityFromSettings = AccessTools.Method(typeof(HarmonyPatches), nameof(GenerateQualityFromSettings));
+
+            for (int i = 0; i < instructionList.Count; i++)
+            {
+                CodeInstruction instruction = instructionList[i];
+
+                if (instruction.opcode == OpCodes.Call)
+                {
+                    if (instruction.operand == randomStuffFor && MeMiMoSettings.chooseItemStuff)
+                        instruction.operand = getStuffDefFromSettings;
+                    else if (instruction.operand == generateQualityRandomEqualChance && MeMiMoSettings.forceItemQuality)
+                        instruction.operand = generateQualityFromSettings;
+                }
+
+                yield return instruction;
+            }
+        }
+
+        public static ThingDef GetStuffDefFromSettings(BuildableDef def)
+        {
+            if (def.MadeFromStuff && MeMiMoSettings.stuffDefName != "" && DefDatabase<ThingDef>.GetNamed(MeMiMoSettings.stuffDefName) != null)
+                return DefDatabase<ThingDef>.GetNamed(MeMiMoSettings.stuffDefName);
+            return GenStuff.DefaultStuffFor(def);
+        }
+
+        public static QualityCategory GenerateQualityFromSettings()
+        {
+            switch (MeMiMoSettings.forcedItemQuality)
+            {
+                case 0:
+                    return QualityCategory.Awful;
+                case 1:
+                    return QualityCategory.Poor;
+                case 3:
+                    return QualityCategory.Good;
+                case 4:
+                    return QualityCategory.Excellent;
+                case 5:
+                    return QualityCategory.Masterwork;
+                case 6:
+                    return QualityCategory.Legendary;
+                default:
+                    return QualityCategory.Normal;
+            }
+        }
+        #endregion DevModeSpawning
+        #endregion ToolsForModders
     }
 
     [DefOf]
-    public static class SoundDefOf_M4
+    public static class DefOf_M4
     {
         public static SoundDef BulletImpact_Wood;
         public static SoundDef BulletImpact_Flesh;
         public static SoundDef BulletImpact_Metal;
+        public static InspirationDef Frenzy_Shoot;
     }
 }
