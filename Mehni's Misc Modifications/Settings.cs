@@ -70,6 +70,14 @@ namespace Mehni.Misc.Modifications
         public static int animalInteractionHourLimit = 20;
         #endregion
 
+        #region WorkAssignmentMatters
+        public static bool workAssignmentMatters = false;
+        #endregion
+
+        //#region HideDisfigurement
+        //public static bool apparelHidesDisfigurement = true;
+        //#endregion
+
         //[TweakValue("AAAMehniMiscMods")]
         private static float yPos = 43f;
 
