@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>*/StatDef[defName="WorkSpeedGlobal"]/parts</xpath>
+        <value>
+            <li Class="Mehni.Misc.Modifications.StatPart_TimeTable"/>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationInsert">
+        <xpath>/Defs/RecipeDef[defName="DestroyWeapon" or defName="SmeltWeapon"]/fixedIngredientFilter</xpath>
+        <value>
+            <defaultIngredientFilter>
+                <categories>
+                    <li>Weapons</li>
+                </categories>
+                <disallowedThingDefs>
+                    <li>OrbitalTargeterBombardment</li>
+                    <li>OrbitalTargeterPowerBeam</li>
+                    <li>TornadoGenerator</li>
+                    <li>Gun_TripleRocket</li>
+                    <li>Gun_DoomsdayRocket</li>
+                </disallowedThingDefs>
+            </defaultIngredientFilter>
+        </value>
+    </Operation>
+
+</Patch>

@@ -87,6 +87,8 @@ namespace Mehni.Misc.Modifications
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(ConfigureStartingPawnsDoNextPrefix)));
         }
 
+
+
         #region CatsCanHunt
         private static bool IsAcceptablePreyForBugFix_Prefix(ref Pawn predator, ref Pawn prey, ref bool __result)
         {
@@ -332,13 +334,13 @@ namespace Mehni.Misc.Modifications
         public static bool ConfigureStartingPawnsDoNextPrefix(Page_ConfigureStartingPawns __instance, Pawn ___curPawn)
         {
             MethodInfo runMe = AccessTools.Method(typeof(Page_ConfigureStartingPawns), "DoNext");
-            
+
             List<Pawn> tmpList = new List<Pawn>(Find.GameInitData.startingPawnCount);
             tmpList.AddRange(Find.GameInitData.startingAndOptionalPawns.Take(Find.GameInitData.startingPawnCount));
             if (!tmpList.Contains(___curPawn))
             {
                 Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation($"Currently viewed colonist is not selected for landing. Are you sure you wish to embark without {___curPawn.LabelCap}?",
-                                                            () => { returnvalue = true;  runMe.Invoke(__instance, new object[] { }); }));
+                                                            () => { returnvalue = true; runMe.Invoke(__instance, new object[] { }); }));
             }
             else returnvalue = true;
             tmpList.Clear();
