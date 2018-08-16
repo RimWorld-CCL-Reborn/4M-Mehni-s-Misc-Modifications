@@ -24,9 +24,9 @@ namespace Mehni.Misc.Modifications
 
         public override void TransformValue(StatRequest req, ref float val)
         {
-            if (MeMiMoSettings.workAssignmentMatters && req.Thing is Pawn pawn)
+            if (MeMiMoSettings.workAssignmentMatters && req.Thing is Pawn pawn && pawn.timetable is Pawn_TimetableTracker timetable)
             {
-                TimeAssignmentDef currentAssignment = pawn.timetable.CurrentAssignment;
+                TimeAssignmentDef currentAssignment = timetable.CurrentAssignment;
                 if (currentAssignment == TimeAssignmentDefOf.Joy || currentAssignment == TimeAssignmentDefOf.Sleep)
                     val += WorkSpeedOffsetLazyAssignment;
                 if (currentAssignment == TimeAssignmentDefOf.Work)
@@ -36,7 +36,7 @@ namespace Mehni.Misc.Modifications
 
         public override string ExplanationPart(StatRequest req)
         {
-            if (MeMiMoSettings.workAssignmentMatters && req.Thing is Pawn pawn)
+            if (MeMiMoSettings.workAssignmentMatters && req.Thing is Pawn pawn && pawn.timetable is Pawn_TimetableTracker timetable)
             {
                 TimeAssignmentDef currentAssignment = pawn.timetable.CurrentAssignment;
                 string baseExplanationString = "M4_StatPart_TimeTable_ExplanationString".Translate() + ": ";
