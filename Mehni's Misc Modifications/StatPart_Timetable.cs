@@ -19,18 +19,13 @@ namespace Mehni.Misc.Modifications
     public class StatPart_TimeTable : StatPart
     {
 
-        private const float WorkSpeedOffsetLazyAssignment = -0.2f;
-        private const float WorkSpeedOffsetWorkAssignment = 0.2f;
-
         public override void TransformValue(StatRequest req, ref float val)
         {
-            if (MeMiMoSettings.workAssignmentMatters && req.Thing is Pawn pawn && pawn.timetable is Pawn_TimetableTracker timetable)
+            if (MeMiMoSettings.workAssignmentMatters && req.Thing is Pawn pawn &&pawn.timetable is Pawn_TimetableTracker timetable)
             {
                 TimeAssignmentDef currentAssignment = timetable.CurrentAssignment;
-                if (currentAssignment == TimeAssignmentDefOf.Joy || currentAssignment == TimeAssignmentDefOf.Sleep)
-                    val += WorkSpeedOffsetLazyAssignment;
-                if (currentAssignment == TimeAssignmentDefOf.Work)
-                    val += WorkSpeedOffsetWorkAssignment;
+                val *= (currentAssignment.GetModExtension<TimeAssignmentExtension>() is TimeAssignmentExtension tAE) ?
+                    tAE.globalWorkSpeedFactor : TimeAssignmentExtension.defaultValues.globalWorkSpeedFactor;
             }
         }
 
@@ -38,12 +33,12 @@ namespace Mehni.Misc.Modifications
         {
             if (MeMiMoSettings.workAssignmentMatters && req.Thing is Pawn pawn && pawn.timetable is Pawn_TimetableTracker timetable)
             {
-                TimeAssignmentDef currentAssignment = pawn.timetable.CurrentAssignment;
-                string baseExplanationString = "M4_StatPart_TimeTable_ExplanationString".Translate() + ": ";
-                if (currentAssignment == TimeAssignmentDefOf.Joy || currentAssignment == TimeAssignmentDefOf.Sleep)
-                    return baseExplanationString + WorkSpeedOffsetLazyAssignment.ToStringPercent();
-                if (currentAssignment == TimeAssignmentDefOf.Work)
-                    return baseExplanationString + "+" + WorkSpeedOffsetWorkAssignment.ToStringPercent();
+                TimeAssignmentDef currentAssignment = timetable.CurrentAssignment;
+                string baseExplanationString = "M4_StatPart_TimeTable_ExplanationString".Translate(currentAssignment.label) + ": x";
+                // ;-;
+                return "M4_StatPart_TimeTable_ExplanationString".Translate(currentAssignment.label) + ": x" +
+                    ((currentAssignment.GetModExtension<TimeAssignmentExtension>() is TimeAssignmentExtension tAE) ?
+                    tAE.globalWorkSpeedFactor : TimeAssignmentExtension.defaultValues.globalWorkSpeedFactor).ToStringPercent();
             }
             return null;
         }
