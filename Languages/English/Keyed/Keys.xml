@@ -50,7 +50,7 @@
     <M4_AnimalInteractionHourLimit_Desc>Colonists that are assigned to animal handling will stop trying to interact with animals past this hour of the day, so that animals are less likely to fall asleep on them during taming/training which wastes food. Set to 24 to effectively disable.</M4_AnimalInteractionHourLimit_Desc>
     <M4_CantInteractAnimalWillFallAsleepSoon>animal will fall asleep soon</M4_CantInteractAnimalWillFallAsleepSoon>
 
-    <M4_StatPart_TimeTable_ExplanationString>Time assignment</M4_StatPart_TimeTable_ExplanationString>
+    <M4_StatPart_TimeTable_ExplanationString>Timetabled for {0}</M4_StatPart_TimeTable_ExplanationString>
 
 
 </LanguageData>
