@@ -15,7 +15,6 @@ using UnityEngine;
 
 namespace Mehni.Misc.Modifications
 {
-    using System.Runtime.Remoting.Messaging;
 
     [StaticConstructorOnStartup]
     static class HarmonyPatches
@@ -23,7 +22,6 @@ namespace Mehni.Misc.Modifications
         static HarmonyPatches()
         {
             HarmonyInstance harmony = HarmonyInstance.Create("Mehni.RimWorld.4M.Main");
-
             //HarmonyInstance.DEBUG = true;
 
             harmony.Patch(AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.IsAcceptablePreyFor)),
@@ -363,17 +361,13 @@ namespace Mehni.Misc.Modifications
                 if (i > 2 && instructionList[i - 1].operand == getPawnName)
                 {
                     yield return instructionList[i];
-                    yield return new CodeInstruction(OpCodes.Ldc_R4, 300f);
-                    //yield return new CodeInstruction(OpCodes.Ldloca_S);
-                    //yield return new CodeInstruction(OpCodes.Call, getViewRectWidth);
-                    //yield return new CodeInstruction(OpCodes.Ldc_R4, 0.55f);
-                    //yield return new CodeInstruction(OpCodes.Mul);
-
+                    yield return new CodeInstruction(OpCodes.Ldloca_S, 1);
+                    yield return new CodeInstruction(OpCodes.Call, getViewRectWidth);
+                    yield return new CodeInstruction(OpCodes.Ldc_R4, 0.55f);
+                    yield return new CodeInstruction(OpCodes.Mul); //viewrect.width * 0.55
                     yield return new CodeInstruction(OpCodes.Ldloc_2); //y
-                    yield return instructionList[i - 2]; //pawn
+                    yield return new CodeInstruction(instructionList[i - 2]); //pawn
                     yield return new CodeInstruction(OpCodes.Call, makeReeect);
-
-
                 }
                 else
                     yield return instructionList[i];
@@ -571,6 +565,5 @@ namespace Mehni.Misc.Modifications
         public static SoundDef BulletImpact_Wood;
         public static SoundDef BulletImpact_Flesh;
         public static SoundDef BulletImpact_Metal;
-        public static InspirationDef Frenzy_Shoot;
     }
 }
