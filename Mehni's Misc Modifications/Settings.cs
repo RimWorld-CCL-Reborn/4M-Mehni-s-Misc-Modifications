@@ -55,8 +55,6 @@ namespace Mehni.Misc.Modifications
         public static int animalInteractionHourLimit = 20;
         #endregion
 
-
-
         #region WorkAssignmentMatters
         public static bool workAssignmentMatters = false;
         #endregion
@@ -71,6 +69,10 @@ namespace Mehni.Misc.Modifications
         public static int forcedItemQuality = 2;
         #endregion
         #endregion ToolsForModders
+
+        #region BetterHostileReadouts
+        public static bool betterHostileReadouts = true;
+        #endregion
 
         //#region HideDisfigurement
         //public static bool apparelHidesDisfigurement = true;
@@ -210,6 +212,7 @@ namespace Mehni.Misc.Modifications
             Scribe_Values.Look(ref obedientPredatorsDeferHuntingTameDesignatedAnimals, "obedientPredatorsDeferHuntingTameDesignatedAnimals", true);
             Scribe_Values.Look(ref animalInteractionHourLimit, "animalInteractionHourLimit", 20);
             Scribe_Values.Look(ref iAmAModder, "iAmAModder", false);
+            Scribe_Values.Look(ref betterHostileReadouts, "betterHostileReadouts", true);
         }
     }
 

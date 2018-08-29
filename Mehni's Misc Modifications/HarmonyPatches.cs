@@ -83,6 +83,12 @@ namespace Mehni.Misc.Modifications
 
             harmony.Patch(AccessTools.Method(typeof(Page_ConfigureStartingPawns), "DoNext"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(ConfigureStartingPawnsDoNextPrefix)));
+
+            harmony.Patch(AccessTools.Method(typeof(IncidentWorker_RefugeeChased), "TryExecuteWorker"),
+                transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(TryExecuteWorker_Transpiler)));
+
+            harmony.Patch(AccessTools.Method(typeof(PawnUIOverlay), nameof(PawnUIOverlay.DrawPawnGUIOverlay)), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(DrawPawnGUIOverlay_Postfix)));
         }
 
 
@@ -443,6 +449,7 @@ namespace Mehni.Misc.Modifications
         //#endregion
 
         //Courtesy XND
+
         #region AnimalHandlingSanity
         // 'Totally didn't almost forget to actually copypaste the testing code' edition
         public static void GetPreyScoreFor_Postfix(Pawn predator, Pawn prey, ref float __result)
@@ -557,6 +564,45 @@ namespace Mehni.Misc.Modifications
         }
         #endregion DevModeSpawning
         #endregion ToolsForModders
+
+        #region BetterHostileReadouts
+        // Thanks Mehni... :sadwinnie:
+        public static IEnumerable<CodeInstruction> TryExecuteWorker_Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> instructionList = instructions.ToList();
+
+            MethodInfo alteredHostileFactionPawnReadout = AccessTools.Method(typeof(HarmonyPatches), nameof(AlteredHostileFactionPawnReadout));
+
+            for (int i = 0; i < instructionList.Count; i++)
+            {
+                CodeInstruction instruction = instructionList[i];
+
+                if (instruction.opcode == OpCodes.Ldfld && instruction.operand == AccessTools.Field(typeof(FactionDef), "pawnsPlural"))
+                {
+                    yield return new CodeInstruction(OpCodes.Ldloc_S, 5);
+
+                    instruction.opcode = OpCodes.Call;
+                    instruction.operand = alteredHostileFactionPawnReadout;
+                }
+
+                yield return instruction;
+            }
+        }
+
+        private static string AlteredHostileFactionPawnReadout(FactionDef faction, IEnumerable<PawnKindDef> pawnKinds)
+        {
+            // Warning: nested ternaries ahead
+            int pawnCount = pawnKinds.Count();
+            return ((MeMiMoSettings.betterHostileReadouts) ? pawnCount.ToString() + " " + ((pawnCount > 1) ? faction.pawnsPlural : faction.pawnSingular) : faction.pawnsPlural);
+        }
+
+        public static void DrawPawnGUIOverlay_Postfix(PawnUIOverlay __instance, Pawn ___pawn)
+        {
+            // First two checks are just to prevent duplicates
+            if (MeMiMoSettings.betterHostileReadouts && !___pawn.RaceProps.Humanlike && ___pawn.Faction != Faction.OfPlayer && ___pawn.HostileTo(Faction.OfPlayer))
+                GenMapUI.DrawPawnLabel(___pawn, GenMapUI.LabelDrawPosFor(___pawn, -0.6f), font: GameFont.Tiny);
+        }
+        #endregion
     }
 
     [DefOf]
