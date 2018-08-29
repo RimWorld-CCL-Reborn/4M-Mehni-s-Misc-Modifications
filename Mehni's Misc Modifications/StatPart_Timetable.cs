@@ -19,18 +19,25 @@ namespace Mehni.Misc.Modifications
     public class StatPart_TimeTable : StatPart
     {
 
-        private const float WorkSpeedOffsetNotAssignedToWork = -0.2f;
-
         public override void TransformValue(StatRequest req, ref float val)
         {
-            if (MeMiMoSettings.workAssignmentMatters && req.Thing is Pawn pawn && pawn.timetable.CurrentAssignment != TimeAssignmentDefOf.Work)
-                val += WorkSpeedOffsetNotAssignedToWork;
+            if (MeMiMoSettings.workAssignmentMatters && req.Thing is Pawn pawn && pawn.timetable is Pawn_TimetableTracker timetable)
+            {
+                TimeAssignmentDef currentAssignment = timetable.CurrentAssignment;
+                val *= (currentAssignment.GetModExtension<TimeAssignmentExtension>() is TimeAssignmentExtension tAE) ?
+                    tAE.globalWorkSpeedFactor : TimeAssignmentExtension.defaultValues.globalWorkSpeedFactor;
+            }
         }
 
         public override string ExplanationPart(StatRequest req)
         {
-            if (MeMiMoSettings.workAssignmentMatters && req.Thing is Pawn pawn && pawn.timetable.CurrentAssignment != TimeAssignmentDefOf.Work)
-                return "M4_StatPart_TimeTable_ExplanationString".Translate() + ": " + WorkSpeedOffsetNotAssignedToWork.ToStringPercent();
+            if (MeMiMoSettings.workAssignmentMatters && req.Thing is Pawn pawn && pawn.timetable is Pawn_TimetableTracker timetable)
+            {
+                TimeAssignmentDef currentAssignment = timetable.CurrentAssignment;
+                float workSpeedFactor = (currentAssignment.GetModExtension<TimeAssignmentExtension>() is TimeAssignmentExtension tAE) ?
+                    tAE.globalWorkSpeedFactor : TimeAssignmentExtension.defaultValues.globalWorkSpeedFactor;
+                return "M4_StatPart_TimeTable_ExplanationString".Translate(currentAssignment.label) + ": x" + workSpeedFactor.ToStringPercent();
+            }
             return null;
         }
         
