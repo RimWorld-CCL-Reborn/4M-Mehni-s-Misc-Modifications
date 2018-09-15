@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 
+    <!-- Stats -->
+    
+    <M4_DamagePerBurst>Damage per burst</M4_DamagePerBurst>
+    <M4_WeaponSingleUse>Single-use</M4_WeaponSingleUse>
+    <M4_BurstShotDelay>Burst length</M4_BurstShotDelay>
+    <M4_ProjectileTravelTime>Travel time</M4_ProjectileTravelTime>
+    <M4_ProjectileExplosionDelay>Explosion delay</M4_ProjectileExplosionDelay>
+
+    <!-- Settings -->
+
     <M4_GreySettingsIgnored>Greyed out settings are ignored</M4_GreySettingsIgnored>
 	<M4_SettingCatsCanHunt>Cats Can Hunt Again</M4_SettingCatsCanHunt>
     <M4_SettingCatsCanHuntToolTip>Vanilla bugfix: Allows animals (like cats) to hunt smaller critters (like rats) again.</M4_SettingCatsCanHuntToolTip>

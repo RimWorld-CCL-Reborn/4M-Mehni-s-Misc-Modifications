@@ -74,6 +74,10 @@ namespace Mehni.Misc.Modifications
         public static bool betterHostileReadouts = true;
         #endregion
 
+        #region DisplayRangedWeaponDPS
+        public static bool displayRangedDPS = true;
+        #endregion
+
         //#region HideDisfigurement
         //public static bool apparelHidesDisfigurement = true;
         //#endregion

@@ -1,0 +1,38 @@
+<Defs>
+
+    <StatDef Name="RangedDPSBase" Abstract="True">
+        <category>Weapon</category>
+        <workerClass>Mehni.Misc.Modifications.StatWorker_RangedWeaponDPS</workerClass>
+        <toStringStyle>FloatTwo</toStringStyle>
+        <minValue>0</minValue>
+    </StatDef>
+
+    <StatDef ParentName="RangedDPSBase">
+        <defName>RangedWeapon_TouchDPS</defName>
+        <label>ranged DPS (close)</label>
+        <description>The weapon's damage per second at a distance of 3 cells or less. The actual damage per second will also be affected by other factors.</description>
+        <displayPriorityInCategory>1500</displayPriorityInCategory>
+    </StatDef>
+
+    <StatDef ParentName="RangedDPSBase">
+        <defName>RangedWeapon_ShortDPS</defName>
+        <label>ranged DPS (short)</label>
+        <description>The weapon's damage per second at a distance of 15 cells. The actual damage per second will also be affected by other factors.</description>
+        <displayPriorityInCategory>1499</displayPriorityInCategory>
+    </StatDef>
+
+    <StatDef ParentName="RangedDPSBase">
+        <defName>RangedWeapon_MediumDPS</defName>
+        <label>ranged DPS (medium)</label>
+        <description>The weapon's damage per second at a distance of 25 cells. The actual damage per second will also be affected by other factors.</description>
+        <displayPriorityInCategory>1498</displayPriorityInCategory>
+    </StatDef>
+
+    <StatDef ParentName="RangedDPSBase">
+        <defName>RangedWeapon_LongDPS</defName>
+        <label>ranged DPS (long)</label>
+        <description>The weapon's damage per second at a distance of 40 cells or more. The actual damage per second will also be affected by other factors.</description>
+        <displayPriorityInCategory>1497</displayPriorityInCategory>
+    </StatDef>
+
+</Defs>
