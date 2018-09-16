@@ -17,5 +17,10 @@ namespace Mehni.Misc.Modifications
         public static StatDef RangedWeapon_MediumDPS;
         public static StatDef RangedWeapon_LongDPS;
 
+        public static StatDef RangedWeapon_TouchDPSPawn;
+        public static StatDef RangedWeapon_ShortDPSPawn;
+        public static StatDef RangedWeapon_MediumDPSPawn;
+        public static StatDef RangedWeapon_LongDPSPawn;
+
     }
 }

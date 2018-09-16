@@ -1,5 +1,7 @@
 <Defs>
 
+    <!-- Ranged DPS - Weapon -->
+
     <StatDef Name="RangedDPSBase" Abstract="True">
         <category>Weapon</category>
         <workerClass>Mehni.Misc.Modifications.StatWorker_RangedWeaponDPS</workerClass>
@@ -33,6 +35,43 @@
         <label>ranged DPS (long)</label>
         <description>The weapon's damage per second at a distance of 40 cells or more. The actual damage per second will also be affected by other factors.</description>
         <displayPriorityInCategory>1497</displayPriorityInCategory>
+    </StatDef>
+
+    <!-- Ranged DPS - Pawn -->
+
+    <StatDef Name="RangedDPSPawnBase" Abstract="True">
+        <category>PawnCombat</category>
+        <workerClass>Mehni.Misc.Modifications.StatWorker_RangedWeaponDPSPawn</workerClass>
+        <toStringStyle>FloatTwo</toStringStyle>
+        <minValue>0</minValue>
+    </StatDef>
+
+    <StatDef ParentName="RangedDPSPawnBase">
+        <defName>RangedWeapon_TouchDPSPawn</defName>
+        <label>ranged DPS (close)</label>
+        <description>The pawn's ranged damage per second at a distance of 3 cells or less. The actual damage per second will also be affected by other factors.</description>
+        <displayPriorityInCategory>110</displayPriorityInCategory>
+    </StatDef>
+
+    <StatDef ParentName="RangedDPSPawnBase">
+        <defName>RangedWeapon_ShortDPSPawn</defName>
+        <label>ranged DPS (short)</label>
+        <description>The pawn's ranged damage per second at a distance of 15 cells. The actual damage per second will also be affected by other factors.</description>
+        <displayPriorityInCategory>109</displayPriorityInCategory>
+    </StatDef>
+
+    <StatDef ParentName="RangedDPSPawnBase">
+        <defName>RangedWeapon_MediumDPSPawn</defName>
+        <label>ranged DPS (medium)</label>
+        <description>The pawn's ranged damage per second at a distance of 25 cells. The actual damage per second will also be affected by other factors.</description>
+        <displayPriorityInCategory>108</displayPriorityInCategory>
+    </StatDef>
+
+    <StatDef ParentName="RangedDPSPawnBase">
+        <defName>RangedWeapon_LongDPSPawn</defName>
+        <label>ranged DPS (long)</label>
+        <description>The pawn's ranged damage per second at a distance of 40 cells or more. The actual damage per second will also be affected by other factors.</description>
+        <displayPriorityInCategory>107</displayPriorityInCategory>
     </StatDef>
 
 </Defs>
