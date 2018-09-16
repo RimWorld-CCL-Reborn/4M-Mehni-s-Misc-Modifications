@@ -134,6 +134,7 @@ namespace Mehni.Misc.Modifications
             return GetRangedDamagePerSecond(damage, cooldown, warmup, accuracy, burstCount, burstShotDelay, projectileImpactDelay, explosionDelay);
         }
 
+        //100 from Projectile.StartingTicksToImpact
         private float GetProjectileImpactDelay(float speed, float dist) =>
             Mathf.RoundToInt(Math.Max(dist / (speed / 100), 1)).TicksToSeconds();
 
