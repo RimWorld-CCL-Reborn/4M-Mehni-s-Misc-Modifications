@@ -26,6 +26,7 @@ Because sometimes you need more time. Changing this setting requires a restart.
 
 - Show who wants to sleep with who on beds.
 - [XND] Display yield info on plants.
+- [XND] Display DPS for all weapons.
 - Supress news of chicken #357 dying.
 - Confirmation before embarking if currently viewed colonist is not one you selected (AKA "I noticed you rolled fifty colonists on a naked brutality start but the one you just rolled isn't the one you're about the start the game with. Are you suuuuure?").
 
