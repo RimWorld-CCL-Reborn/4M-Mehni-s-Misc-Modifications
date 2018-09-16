@@ -57,7 +57,7 @@ namespace Mehni.Misc.Modifications
 
             float damage = projectile.GetDamageAmount(weapon);
             float cooldown = (singleUse) ? 0f : weapon.GetStatValue(StatDefOf.RangedWeapon_Cooldown).SecondsToTicks().TicksToSeconds();
-            float warmup = verb.warmupTime.SecondsToTicks().TicksToSeconds();
+            float warmup = (verb.warmupTime * pawn.GetStatValue(StatDefOf.AimingDelayFactor)).SecondsToTicks().TicksToSeconds();
             float accuracy = Mathf.Min((verb.forcedMissRadius > 0.5f) ?
                 (float)((verb.CausesExplosion) ? GenRadial.NumCellsInRadius(projectile.explosionRadius) : 1) / GenRadial.NumCellsInRadius(verb.forcedMissRadius) :
                 verb.GetHitChanceFactor(weapon, Dist) * ShotReport.HitFactorFromShooter(pawn, Dist), 1f);
@@ -66,9 +66,6 @@ namespace Mehni.Misc.Modifications
             float projectileImpactDelay = GetProjectileImpactDelay(projectile.speed, Dist);
             float explosionDelay = projectile.explosionDelay.TicksToSeconds();
             int bCMinOne = burstCount - 1;
-
-            if (req.Thing == null)
-                weapon.Destroy();
 
             StringBuilder expBuilder = new StringBuilder();
 
@@ -83,7 +80,7 @@ namespace Mehni.Misc.Modifications
             // Cooldown and Warmup
             string singleUseText = (singleUse) ? " (" + "M4_WeaponSingleUse".Translate() + ")" : "";
             expBuilder.AppendLine($"{"CooldownTime".Translate()}: {cooldown.ToString("F2")} s{singleUseText}");
-            expBuilder.AppendLine($"{"WarmupTime".Translate()}: {warmup.ToString("F2")} s");
+            expBuilder.AppendLine($"{"WarmupTime".Translate()}: {warmup.ToString("F2")} s ({verb.warmupTime.ToString("F2")} x {pawn.GetStatValue(StatDefOf.AimingDelayFactor).ToStringPercent()})");
 
             // - delay between burst shots
             if (bCMinOne > 0)
@@ -118,7 +115,7 @@ namespace Mehni.Misc.Modifications
 
             float damage = projectile.GetDamageAmount(weapon);
             float cooldown = (singleUse) ? 0f : weapon.GetStatValue(StatDefOf.RangedWeapon_Cooldown).SecondsToTicks().TicksToSeconds();
-            float warmup = verb.warmupTime.SecondsToTicks().TicksToSeconds();
+            float warmup = (verb.warmupTime * pawn.GetStatValue(StatDefOf.AimingDelayFactor)).SecondsToTicks().TicksToSeconds();
             float accuracy = Mathf.Min((verb.forcedMissRadius > 0.5f) ?
                 (float)((verb.CausesExplosion) ? GenRadial.NumCellsInRadius(projectile.explosionRadius) : 1) / GenRadial.NumCellsInRadius(verb.forcedMissRadius) :
                 verb.GetHitChanceFactor(weapon, Dist) * ShotReport.HitFactorFromShooter(pawn, Dist), 1f);
@@ -126,10 +123,6 @@ namespace Mehni.Misc.Modifications
             float burstShotDelay = verb.ticksBetweenBurstShots.TicksToSeconds();
             float projectileImpactDelay = GetProjectileImpactDelay(projectile.speed, Dist);
             float explosionDelay = projectile.explosionDelay.TicksToSeconds();
-
-            // Tackle any sort of bloat
-            if (req.Thing == null)
-                weapon.Destroy();
 
             return GetRangedDamagePerSecond(damage, cooldown, warmup, accuracy, burstCount, burstShotDelay, projectileImpactDelay, explosionDelay);
         }
