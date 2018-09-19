@@ -78,6 +78,9 @@ namespace Mehni.Misc.Modifications
             harmony.Patch(AccessTools.Method(typeof(DebugThingPlaceHelper), nameof(DebugThingPlaceHelper.DebugSpawn)), null, null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(TranspileDebugSpawn)));
 
+            harmony.Patch(AccessTools.Property(typeof(Log), "ReachedMaxMessagesLimit").GetGetMethod(true),
+                postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(ReachedMaxMessagesLimit_Postfix)));
+
             //harmony.Patch(AccessTools.Method(typeof(RelationsUtility), nameof(RelationsUtility.IsDisfigured)), null,
             //    new HarmonyMethod(typeof(HarmonyPatches), nameof(IsDisfigured_Postfix)));
 
@@ -563,6 +566,12 @@ namespace Mehni.Misc.Modifications
             }
         }
         #endregion DevModeSpawning
+
+        public static void ReachedMaxMessagesLimit_Postfix(ref bool __result)
+        {
+            if (MeMiMoSettings.iAmAModder)
+                __result = false;
+        }
         #endregion ToolsForModders
 
         #region BetterHostileReadouts

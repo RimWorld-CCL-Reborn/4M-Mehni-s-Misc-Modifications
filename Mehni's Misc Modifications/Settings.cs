@@ -85,8 +85,9 @@ namespace Mehni.Misc.Modifications
         //[TweakValue("AAAMehniMiscMods")]
         private static float yPos = 43f;
 
-        //[TweakValue("AAAMehniMiscMods", max: 350f)]
-        private static float moreOptionsRecty = 170f;
+        // Value to modify when adding new settings
+        //[TweakValue("AAAMehniMiscMods", max: 500f)]
+        private static float moreOptionsRecty = 240f;
 
         //[TweakValue("AAAMehniMiscMods")]
         private static float widthFiddler = 9f;
@@ -108,11 +109,21 @@ namespace Mehni.Misc.Modifications
 
             options.ColumnWidth = wrect.width / 2 - widthFiddler;
 
+            // Left column
+
             options.CheckboxLabeled("M4_NotifyDeadAnimals".Translate(), ref deathMessagesForAnimals, "M4_NotifyDeadAnimalsDesc".Translate());
             options.GapLine();
 
+            options.CheckboxLabeled("M4_TimetableAssignmentMatters".Translate(), ref workAssignmentMatters, "M4_TimetableAssignmentMatters_Desc".Translate());
+            options.GapLine();
+
+            options.CheckboxLabeled("M4_BetterHostileReadouts".Translate(), ref betterHostileReadouts, "M4_BetterHostileReadouts_Desc".Translate());
+            options.GapLine();
+
             options.CheckboxLabeled("M4_ObedientPredatorsDontHuntTameDesignatedPawns".Translate(), ref obedientPredatorsDeferHuntingTameDesignatedAnimals, "M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc".Translate());
-            options.SliderLabeled("M4_AnimalInteractionHourLimit".Translate(), ref animalInteractionHourLimit, animalInteractionHourLimit + "h", 0, 24, "M4_AnimalInteractionHourLimit_Desc".Translate());
+            options.SliderLabeled("M4_AnimalInteractionHourLimit".Translate(), ref animalInteractionHourLimit, animalInteractionHourLimit + "h", 0, 24, "M4_AnimalInteractionHourLimit_Desc".Translate());    
+
+            // Right column
 
             options.NewColumn();
             options.Gap(yPos);
@@ -121,9 +132,17 @@ namespace Mehni.Misc.Modifications
             options.GapLine();
 
             options.CheckboxLabeled("M4_SettingEnableLargePacks".Translate(), ref enableLargePacks, "M4_SettingLargePackToolTip".Translate());
+            options.GapLine();
+
+            options.CheckboxLabeled("M4_TutorialStyleRolling".Translate(), ref enableTutorialStyleRolling, "M4_TutorialStyleRollingDesc".Translate());
+            options.GapLine();
+
+            options.CheckboxLabeled("M4_DisplayRangedDPS".Translate(), ref displayRangedDPS, "M4_DisplayRangedDPS_Desc".Translate());
 
             options.Gap();
             options.End();
+
+            // More options
 
             Listing_Standard moreOptions = new Listing_Standard();
             Rect moreOptionsRect = wrect;
@@ -173,9 +192,6 @@ namespace Mehni.Misc.Modifications
             GUI.color = defaultColor;
             moreOptions.GapLine();
 
-            moreOptions.CheckboxLabeled("M4_TutorialStyleRolling".Translate(), ref enableTutorialStyleRolling, "M4_TutorialStyleRollingDesc".Translate());
-            moreOptions.GapLine();
-
             moreOptions.SliderLabeled("M4_LessLitterLouting".Translate(), ref humanFilthRate, Math.Round(humanFilthRate, 2).ToString(), 0, 25, "M4_LessLitterLoutingToolTip".Translate());
             moreOptions.GapLine();
 
@@ -215,8 +231,10 @@ namespace Mehni.Misc.Modifications
             Scribe_Values.Look(ref humanFilthRate, "humanFilthRate", 5f);
             Scribe_Values.Look(ref obedientPredatorsDeferHuntingTameDesignatedAnimals, "obedientPredatorsDeferHuntingTameDesignatedAnimals", true);
             Scribe_Values.Look(ref animalInteractionHourLimit, "animalInteractionHourLimit", 20);
+            Scribe_Values.Look(ref workAssignmentMatters, "workAssignmentMatters", false);
             Scribe_Values.Look(ref iAmAModder, "iAmAModder", false);
             Scribe_Values.Look(ref betterHostileReadouts, "betterHostileReadouts", true);
+            Scribe_Values.Look(ref displayRangedDPS, "displayRangedDPS", true);
         }
     }
 
