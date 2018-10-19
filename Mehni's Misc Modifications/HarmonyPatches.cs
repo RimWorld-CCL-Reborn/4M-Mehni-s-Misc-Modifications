@@ -24,9 +24,6 @@ namespace Mehni.Misc.Modifications
             HarmonyInstance harmony = HarmonyInstance.Create("Mehni.RimWorld.4M.Main");
             //HarmonyInstance.DEBUG = true;
 
-            harmony.Patch(AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.IsAcceptablePreyFor)),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(IsAcceptablePreyForBugFix_Prefix)), null, null);
-
             harmony.Patch(AccessTools.Method(typeof(AutoUndrafter), "ShouldAutoUndraft"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(StayWhereIPutYou_Postfix)), null);
 
@@ -96,38 +93,7 @@ namespace Mehni.Misc.Modifications
 
 
 
-        #region CatsCanHunt
-        private static bool IsAcceptablePreyForBugFix_Prefix(ref Pawn predator, ref Pawn prey, ref bool __result)
-        {
-            if (MeMiMoSettings.catsCanHunt)
-            {
-                if (!prey.RaceProps.canBePredatorPrey || !prey.RaceProps.IsFlesh || prey.BodySize > predator.RaceProps.maxPreyBodySize)
-                {
-                    __result = false;
-                    return false;
-                }
 
-                if (!prey.Downed)
-                {
-                    if (prey.kindDef.combatPower > 2f * predator.kindDef.combatPower)
-                    {
-                        __result = false;
-                        return false;
-                    }
-                    float num = prey.kindDef.combatPower * prey.health.summaryHealth.SummaryHealthPercent * (prey.ageTracker.CurLifeStage.bodySizeFactor * prey.RaceProps.baseBodySize);
-                    float num2 = predator.kindDef.combatPower * predator.health.summaryHealth.SummaryHealthPercent * (predator.ageTracker.CurLifeStage.bodySizeFactor * predator.RaceProps.baseBodySize);
-                    if (num > 0.85f * num2)
-                    {
-                        __result = false;
-                        return false;
-                    }
-                }
-                __result = (predator.Faction == null || prey.Faction == null || predator.HostileTo(prey)) && (predator.Faction != Faction.OfPlayer || prey.Faction != Faction.OfPlayer) && (!predator.RaceProps.herdAnimal || predator.def != prey.def);
-                return false;
-            }
-            else return true;
-        }
-        #endregion
 
         #region StayWhereIPutYou
         private static void StayWhereIPutYou_Postfix(ref bool __result, int ___lastNonWaitingTick, Pawn ___pawn)

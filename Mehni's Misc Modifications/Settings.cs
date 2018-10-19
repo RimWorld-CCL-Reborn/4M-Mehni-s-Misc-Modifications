@@ -11,9 +11,6 @@ namespace Mehni.Misc.Modifications
 {
     public class MeMiMoSettings : ModSettings
     {
-        #region CatHunting
-        public static bool catsCanHunt = true;
-        #endregion
 
         #region AutoUndrafter
         public static bool modifyAutoUndrafter = false;
@@ -128,9 +125,6 @@ namespace Mehni.Misc.Modifications
             options.NewColumn();
             options.Gap(yPos);
 
-            options.CheckboxLabeled("M4_SettingCatsCanHunt".Translate(), ref catsCanHunt, "M4_SettingCatsCanHuntToolTip".Translate());
-            options.GapLine();
-
             options.CheckboxLabeled("M4_SettingEnableLargePacks".Translate(), ref enableLargePacks, "M4_SettingLargePackToolTip".Translate());
             options.GapLine();
 
@@ -215,7 +209,6 @@ namespace Mehni.Misc.Modifications
 
         public override void ExposeData()
         {
-            Scribe_Values.Look(ref catsCanHunt, "catsCanHunt", true);
             Scribe_Values.Look(ref modifyAutoUndrafter, "modifyAutoUndrafter", false);
             Scribe_Values.Look(ref whenGunsAreFiring, "whenGunsAreFiring", true);
             Scribe_Values.Look(ref extendUndraftTimeBy, "extendUndraftTimeBy", 5000);
