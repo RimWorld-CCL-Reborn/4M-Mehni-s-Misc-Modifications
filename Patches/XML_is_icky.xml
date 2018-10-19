@@ -29,7 +29,7 @@
     </Operation>
 
     <!-- dont destroy superweapons plzkthxbye -->
-
+<!-- 
     <Operation Class="PatchOperationInsert">
         <xpath>/Defs/RecipeDef[defName="DestroyWeapon" or defName="SmeltWeapon"]/fixedIngredientFilter</xpath>
         <value>
@@ -46,6 +46,6 @@
                 </disallowedThingDefs>
             </defaultIngredientFilter>
         </value>
-    </Operation>
+    </Operation> -->
 
 </Patch>
