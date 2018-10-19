@@ -22,7 +22,10 @@ namespace Mehni.Misc.Modifications
         static HarmonyPatches()
         {
             HarmonyInstance harmony = HarmonyInstance.Create("Mehni.RimWorld.4M.Main");
-            //HarmonyInstance.DEBUG = true;
+            HarmonyInstance.DEBUG = true;
+
+            harmony.Patch(AccessTools.Method(typeof(IncidentWorker_HerdMigration), "GenerateAnimals"), null,
+                null, new HarmonyMethod(typeof(HarmonyPatches), nameof(BigHerds_Transpiler)));
 
             harmony.Patch(AccessTools.Method(typeof(AutoUndrafter), "ShouldAutoUndraft"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(StayWhereIPutYou_Postfix)), null);
@@ -91,8 +94,30 @@ namespace Mehni.Misc.Modifications
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(DrawPawnGUIOverlay_Postfix)));
         }
 
+        private static readonly IntRange AnimalsCount = new IntRange(30, 50);
 
+        public static IEnumerable<CodeInstruction> BigHerds_Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (MeMiMoSettings.bigAnimalMigrations)
+            {
+                List<CodeInstruction> instructionList = instructions.ToList();
+                FieldInfo useMoreAnimals = AccessTools.Field(typeof(HarmonyPatches), "AnimalsCount");
 
+                for (int i = 0; i < instructionList.Count; i++)
+                {
+                    if (instructionList[i].opcode == OpCodes.Ldsfld)
+                        instructionList[i].operand = useMoreAnimals;
+                    //uses AnimalsCount in 4M instead of default.
+
+                    yield return instructionList[i];
+                }
+            }
+            else
+                foreach (var item in instructions)
+                {
+                    yield return item;
+                }
+        }
 
 
         #region StayWhereIPutYou

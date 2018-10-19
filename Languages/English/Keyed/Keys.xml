@@ -16,6 +16,9 @@
 	<M4_SettingCatsCanHunt>Cats Can Hunt Again</M4_SettingCatsCanHunt>
     <M4_SettingCatsCanHuntToolTip>Vanilla bugfix: Allows animals (like cats) to hunt smaller critters (like rats) again.</M4_SettingCatsCanHuntToolTip>
 
+    <M4_SettingBigAnimalMigrations>Bring back big herd migrations</M4_SettingBigAnimalMigrations>
+    <M4_SettingBigAnimalMigrationsToolTip>With this setting enabled, expect herd migrations to contain between 30 and 50 animals, regardless of bodysize.</M4_SettingBigAnimalMigrationsToolTip>
+
     <M4_SettingModifyAutoUndrafter>Modify the Auto Undrafter</M4_SettingModifyAutoUndrafter>
     <M4_SettingModifyAutoUndrafterToolTip>Various options for lengthening the time it takes for a colonist to undraft themselves.</M4_SettingModifyAutoUndrafterToolTip>
     <M4_SettingWithGunsBlazing>Stay drafted when there's gunfire on the map.</M4_SettingWithGunsBlazing>

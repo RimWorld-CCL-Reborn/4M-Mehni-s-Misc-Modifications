@@ -11,6 +11,9 @@ namespace Mehni.Misc.Modifications
 {
     public class MeMiMoSettings : ModSettings
     {
+        #region BigAnimalMigrations
+        public static bool bigAnimalMigrations = false;
+        #endregion
 
         #region AutoUndrafter
         public static bool modifyAutoUndrafter = false;
@@ -125,6 +128,9 @@ namespace Mehni.Misc.Modifications
             options.NewColumn();
             options.Gap(yPos);
 
+            options.CheckboxLabeled("M4_SettingBigAnimalMigrations".Translate(), ref bigAnimalMigrations, "M4_SettingBigAnimalMigrationsToolTip".Translate());
+            options.GapLine();
+
             options.CheckboxLabeled("M4_SettingEnableLargePacks".Translate(), ref enableLargePacks, "M4_SettingLargePackToolTip".Translate());
             options.GapLine();
 
@@ -209,6 +215,7 @@ namespace Mehni.Misc.Modifications
 
         public override void ExposeData()
         {
+            Scribe_Values.Look(ref bigAnimalMigrations, "bigAnimalMigrations", false);
             Scribe_Values.Look(ref modifyAutoUndrafter, "modifyAutoUndrafter", false);
             Scribe_Values.Look(ref whenGunsAreFiring, "whenGunsAreFiring", true);
             Scribe_Values.Look(ref extendUndraftTimeBy, "extendUndraftTimeBy", 5000);
