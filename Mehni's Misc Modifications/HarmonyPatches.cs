@@ -22,7 +22,7 @@ namespace Mehni.Misc.Modifications
         static HarmonyPatches()
         {
             HarmonyInstance harmony = HarmonyInstance.Create("Mehni.RimWorld.4M.Main");
-            HarmonyInstance.DEBUG = true;
+            //HarmonyInstance.DEBUG = true;
 
             harmony.Patch(AccessTools.Method(typeof(IncidentWorker_HerdMigration), "GenerateAnimals"), null,
                 null, new HarmonyMethod(typeof(HarmonyPatches), nameof(BigHerds_Transpiler)));
@@ -417,30 +417,7 @@ namespace Mehni.Misc.Modifications
         }
         #endregion
 
-        //#region NoMortarSlowdown
-        ////real quick, REALLY dirty. You're welcome, Sparty.
-        //private static IEnumerable<CodeInstruction> OnAttackedTarget_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
-        //{
-        //    if (MeMiMoSettings.noForcedMortarSlowdown)
-        //    {
-        //        List<CodeInstruction> ciList = codeInstructions.ToList();
-        //        for (int i = 0; i < ciList.Count; i++)
-        //        {
-        //            //if (base.Faction == Faction.OfPlayer || (target.HasThing && target.Thing.Faction == Faction.OfPlayer))
-        //            //      => removal of base.Faction == Faction.OfPlayer check.
-        //            ciList[i].operand = OpCodes.Nop;
-        //            if (i == 4) break;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        foreach (CodeInstruction ci in codeInstructions)
-        //        {
-        //            yield return ci;
-        //        }
-        //    }
-        //}
-        //#endregion
+
 
         //Courtesy XND
 
@@ -529,11 +506,11 @@ namespace Mehni.Misc.Modifications
             }
         }
 
-        public static ThingDef GetStuffDefFromSettings(BuildableDef def)
+        public static ThingDef GetStuffDefFromSettings(ThingDef def)
         {
             if (def.MadeFromStuff && MeMiMoSettings.stuffDefName != "" && DefDatabase<ThingDef>.GetNamed(MeMiMoSettings.stuffDefName) != null)
                 return DefDatabase<ThingDef>.GetNamed(MeMiMoSettings.stuffDefName);
-            return GenStuff.DefaultStuffFor(def);
+            return GenStuff.RandomStuffFor(def);
         }
 
         public static QualityCategory GenerateQualityFromSettings()
