@@ -40,91 +40,27 @@ namespace Mehni.Misc.Modifications
         public override string GetExplanationUnfinalized(StatRequest req, ToStringNumberSense numberSense)
         {
             ThingDef def = req.Def as ThingDef;
-            if (def == null)
-                return null;
-
-            // Values
             Thing weapon = req.Thing ?? ThingMaker.MakeThing(def);
-            VerbProperties verb = weapon.def.Verbs[0];
-            ProjectileProperties projectile = verb.defaultProjectile.projectile;
-            bool singleUse = verb.verbClass == typeof(Verb_ShootOneUse);
 
-            float damage = projectile.GetDamageAmount(weapon);
-            float cooldown = (singleUse) ? 0f : weapon.GetStatValue(StatDefOf.RangedWeapon_Cooldown).SecondsToTicks().TicksToSeconds();
-            float warmup = verb.warmupTime.SecondsToTicks().TicksToSeconds();
-            float forcedMissRadius = VerbUtility.CalculateAdjustedForcedMiss(verb.forcedMissRadius, new IntVec3((int)Dist, 0, 0));
-            float accuracy = Mathf.Min((forcedMissRadius > 0.5f) ?
-                (float)((verb.CausesExplosion) ? GenRadial.NumCellsInRadius(projectile.explosionRadius) : 1) / GenRadial.NumCellsInRadius(forcedMissRadius) :
-                verb.GetHitChanceFactor(weapon, Dist), 1f);
-            int burstCount = verb.burstShotCount;
-            float burstShotDelay = verb.ticksBetweenBurstShots.TicksToSeconds();
-            float projectileImpactDelay = GetProjectileImpactDelay(projectile.speed, Dist);
-            float explosionDelay = projectile.explosionDelay.TicksToSeconds();
-            int bCMinOne = burstCount - 1;
+            string explanation = RangedWeaponDPSUtility.GetExplanation(weapon, Dist);
 
             if (req.Thing == null)
                 weapon.Destroy();
 
-            StringBuilder expBuilder = new StringBuilder();
-
-            // Damage - Is the weapon burst-fire or single-shot?
-            if (burstCount > 1)
-                expBuilder.AppendLine($"{"M4_DamagePerBurst".Translate()}: {burstCount * damage} ({burstCount} x {damage})");
-            else
-                expBuilder.AppendLine($"{"Damage".Translate()}: {damage}");
-            expBuilder.AppendLine($"{"Accuracy".Translate()}: {accuracy.ToStringPercent()}");
-            expBuilder.AppendLine();
-
-            // Cooldown and Warmup
-            string singleUseText = (singleUse) ? " (" + "M4_WeaponSingleUse".Translate() + ")" : "";
-            expBuilder.AppendLine($"{"CooldownTime".Translate()}: {cooldown.ToString("F2")} s{singleUseText}");
-            expBuilder.AppendLine($"{"WarmupTime".Translate()}: {warmup.ToString("F2")} s");
-
-            // - delay between burst shots
-            if (bCMinOne > 0)
-                expBuilder.AppendLine($"{"M4_BurstShotDelay".Translate()}: {(bCMinOne * burstShotDelay).ToString("F2")} s ({bCMinOne} x {burstShotDelay.ToString("F2")})");
-
-            // Projectile 
-            expBuilder.AppendLine($"{"M4_ProjectileTravelTime".Translate()}: {projectileImpactDelay.ToString("F2")} s");
-            if (explosionDelay > 0f)
-                expBuilder.AppendLine($"{"M4_ProjectileExplosionDelay".Translate()}: {explosionDelay.ToString("F2")} s");
-
-            expBuilder.AppendLine();
-            expBuilder.AppendLine($"DPS = ({burstCount * damage} x {accuracy.ToStringPercent()}) /" +
-                $" {(cooldown + warmup + (bCMinOne * burstShotDelay) + projectileImpactDelay + explosionDelay).ToString("F2")}");
-
-            return expBuilder.ToString();
+            return explanation;
         }
 
         private float GetRangedDamagePerSecond(StatRequest req)
         {
-            // Probably not necessary but better safe than exceptional
             ThingDef def = req.Def as ThingDef;
-            if (def == null)
-                return 0f;
-
             Thing weapon = req.Thing ?? ThingMaker.MakeThing(def);
-            VerbProperties verb = weapon.def.Verbs[0];
-            ProjectileProperties projectile = verb.defaultProjectile.projectile;
-            bool singleUse = verb.verbClass == typeof(Verb_ShootOneUse);
 
-            float damage = projectile.GetDamageAmount(weapon);
-            float cooldown = (singleUse) ? 0f : weapon.GetStatValue(StatDefOf.RangedWeapon_Cooldown).SecondsToTicks().TicksToSeconds();
-            float warmup = verb.warmupTime.SecondsToTicks().TicksToSeconds();
-            float forcedMissRadius = VerbUtility.CalculateAdjustedForcedMiss(verb.forcedMissRadius, new IntVec3((int)Dist, 0, 0));
-            float accuracy = Mathf.Min((forcedMissRadius > 0.5f) ?
-                (float)((verb.CausesExplosion) ? GenRadial.NumCellsInRadius(projectile.explosionRadius) : 1) / GenRadial.NumCellsInRadius(forcedMissRadius) :
-                verb.GetHitChanceFactor(weapon, Dist), 1f);
-            int burstCount = verb.burstShotCount;
-            float burstShotDelay = verb.ticksBetweenBurstShots.TicksToSeconds();
-            float projectileImpactDelay = GetProjectileImpactDelay(projectile.speed, Dist);
-            float explosionDelay = projectile.explosionDelay.TicksToSeconds();
+            float DPS = RangedWeaponDPSUtility.GetDPS(weapon, Dist);
 
-            // Tackle any sort of bloat
             if (req.Thing == null)
                 weapon.Destroy();
 
-            return GetRangedDamagePerSecond(damage, cooldown, warmup, accuracy, burstCount, burstShotDelay, projectileImpactDelay, explosionDelay);
+            return DPS;
         }
 
         //100 from Projectile.StartingTicksToImpact
