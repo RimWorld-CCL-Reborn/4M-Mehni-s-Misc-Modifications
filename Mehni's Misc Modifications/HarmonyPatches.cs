@@ -92,6 +92,9 @@ namespace Mehni.Misc.Modifications
 
             harmony.Patch(AccessTools.Method(typeof(PawnUIOverlay), nameof(PawnUIOverlay.DrawPawnGUIOverlay)), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(DrawPawnGUIOverlay_Postfix)));
+
+            harmony.Patch(AccessTools.Method(typeof(Listing_TreeThingFilter), "DoThingDef"),
+                transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(DoThingDef_Transpiler)));
         }
 
         private static readonly IntRange AnimalsCount = new IntRange(30, 50);
@@ -580,6 +583,69 @@ namespace Mehni.Misc.Modifications
                 GenMapUI.DrawPawnLabel(___pawn, GenMapUI.LabelDrawPosFor(___pawn, -0.6f), font: GameFont.Tiny);
         }
         #endregion
+
+        #region IngredientFilterInfoCards
+        public static IEnumerable<CodeInstruction> DoThingDef_Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> instructionList = instructions.ToList();
+            int lWidthCalls = 0;
+            bool done = false;
+
+            for (int i = 0; i < instructionList.Count; i++)
+            {
+                CodeInstruction instruction = instructionList[i];
+
+                if (instruction.opcode == OpCodes.Callvirt && instruction.operand == AccessTools.Property(typeof(Listing_Tree), "LabelWidth").GetGetMethod(true))
+                {
+                    lWidthCalls++;
+                }
+
+
+                if (lWidthCalls != 3 && instruction.opcode == OpCodes.Callvirt && instruction.operand == AccessTools.Property(typeof(Listing_Tree), "LabelWidth").GetGetMethod(true))
+                {
+                    yield return instruction;
+                    instruction = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), nameof(AdjustedWidth)));
+                }
+
+                // Wasn't able to get Widgets.Checkbox since AccessTools.Method returned null even with the correct overload params
+                if (!done && instruction.opcode == OpCodes.Call && instructionList[(i + 3)].opcode == OpCodes.Beq)
+                {
+                    yield return instruction;
+                    yield return new CodeInstruction(OpCodes.Ldarg_0);
+                    yield return new CodeInstruction(OpCodes.Callvirt, AccessTools.Property(typeof(Listing_Tree), "LabelWidth").GetGetMethod(true));
+                    yield return new CodeInstruction(OpCodes.Ldarg_0);
+                    yield return new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(Listing_TreeThingFilter), "curY"));
+                    yield return new CodeInstruction(OpCodes.Ldarg_1);
+                    instruction = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), nameof(DoInfoCardButton)));
+                    done = true;
+                }
+
+                yield return instruction;
+            }
+        }
+
+        private static float AdjustedWidth(float width) => 
+            width + ((MeMiMoSettings.thingFilterInfoCards) ? widthOffset : 0f);
+            
+
+        private static void DoInfoCardButton(float x, float y, ThingDef def)
+        {
+            if (MeMiMoSettings.thingFilterInfoCards)
+            {
+                Widgets.InfoCardButton(x + xOffset, y + yOffset, def);
+            }
+        }
+
+        //[TweakValue("AAAMehniMiscMods", -50f, 50f)]
+        private static float widthOffset = -19f;
+
+        //[TweakValue("AAAMehniMiscMods", -50f, 50f)]
+        private static float xOffset = -21f;
+
+        //[TweakValue("AAAMehniMiscMods", -50f, 50f)]
+        private static float yOffset = -2.25f;
+        #endregion
+
     }
 
     [DefOf]

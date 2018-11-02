@@ -52,8 +52,9 @@ namespace Mehni.Misc.Modifications
             float damage = projectile.GetDamageAmount(weapon);
             float cooldown = (singleUse) ? 0f : weapon.GetStatValue(StatDefOf.RangedWeapon_Cooldown).SecondsToTicks().TicksToSeconds();
             float warmup = verb.warmupTime.SecondsToTicks().TicksToSeconds();
-            float accuracy = Mathf.Min((verb.forcedMissRadius > 0.5f) ?
-                (float)((verb.CausesExplosion) ? GenRadial.NumCellsInRadius(projectile.explosionRadius) : 1) / GenRadial.NumCellsInRadius(verb.forcedMissRadius) :
+            float forcedMissRadius = VerbUtility.CalculateAdjustedForcedMiss(verb.forcedMissRadius, new IntVec3((int)Dist, 0, 0));
+            float accuracy = Mathf.Min((forcedMissRadius > 0.5f) ?
+                (float)((verb.CausesExplosion) ? GenRadial.NumCellsInRadius(projectile.explosionRadius) : 1) / GenRadial.NumCellsInRadius(forcedMissRadius) :
                 verb.GetHitChanceFactor(weapon, Dist), 1f);
             int burstCount = verb.burstShotCount;
             float burstShotDelay = verb.ticksBetweenBurstShots.TicksToSeconds();
@@ -110,8 +111,9 @@ namespace Mehni.Misc.Modifications
             float damage = projectile.GetDamageAmount(weapon);
             float cooldown = (singleUse) ? 0f : weapon.GetStatValue(StatDefOf.RangedWeapon_Cooldown).SecondsToTicks().TicksToSeconds();
             float warmup = verb.warmupTime.SecondsToTicks().TicksToSeconds();
-            float accuracy = Mathf.Min((verb.forcedMissRadius > 0.5f) ?
-                (float)((verb.CausesExplosion) ? GenRadial.NumCellsInRadius(projectile.explosionRadius) : 1) / GenRadial.NumCellsInRadius(verb.forcedMissRadius) :
+            float forcedMissRadius = VerbUtility.CalculateAdjustedForcedMiss(verb.forcedMissRadius, new IntVec3((int)Dist, 0, 0));
+            float accuracy = Mathf.Min((forcedMissRadius > 0.5f) ?
+                (float)((verb.CausesExplosion) ? GenRadial.NumCellsInRadius(projectile.explosionRadius) : 1) / GenRadial.NumCellsInRadius(forcedMissRadius) :
                 verb.GetHitChanceFactor(weapon, Dist), 1f);
             int burstCount = verb.burstShotCount;
             float burstShotDelay = verb.ticksBetweenBurstShots.TicksToSeconds();

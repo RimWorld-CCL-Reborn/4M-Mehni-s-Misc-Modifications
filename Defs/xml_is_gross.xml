@@ -19,7 +19,7 @@
     <StatDef ParentName="RangedDPSBase">
         <defName>RangedWeapon_ShortDPS</defName>
         <label>ranged DPS (short)</label>
-        <description>The weapon's damage per second at a distance of 15 cells. The actual damage per second will also be affected by other factors.</description>
+        <description>The weapon's damage per second at a distance of 12 cells. The actual damage per second will also be affected by other factors.</description>
         <displayPriorityInCategory>1499</displayPriorityInCategory>
     </StatDef>
 
@@ -49,28 +49,28 @@
     <StatDef ParentName="RangedDPSPawnBase">
         <defName>RangedWeapon_TouchDPSPawn</defName>
         <label>ranged DPS (close)</label>
-        <description>The pawn's ranged damage per second at a distance of 3 cells or less. The actual damage per second will also be affected by other factors.</description>
+        <description>Average damage per second in ranged combat at a distance of 3 cells. This stat ignores target defenses like armor, as well as other factors such as the target's body size and environmental factors.</description>
         <displayPriorityInCategory>110</displayPriorityInCategory>
     </StatDef>
 
     <StatDef ParentName="RangedDPSPawnBase">
         <defName>RangedWeapon_ShortDPSPawn</defName>
         <label>ranged DPS (short)</label>
-        <description>The pawn's ranged damage per second at a distance of 15 cells. The actual damage per second will also be affected by other factors.</description>
+        <description>Average damage per second in ranged combat at a distance of 12 cells. This stat ignores target defenses like armor, as well as other factors such as the target's body size and environmental factors.</description>
         <displayPriorityInCategory>109</displayPriorityInCategory>
     </StatDef>
 
     <StatDef ParentName="RangedDPSPawnBase">
         <defName>RangedWeapon_MediumDPSPawn</defName>
         <label>ranged DPS (medium)</label>
-        <description>The pawn's ranged damage per second at a distance of 25 cells. The actual damage per second will also be affected by other factors.</description>
+        <description>Average damage per second in ranged combat at a distance of 25 cells. This stat ignores target defenses like armor, as well as other factors such as the target's body size and environmental factors.</description>
         <displayPriorityInCategory>108</displayPriorityInCategory>
     </StatDef>
 
     <StatDef ParentName="RangedDPSPawnBase">
         <defName>RangedWeapon_LongDPSPawn</defName>
         <label>ranged DPS (long)</label>
-        <description>The pawn's ranged damage per second at a distance of 40 cells or more. The actual damage per second will also be affected by other factors.</description>
+        <description>Average damage per second in ranged combat at a distance of 40 cells. This stat ignores target defenses like armor, as well as other factors such as the target's body size and environmental factors.</description>
         <displayPriorityInCategory>107</displayPriorityInCategory>
     </StatDef>
 
