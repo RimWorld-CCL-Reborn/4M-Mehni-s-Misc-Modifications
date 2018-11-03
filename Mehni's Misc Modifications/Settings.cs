@@ -78,6 +78,10 @@ namespace Mehni.Misc.Modifications
         public static bool displayRangedDPS = true;
         #endregion
 
+        #region ThingFilterInfoCards
+        public static bool thingFilterInfoCards = true;
+        #endregion
+
         //#region HideDisfigurement
         //public static bool apparelHidesDisfigurement = true;
         //#endregion
@@ -87,7 +91,7 @@ namespace Mehni.Misc.Modifications
 
         // Value to modify when adding new settings
         //[TweakValue("AAAMehniMiscMods", max: 500f)]
-        private static float moreOptionsRecty = 240f;
+        private static float moreOptionsRecty = 270f;
 
         //[TweakValue("AAAMehniMiscMods")]
         private static float widthFiddler = 9f;
@@ -120,6 +124,9 @@ namespace Mehni.Misc.Modifications
             options.CheckboxLabeled("M4_BetterHostileReadouts".Translate(), ref betterHostileReadouts, "M4_BetterHostileReadouts_Desc".Translate());
             options.GapLine();
 
+            options.SliderLabeled("M4_LessLitterLouting".Translate(), ref humanFilthRate, Math.Round(humanFilthRate, 2).ToString(), 0, 25, "M4_LessLitterLoutingToolTip".Translate());
+            options.GapLine();
+
             options.CheckboxLabeled("M4_ObedientPredatorsDontHuntTameDesignatedPawns".Translate(), ref obedientPredatorsDeferHuntingTameDesignatedAnimals, "M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc".Translate());
             options.SliderLabeled("M4_AnimalInteractionHourLimit".Translate(), ref animalInteractionHourLimit, animalInteractionHourLimit + "h", 0, 24, "M4_AnimalInteractionHourLimit_Desc".Translate());    
 
@@ -135,6 +142,9 @@ namespace Mehni.Misc.Modifications
             options.GapLine();
 
             options.CheckboxLabeled("M4_TutorialStyleRolling".Translate(), ref enableTutorialStyleRolling, "M4_TutorialStyleRollingDesc".Translate());
+            options.GapLine();
+
+            options.CheckboxLabeled("M4_ThingFilterInfoCards".Translate(), ref thingFilterInfoCards, "M4_ThingFilterInfoCards_Desc".Translate());
             options.GapLine();
 
             options.CheckboxLabeled("M4_DisplayRangedDPS".Translate(), ref displayRangedDPS, "M4_DisplayRangedDPS_Desc".Translate());
@@ -192,9 +202,6 @@ namespace Mehni.Misc.Modifications
             GUI.color = defaultColor;
             moreOptions.GapLine();
 
-            moreOptions.SliderLabeled("M4_LessLitterLouting".Translate(), ref humanFilthRate, Math.Round(humanFilthRate, 2).ToString(), 0, 25, "M4_LessLitterLoutingToolTip".Translate());
-            moreOptions.GapLine();
-
             moreOptions.CheckboxLabeled("I am a modders FFS", ref iAmAModder, "Removes the 6 second cooldown on workshop submissions, unlocks special options.");
             if (iAmAModder)
             {
@@ -235,6 +242,7 @@ namespace Mehni.Misc.Modifications
             Scribe_Values.Look(ref iAmAModder, "iAmAModder", false);
             Scribe_Values.Look(ref betterHostileReadouts, "betterHostileReadouts", true);
             Scribe_Values.Look(ref displayRangedDPS, "displayRangedDPS", true);
+            Scribe_Values.Look(ref thingFilterInfoCards, "thingFilterInfoCards", true);
         }
     }
 
