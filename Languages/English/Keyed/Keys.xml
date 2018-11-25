@@ -73,4 +73,7 @@
     <M4_DisplayRangedDPS>Display ranged DPS</M4_DisplayRangedDPS>
     <M4_DisplayRangedDPS_Desc>Ranged weapons and pawns will show their ranged DPS at close, short, medium and long distances. Advisable to disable if running Combat Extended.</M4_DisplayRangedDPS_Desc>
 
+    <M4_ThingFilterInfoCards>Add info button to filters</M4_ThingFilterInfoCards>
+    <M4_ThingFilterInfoCards_Desc>When viewing stockpile filters or configuring recipe ingredients, there will be a clickable i to bring up that item's info card.</M4_ThingFilterInfoCards_Desc>
+
 </LanguageData>
