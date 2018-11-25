@@ -499,9 +499,9 @@ namespace Mehni.Misc.Modifications
 
                 if (instruction.opcode == OpCodes.Call)
                 {
-                    if (instruction.operand == randomStuffFor && MeMiMoSettings.chooseItemStuff)
+                    if (instruction.operand == randomStuffFor)
                         instruction.operand = getStuffDefFromSettings;
-                    else if (instruction.operand == generateQualityRandomEqualChance && MeMiMoSettings.forceItemQuality)
+                    else if (instruction.operand == generateQualityRandomEqualChance)
                         instruction.operand = generateQualityFromSettings;
                 }
 
@@ -511,13 +511,16 @@ namespace Mehni.Misc.Modifications
 
         public static ThingDef GetStuffDefFromSettings(ThingDef def)
         {
-            if (def.MadeFromStuff && MeMiMoSettings.stuffDefName != "" && DefDatabase<ThingDef>.GetNamed(MeMiMoSettings.stuffDefName) != null)
+            if (def.MadeFromStuff && MeMiMoSettings.chooseItemStuff && MeMiMoSettings.stuffDefName != "" && DefDatabase<ThingDef>.GetNamed(MeMiMoSettings.stuffDefName) != null)
                 return DefDatabase<ThingDef>.GetNamed(MeMiMoSettings.stuffDefName);
             return GenStuff.RandomStuffFor(def);
         }
 
         public static QualityCategory GenerateQualityFromSettings()
         {
+            if (!MeMiMoSettings.forceItemQuality)
+                return QualityUtility.GenerateQualityRandomEqualChance();
+
             switch (MeMiMoSettings.forcedItemQuality)
             {
                 case 0:

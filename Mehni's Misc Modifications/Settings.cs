@@ -89,12 +89,26 @@ namespace Mehni.Misc.Modifications
         //[TweakValue("AAAMehniMiscMods")]
         private static float yPos = 43f;
 
-        // Value to modify when adding new settings
+        // Value to modify when adding new settings, pushing the scrollview down.
         //[TweakValue("AAAMehniMiscMods", max: 500f)]
         private static float moreOptionsRecty = 270f;
 
         //[TweakValue("AAAMehniMiscMods")]
         private static float widthFiddler = 9f;
+
+        //value to modify when adding more settings to the scrollview.
+        //[TweakValue("AAAMehniMiscMods", 0, 1200f)]
+        private static float viewHeight = 650f;
+
+        //Value where the rect stops.
+        //[TweakValue("AAAMehniMiscMods", 0, 1200f)]
+        private static float yMax = 620;
+
+        //Do not touch.
+        //[TweakValue("AAAMehniMiscMods", 0, 1200f)]
+        private static float height = 640;
+
+        private static Vector2 scrollVector2;
 
         public void DoWindowContents(Rect wrect)
         {
@@ -115,7 +129,7 @@ namespace Mehni.Misc.Modifications
 
             // Left column
 
-            options.CheckboxLabeled("M4_NotifyDeadAnimals".Translate(), ref deathMessagesForAnimals, "M4_NotifyDeadAnimalsDesc".Translate());
+            options.CheckboxLabeled("M4_NotifyDeadAnimals".Translate(), ref deathMessagesForAnimals, "M4_NotifyDeadAnimals_Desc".Translate());
             options.GapLine();
 
             options.CheckboxLabeled("M4_TimetableAssignmentMatters".Translate(), ref workAssignmentMatters, "M4_TimetableAssignmentMatters_Desc".Translate());
@@ -124,10 +138,10 @@ namespace Mehni.Misc.Modifications
             options.CheckboxLabeled("M4_BetterHostileReadouts".Translate(), ref betterHostileReadouts, "M4_BetterHostileReadouts_Desc".Translate());
             options.GapLine();
 
-            options.SliderLabeled("M4_LessLitterLouting".Translate(), ref humanFilthRate, Math.Round(humanFilthRate, 2).ToString(), 0, 25, "M4_LessLitterLoutingToolTip".Translate());
+            options.SliderLabeled("M4_LessLitterLouting".Translate(), ref humanFilthRate, Math.Round(humanFilthRate, 2).ToString(), 0, 25, "M4_LessLitterLouting_Desc".Translate());
             options.GapLine();
 
-            options.CheckboxLabeled("M4_ObedientPredatorsDontHuntTameDesignatedPawns".Translate(), ref obedientPredatorsDeferHuntingTameDesignatedAnimals, "M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc".Translate());
+            options.CheckboxLabeled("M4_ObedientPredatorsDontHuntTameDesignatedPawns".Translate(), ref obedientPredatorsDeferHuntingTameDesignatedAnimals, "M4_ObedientPredatorsDontHuntTameDesignatedPawns_Desc".Translate());
             options.SliderLabeled("M4_AnimalInteractionHourLimit".Translate(), ref animalInteractionHourLimit, animalInteractionHourLimit + "h", 0, 24, "M4_AnimalInteractionHourLimit_Desc".Translate());    
 
             // Right column
@@ -135,13 +149,13 @@ namespace Mehni.Misc.Modifications
             options.NewColumn();
             options.Gap(yPos);
 
-            options.CheckboxLabeled("M4_SettingBigAnimalMigrations".Translate(), ref bigAnimalMigrations, "M4_SettingBigAnimalMigrationsToolTip".Translate());
+            options.CheckboxLabeled("M4_SettingBigAnimalMigrations".Translate(), ref bigAnimalMigrations, "M4_SettingBigAnimalMigrations_Desc".Translate());
             options.GapLine();
 
-            options.CheckboxLabeled("M4_SettingEnableLargePacks".Translate(), ref enableLargePacks, "M4_SettingLargePackToolTip".Translate());
+            options.CheckboxLabeled("M4_SettingEnableLargePacks".Translate(), ref enableLargePacks, "M4_SettingLargePack_Desc".Translate());
             options.GapLine();
 
-            options.CheckboxLabeled("M4_TutorialStyleRolling".Translate(), ref enableTutorialStyleRolling, "M4_TutorialStyleRollingDesc".Translate());
+            options.CheckboxLabeled("M4_TutorialStyleRolling".Translate(), ref enableTutorialStyleRolling, "M4_TutorialStyleRolling_Desc".Translate());
             options.GapLine();
 
             options.CheckboxLabeled("M4_ThingFilterInfoCards".Translate(), ref thingFilterInfoCards, "M4_ThingFilterInfoCards_Desc".Translate());
@@ -154,22 +168,35 @@ namespace Mehni.Misc.Modifications
 
             // More options
 
+            Listing_Standard gapline = new Listing_Standard();
+            Rect gapliRect = new Rect(wrect.x, wrect.y + moreOptionsRecty -35f, wrect.width, wrect.height);
+            gapline.Begin(gapliRect);
+            gapline.GapLine();
+            gapline.End();
+
             Listing_Standard moreOptions = new Listing_Standard();
             Rect moreOptionsRect = wrect;
-            moreOptionsRect.y = moreOptionsRecty;
+            moreOptionsRect.y = (moreOptionsRecty + 20f) / 2;
+            moreOptionsRect.height = height / 2;
+            moreOptionsRect.yMax = yMax;
+
+            Rect viewRect = new Rect(0,0,wrect.width -18f, viewHeight);
+            viewRect.width -= 18f;
+
             moreOptions.Begin(moreOptionsRect);
-            moreOptions.GapLine();
+
+            moreOptions.BeginScrollView(moreOptionsRect, ref scrollVector2, ref viewRect);
 
             if (!modifyAutoUndrafter)
             {
                 GUI.color = Color.grey;
             }
-            moreOptions.CheckboxLabeled("M4_SettingModifyAutoUndrafter".Translate(), ref modifyAutoUndrafter, "M4_SettingModifyAutoUndrafterToolTip".Translate());
+            moreOptions.CheckboxLabeled("M4_SettingModifyAutoUndrafter".Translate(), ref modifyAutoUndrafter, "M4_SettingModifyAutoUndrafter_Desc".Translate());
             if (modifyAutoUndrafter)
             {
                 moreOptions.SliderLabeled("M4_SettingExtendUndraftTimeBy".Translate(), ref extendUndraftTimeBy, extendUndraftTimeBy.ToStringTicksToPeriod(), 0, 60000);
-                moreOptions.CheckboxLabeled("M4_SettingWithGunsBlazing".Translate(), ref whenGunsAreFiring,         "M4_SettingGunsBlazingToolTip".Translate());
-                moreOptions.CheckboxLabeled("M4_SettingLowMoodUndraft".Translate(),  ref allowAutoUndraftAtLowMood, "M4_SettingLowMoodUndraftDesc".Translate());
+                moreOptions.CheckboxLabeled("M4_SettingWithGunsBlazing".Translate(), ref whenGunsAreFiring,         "M4_SettingGunsBlazing_Desc".Translate());
+                moreOptions.CheckboxLabeled("M4_SettingLowMoodUndraft".Translate(),  ref allowAutoUndraftAtLowMood, "M4_SettingLowMoodUndraft_Desc".Translate());
                 GUI.color = defaultColor;
                 if (!modifyAutoUndrafter || !allowAutoUndraftAtLowMood)
                 {
@@ -181,19 +208,19 @@ namespace Mehni.Misc.Modifications
             GUI.color = defaultColor;
             moreOptions.GapLine();
 
-            moreOptions.CheckboxLabeled("M4_SettingVariableRaidRetreat".Translate(), ref variableRaidRetreat, "M4_SettingVariableRaidToolTip".Translate());
+            moreOptions.CheckboxLabeled("M4_SettingVariableRaidRetreat".Translate(), ref variableRaidRetreat, "M4_SettingVariableRaid_Desc".Translate());
             if (!variableRaidRetreat)
             {
                 GUI.color = Color.grey;
             }
             moreOptions.Gap(2);
-            moreOptions.FloatRange("M4_SettingRetreatAtPercentageDefeated".Translate(), ref retreatDefeatRange, 0f, 1f, "M4_SettingRandomRaidRetreatToolTip".Translate(
+            moreOptions.FloatRange("M4_SettingRetreatAtPercentageDefeated".Translate(), ref retreatDefeatRange, 0f, 1f, "M4_SettingRandomRaidRetreat_Desc".Translate(
                 retreatDefeatRange.min.ToStringByStyle(ToStringStyle.PercentZero),
                 retreatDefeatRange.max.ToStringByStyle(ToStringStyle.PercentZero)
             ), ToStringStyle.PercentZero);
             moreOptions.GapLine();
 
-            moreOptions.CheckboxLabeled("M4_SettingDontLeaveJustYet".Translate(), ref allowLongerStays, "M4_SettingDontLeaveJustYetToolTip".Translate());
+            moreOptions.CheckboxLabeled("M4_SettingDontLeaveJustYet".Translate(), ref allowLongerStays, "M4_SettingDontLeaveJustYet_Desc".Translate());
             if (!allowLongerStays)
             {
                 GUI.color = Color.grey;
@@ -215,8 +242,9 @@ namespace Mehni.Misc.Modifications
                 moreOptions.SliderLabeled("Item quality", ref forcedItemQuality, ((QualityCategory)forcedItemQuality).ToString(), 0, 6);
                 moreOptions.GapLine();
             }
+            moreOptions.EndScrollView(ref viewRect);
             moreOptions.End();
-
+            
             Mod.GetSettings<MeMiMoSettings>().Write();
         }
 

@@ -14,31 +14,31 @@
     <!-- Settings -->
     <M4_GreySettingsIgnored>Greyed out settings are ignored</M4_GreySettingsIgnored>
 	<M4_SettingCatsCanHunt>Cats Can Hunt Again</M4_SettingCatsCanHunt>
-    <M4_SettingCatsCanHuntToolTip>Vanilla bugfix: Allows animals (like cats) to hunt smaller critters (like rats) again.</M4_SettingCatsCanHuntToolTip>
+    <M4_SettingCatsCanHunt_Desc>Vanilla bugfix: Allows animals (like cats) to hunt smaller critters (like rats) again.</M4_SettingCatsCanHunt_Desc>
 
     <M4_SettingBigAnimalMigrations>Bring back big herd migrations</M4_SettingBigAnimalMigrations>
-    <M4_SettingBigAnimalMigrationsToolTip>With this setting enabled, expect herd migrations to contain between 30 and 50 animals, regardless of bodysize.</M4_SettingBigAnimalMigrationsToolTip>
+    <M4_SettingBigAnimalMigrations_Desc>With this setting enabled, expect herd migrations to contain between 30 and 50 animals, regardless of bodysize.</M4_SettingBigAnimalMigrations_Desc>
 
     <M4_SettingModifyAutoUndrafter>Modify the Auto Undrafter</M4_SettingModifyAutoUndrafter>
-    <M4_SettingModifyAutoUndrafterToolTip>Various options for lengthening the time it takes for a colonist to undraft themselves.</M4_SettingModifyAutoUndrafterToolTip>
+    <M4_SettingModifyAutoUndrafter_Desc>Various options for lengthening the time it takes for a colonist to undraft themselves.</M4_SettingModifyAutoUndrafter_Desc>
     <M4_SettingWithGunsBlazing>Stay drafted when there's gunfire on the map.</M4_SettingWithGunsBlazing>
-    <M4_SettingGunsBlazingToolTip>Pawns stay drafted as long as someone is firing a gun on the map.</M4_SettingGunsBlazingToolTip>
+    <M4_SettingGunsBlazing_Desc>Pawns stay drafted as long as someone is firing a gun on the map.</M4_SettingGunsBlazing_Desc>
     <M4_SettingExtendUndraftTimeBy>Extend the time to undraft by:</M4_SettingExtendUndraftTimeBy>
-    <M4_SettingExtendUndraftTimeByToolTip>The vanilla value is 5000 ticks, a little under a RimWorld hour. This setting *adds* to the 5000 ticks. Note that colonists actively engaged in combat will not undraft themselves (under normal circumstances).</M4_SettingExtendUndraftTimeByToolTip>
+    <M4_SettingExtendUndraftTimeBy_Desc>The vanilla value is 5000 ticks, a little under a RimWorld hour. This setting *adds* to the 5000 ticks. Note that colonists actively engaged in combat will not undraft themselves (under normal circumstances).</M4_SettingExtendUndraftTimeBy_Desc>
     <M4_SettingLowMoodUndraft>... but undraft when at:</M4_SettingLowMoodUndraft>
-    <M4_SettingLowMoodUndraftDesc>Allow the regular AutoUndrafter to kick in when colonists are at low mood.</M4_SettingLowMoodUndraftDesc>
+    <M4_SettingLowMoodUndraft_Desc>Allow the regular AutoUndrafter to kick in when colonists are at low mood.</M4_SettingLowMoodUndraft_Desc>
 
     <M4_SettingEnableLargePacks>Allow large manhunter packs?</M4_SettingEnableLargePacks>
-    <M4_SettingLargePackToolTip>By default, RimWorld stops sending manhunter packs at high raid points. This changes that.</M4_SettingLargePackToolTip>
+    <M4_SettingLargePack_Desc>By default, RimWorld stops sending manhunter packs at high raid points. This changes that.</M4_SettingLargePack_Desc>
 
     <M4_SettingVariableRaidRetreat>Change the threshold at which raids flee</M4_SettingVariableRaidRetreat>
-    <M4_SettingVariableRaidToolTip>By default, raiders give up at 50% losses. This allows you to change it. Does not apply to mechanoids and other factions which don't flee.</M4_SettingVariableRaidToolTip>
+    <M4_SettingVariableRaid_Desc>By default, raiders give up at 50% losses. This allows you to change it. Does not apply to mechanoids and other factions which don't flee.</M4_SettingVariableRaid_Desc>
     <M4_SettingRandomRaidRetreat>Flee at random value?</M4_SettingRandomRaidRetreat>
-    <M4_SettingRandomRaidRetreatToolTip>Raiders will flee somewhere between {0} and {1} losses.</M4_SettingRandomRaidRetreatToolTip>
+    <M4_SettingRandomRaidRetreat_Desc>Raiders will flee somewhere between {0} and {1} losses.</M4_SettingRandomRaidRetreat_Desc>
     <M4_SettingRetreatAtPercentageDefeated>Flee when this many raiders have died:</M4_SettingRetreatAtPercentageDefeated>
 
     <M4_SettingDontLeaveJustYet>Lengthen the time on caravan maps</M4_SettingDontLeaveJustYet>
-    <M4_SettingDontLeaveJustYetToolTip>NOTE: Does not apply to existing caravan maps and changes to these settings are not applied until you restart the game.</M4_SettingDontLeaveJustYetToolTip>
+    <M4_SettingDontLeaveJustYet_Desc>NOTE: Does not apply to existing caravan maps and changes to these settings are not applied until you restart the game.</M4_SettingDontLeaveJustYet_Desc>
     <M4_SettingDaysUntilKickedOut>... by this many days:</M4_SettingDaysUntilKickedOut>
 
     <M4_ColonistNeedsUrgentCare>Colonist needs urgent treatment</M4_ColonistNeedsUrgentCare>
@@ -47,19 +47,19 @@
     <M4_HarvestYieldThingDetailInit>What this plant yields when harvested by a colonist. Information about {0} is as follows...</M4_HarvestYieldThingDetailInit>
 
     <M4_TutorialStyleRolling>Disable pacifists during rolling</M4_TutorialStyleRolling>
-    <M4_TutorialStyleRollingDesc>If this is enabled, non-violents will be removed from the available colonist pool during the starting screen. That means you'll never roll Emmie the Sex Slave, or Roughchild the Reporter</M4_TutorialStyleRollingDesc>
+    <M4_TutorialStyleRolling_Desc>If this is enabled, non-violents will be removed from the available colonist pool during the starting screen. That means you'll never roll Emmie the Sex Slave, or Roughchild the Reporter</M4_TutorialStyleRolling_Desc>
 
     <M4_NotifyDeadAnimals>Tell me about every dead colony animal!</M4_NotifyDeadAnimals>
-    <M4_NotifyDeadAnimalsDesc>When disabled, this removes the Death notification message for colony animals. This includes bonded animals.</M4_NotifyDeadAnimalsDesc>
+    <M4_NotifyDeadAnimals_Desc>When disabled, this removes the Death notification message for colony animals. This includes bonded animals.</M4_NotifyDeadAnimals_Desc>
 
     <M4_LessLitterLouting>Human filth rate</M4_LessLitterLouting>
-    <M4_LessLitterLoutingToolTip>How much filth and trash a human produces per 1000 cells. Default value is 5.</M4_LessLitterLoutingToolTip>
+    <M4_LessLitterLouting_Desc>How much filth and trash a human produces per 1000 cells. Default value is 5.</M4_LessLitterLouting_Desc>
 
     <M4_NoForcedMortarSlowDown>Remove mortar shot slowdown</M4_NoForcedMortarSlowDown>
-    <M4_NoForcedMortarSlowDownDesc>If there is an X here, game will slow down when you fire a mortar.</M4_NoForcedMortarSlowDownDesc>
+    <M4_NoForcedMortarSlowDown_Desc>If there is an X here, game will slow down when you fire a mortar.</M4_NoForcedMortarSlowDown_Desc>
 
     <M4_ObedientPredatorsDontHuntTameDesignatedPawns>Animals marked for taming aren't tasty to your predators</M4_ObedientPredatorsDontHuntTameDesignatedPawns>
-    <M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc>When enabled, any tame predator that is obedience-trained will defer hunting any wild animals that are designated to be tamed.</M4_ObedientPredatorsDontHuntTameDesignatedPawnsDesc>
+    <M4_ObedientPredatorsDontHuntTameDesignatedPawns_Desc>When enabled, any tame predator that is obedience-trained will defer hunting any wild animals that are designated to be tamed.</M4_ObedientPredatorsDontHuntTameDesignatedPawns_Desc>
     <M4_AnimalInteractionHourLimit>Stop interacting with animals past</M4_AnimalInteractionHourLimit>
     <M4_AnimalInteractionHourLimit_Desc>Colonists that are assigned to animal handling will stop trying to interact with animals past this hour of the day, so that animals are less likely to fall asleep on them during taming/training which wastes food. Set to 24 to effectively disable.</M4_AnimalInteractionHourLimit_Desc>
     <M4_CantInteractAnimalWillFallAsleepSoon>animal will fall asleep soon</M4_CantInteractAnimalWillFallAsleepSoon>
@@ -75,5 +75,4 @@
 
     <M4_ThingFilterInfoCards>Add info button to filters</M4_ThingFilterInfoCards>
     <M4_ThingFilterInfoCards_Desc>When viewing stockpile filters or configuring recipe ingredients, there will be a clickable i to bring up that item's info card.</M4_ThingFilterInfoCards_Desc>
-
 </LanguageData>
