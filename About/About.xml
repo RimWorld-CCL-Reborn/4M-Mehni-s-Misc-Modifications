@@ -4,7 +4,7 @@
 	<author>Mehni</author>
 	<targetVersion>1.0.0</targetVersion>
 	<url>https://github.com/Mehni/4M-Mehni-s-Misc-Modifications/releases/latest</url>
-	<description>v0.1.1.7\n\n
+	<description>v0.1.1.8\n\n
 	Adds various settings to customise your RimWorld experience.
 	
 Current features include:
@@ -20,5 +20,6 @@ Current features include:
 	- Various (AI) tweaks and settings (custom filth rate, don't interact with animals before bedtime)
 	- Mods for modders. Remove the 6 second cooldown on workshop submissions
 	- Show DPS info on all (modded) weapons (Thanks XeoNovaDan!)
-	- Devmode spawn tweaks</description>
+	- Devmode spawn tweaks
+	- Alert when the NPD can't be used</description>
 </ModMetaData>

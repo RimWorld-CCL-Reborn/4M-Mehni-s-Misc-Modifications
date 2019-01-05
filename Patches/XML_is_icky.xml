@@ -4,14 +4,14 @@
     <!-- work assignment matters -->
 
     <Operation Class="PatchOperationAdd">
-        <xpath>*/StatDef[defName="WorkSpeedGlobal"]/parts</xpath>
+        <xpath>Defs/StatDef[defName="WorkSpeedGlobal"]/parts</xpath>
         <value>
             <li Class="Mehni.Misc.Modifications.StatPart_TimeTable"/>
         </value>
     </Operation>
 
     <Operation Class="PatchOperationAddModExtension">
-        <xpath>*/TimeAssignmentDef[defName="Joy" or defName="Sleep"]</xpath>
+        <xpath>Defs/TimeAssignmentDef[defName="Joy" or defName="Sleep"]</xpath>
         <value>
             <li Class="Mehni.Misc.Modifications.TimeAssignmentExtension">
                 <globalWorkSpeedFactor>0.8</globalWorkSpeedFactor>
@@ -20,7 +20,7 @@
     </Operation>
 
     <Operation Class="PatchOperationAddModExtension">
-        <xpath>*/TimeAssignmentDef[defName="Work"]</xpath>
+        <xpath>Defs/TimeAssignmentDef[defName="Work"]</xpath>
         <value>
             <li Class="Mehni.Misc.Modifications.TimeAssignmentExtension">
                 <globalWorkSpeedFactor>1.2</globalWorkSpeedFactor>

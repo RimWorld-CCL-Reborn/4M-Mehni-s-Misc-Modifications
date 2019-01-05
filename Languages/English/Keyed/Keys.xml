@@ -75,4 +75,8 @@
 
     <M4_ThingFilterInfoCards>Add info button to filters</M4_ThingFilterInfoCards>
     <M4_ThingFilterInfoCards_Desc>When viewing stockpile filters or configuring recipe ingredients, there will be a clickable i to bring up that item's info card.</M4_ThingFilterInfoCards_Desc>
+
+    <M4_NPDNeedsSpace>Paste dispenser needs space</M4_NPDNeedsSpace>
+    <M4_NPDNeedsSpace_Desc>One of your nutrient paste dispensers has its interaction cell blocked by an obstruction that will prevent colonists from using it.\n\nA nutrient paste dispenser needs an unblocked interaction cell to be usable.</M4_NPDNeedsSpace_Desc>
+
 </LanguageData>

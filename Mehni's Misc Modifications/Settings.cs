@@ -244,7 +244,7 @@ namespace Mehni.Misc.Modifications
             }
             moreOptions.EndScrollView(ref viewRect);
             moreOptions.End();
-            
+
             Mod.GetSettings<MeMiMoSettings>().Write();
         }
 

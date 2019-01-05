@@ -11,7 +11,7 @@ namespace Mehni.Misc.Modifications
     [DefOf]
     public static class MeMiMo_StatDefOf
     {
-
+        // ReSharper disable InconsistentNaming
         public static StatDef RangedWeapon_TouchDPS;
         public static StatDef RangedWeapon_ShortDPS;
         public static StatDef RangedWeapon_MediumDPS;
