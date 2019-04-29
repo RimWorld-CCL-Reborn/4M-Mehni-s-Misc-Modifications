@@ -194,7 +194,7 @@ namespace Mehni.Misc.Modifications
             moreOptions.CheckboxLabeled("M4_SettingModifyAutoUndrafter".Translate(), ref modifyAutoUndrafter, "M4_SettingModifyAutoUndrafter_Desc".Translate());
             if (modifyAutoUndrafter)
             {
-                moreOptions.SliderLabeled("M4_SettingExtendUndraftTimeBy".Translate(), ref extendUndraftTimeBy, extendUndraftTimeBy.ToStringTicksToPeriod(), 0, 60000);
+                moreOptions.SliderLabeled("M4_SettingExtendUndraftTimeBy".Translate(), ref extendUndraftTimeBy, extendUndraftTimeBy.ToStringTicksToPeriod(), 0, GenDate.TicksPerDay);
                 moreOptions.CheckboxLabeled("M4_SettingWithGunsBlazing".Translate(), ref whenGunsAreFiring,         "M4_SettingGunsBlazing_Desc".Translate());
                 moreOptions.CheckboxLabeled("M4_SettingLowMoodUndraft".Translate(),  ref allowAutoUndraftAtLowMood, "M4_SettingLowMoodUndraft_Desc".Translate());
                 GUI.color = defaultColor;
@@ -229,7 +229,7 @@ namespace Mehni.Misc.Modifications
             GUI.color = defaultColor;
             moreOptions.GapLine();
 
-            moreOptions.CheckboxLabeled("I am a modders FFS", ref iAmAModder, "Removes the 6 second cooldown on workshop submissions, unlocks special options.");
+            moreOptions.CheckboxLabeled("I am a modder", ref iAmAModder, "Removes the 6 second cooldown on workshop submissions, unlocks special options.");
             if (iAmAModder)
             {
                 moreOptions.Label("Dev mode spawn tweaks [Unsaved. Setting wiped on restart.]");
@@ -244,8 +244,6 @@ namespace Mehni.Misc.Modifications
             }
             moreOptions.EndScrollView(ref viewRect);
             moreOptions.End();
-
-            Mod.GetSettings<MeMiMoSettings>().Write();
         }
 
         public override void ExposeData()

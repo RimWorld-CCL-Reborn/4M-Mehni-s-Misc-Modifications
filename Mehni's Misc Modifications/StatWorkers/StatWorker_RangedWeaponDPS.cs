@@ -27,20 +27,20 @@ namespace Mehni.Misc.Modifications
             }
         }
 
-        public override bool ShouldShowFor(StatRequest req) =>
-            req.Def is ThingDef def && def.IsRangedWeapon && def.Verbs?[0]?.defaultProjectile != null &&
-            def.Verbs[0].defaultProjectile.projectile.damageDef.harmsHealth && MeMiMoSettings.displayRangedDPS;
+        public override bool ShouldShowFor(StatRequest req)
+            => MeMiMoSettings.displayRangedDPS
+                && req.Def is ThingDef def && def.IsRangedWeapon && def.Verbs?[0]?.defaultProjectile != null
+                && def.Verbs[0].defaultProjectile.projectile.damageDef.harmsHealth;
 
-        public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq) =>
-            value.ToStringByStyle(stat.toStringStyle, numberSense);
+        public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq)
+            => value.ToStringByStyle(stat.toStringStyle, numberSense);
 
-        public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true) =>
-            GetRangedDamagePerSecond(req);
+        public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
+            => GetRangedDamagePerSecond(req);
 
         public override string GetExplanationUnfinalized(StatRequest req, ToStringNumberSense numberSense)
         {
-            ThingDef def = req.Def as ThingDef;
-            Thing weapon = req.Thing ?? ThingMaker.MakeThing(def);
+            Thing weapon = GetThingFromReq(req);
 
             string explanation = RangedWeaponDPSUtility.GetExplanation(weapon, Dist);
 
@@ -52,8 +52,7 @@ namespace Mehni.Misc.Modifications
 
         private float GetRangedDamagePerSecond(StatRequest req)
         {
-            ThingDef def = req.Def as ThingDef;
-            Thing weapon = req.Thing ?? ThingMaker.MakeThing(def);
+            Thing weapon = GetThingFromReq(req);
 
             float DPS = RangedWeaponDPSUtility.GetDPS(weapon, Dist);
 
@@ -63,12 +62,10 @@ namespace Mehni.Misc.Modifications
             return DPS;
         }
 
-        //100 from Projectile.StartingTicksToImpact
-        private float GetProjectileImpactDelay(float speed, float dist) =>
-            Mathf.RoundToInt(Math.Max(dist / (speed / 100), 1)).TicksToSeconds();
-
-        private float GetRangedDamagePerSecond(float damage, float cooldown, float warmup, float accuracy, int burstCount, float burstShotDelay, float projectileImpactDelay, float explosionDelay) =>
-            (damage * burstCount * accuracy) / (cooldown + warmup + ((burstCount - 1) * burstShotDelay) + projectileImpactDelay + explosionDelay);
-
+        private Thing GetThingFromReq(StatRequest req)
+        {
+            ThingDef def = req.Def as ThingDef;
+            return req.Thing ?? ThingMaker.MakeThing(def, def.MadeFromStuff ? GenStuff.DefaultStuffFor(def) : null);
+        }
     }
 }
