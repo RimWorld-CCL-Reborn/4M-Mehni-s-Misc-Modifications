@@ -43,7 +43,7 @@ namespace Mehni.Misc.Modifications
         {
             Pawn pawn = req.Thing as Pawn;
 
-            Thing weapon = pawn.equipment?.Primary;
+            Thing weapon = pawn?.equipment?.Primary;
             if (weapon == null || !weapon.def.IsRangedWeapon)
                 return "M4_NoRangedWeapon".Translate();
 

@@ -15,7 +15,7 @@ namespace Mehni.Misc.Modifications
         {
             VerbProperties verb = weapon.def.Verbs[0];
             ProjectileProperties projectile = verb.defaultProjectile.projectile;
-            bool singleUse = verb.verbClass == typeof(Verb_ShootOneUse);
+            bool singleUse = typeof(Verb_ShootOneUse).IsAssignableFrom(verb.verbClass);
 
             float damage = GetDamage(projectile, weapon);
             float cooldown = GetCooldown(weapon, singleUse);
@@ -36,7 +36,7 @@ namespace Mehni.Misc.Modifications
         {
             VerbProperties verb = weapon.def.Verbs[0];
             ProjectileProperties projectile = verb.defaultProjectile.projectile;
-            bool singleUse = verb.verbClass == typeof(Verb_ShootOneUse);
+            bool singleUse = typeof(Verb_ShootOneUse).IsAssignableFrom(verb.verbClass);
 
             float damage = GetDamage(projectile, weapon);
             float cooldown = GetCooldown(weapon, singleUse);
