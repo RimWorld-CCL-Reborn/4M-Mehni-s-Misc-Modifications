@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Ranged DPS - Weapon -->
+
+  <RangedWeapon_TouchDPS.label>武器秒伤(贴近)</RangedWeapon_TouchDPS.label>
+  <RangedWeapon_TouchDPS.description>武器在3格或更近距离的每秒伤害(DPS)。实际DPS也受其他因素影响。</RangedWeapon_TouchDPS.description>
+
+  <RangedWeapon_ShortDPS.label>武器秒伤(近)</RangedWeapon_ShortDPS.label>
+  <RangedWeapon_ShortDPS.description>武器在12格距离和附近范围内的每秒伤害(DPS)。实际DPS也受其他因素影响。</RangedWeapon_ShortDPS.description>
+
+  <RangedWeapon_MediumDPS.label>武器秒伤(中)</RangedWeapon_MediumDPS.label>
+  <RangedWeapon_MediumDPS.description>武器在25格距离和附近范围内的每秒伤害(DPS)。实际DPS也受其他因素影响。</RangedWeapon_MediumDPS.description>
+
+  <RangedWeapon_LongDPS.label>武器秒伤(远)</RangedWeapon_LongDPS.label>
+  <RangedWeapon_LongDPS.description>武器在40格或更远距离的每秒伤害(DPS)。实际DPS也受其他因素影响。</RangedWeapon_LongDPS.description>
+
+
+  <!-- Ranged DPS - Pawn -->
+
+  <RangedWeapon_TouchDPSPawn.label>角色秒伤(贴近)</RangedWeapon_TouchDPSPawn.label>
+  <RangedWeapon_TouchDPSPawn.description>角色在3格或更近距离的每秒伤害(DPS)。该数值为不计算如敌方的护甲值、体型大小及环境等因素的理想值。</RangedWeapon_TouchDPSPawn.description>
+
+  <RangedWeapon_ShortDPSPawn.label>角色秒伤(近)</RangedWeapon_ShortDPSPawn.label>
+  <RangedWeapon_ShortDPSPawn.description>角色在12格距离和附近范围内的每秒伤害(DPS)。该数值为不计算如敌方的护甲值、体型大小及环境等因素的理想值。</RangedWeapon_ShortDPSPawn.description>
+
+  <RangedWeapon_MediumDPSPawn.label>角色秒伤(中)</RangedWeapon_MediumDPSPawn.label>
+  <RangedWeapon_MediumDPSPawn.description>角色在25格距离和附近范围内的每秒伤害(DPS)。该数值为不计算如敌方的护甲值、体型大小及环境等因素的理想值。</RangedWeapon_MediumDPSPawn.description>
+
+  <RangedWeapon_LongDPSPawn.label>角色秒伤(远)</RangedWeapon_LongDPSPawn.label>
+  <RangedWeapon_LongDPSPawn.description>角色在40格或更远距离的每秒伤害(DPS)。该数值为不计算如敌方的护甲值、体型大小及环境等因素的理想值。</RangedWeapon_LongDPSPawn.description>
+
+</LanguageData>

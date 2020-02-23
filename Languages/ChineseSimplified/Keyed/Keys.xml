@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Stats -->
+  <M4_DamagePerBurst>单次伤害</M4_DamagePerBurst>
+  <M4_WeaponSingleUse>一次性武器</M4_WeaponSingleUse>
+  <M4_BurstShotDelay>子弹射出间隔</M4_BurstShotDelay>
+  <M4_ProjectileTravelTime>子弹飞行时间</M4_ProjectileTravelTime>
+  <M4_ProjectileExplosionDelay>爆炸延时</M4_ProjectileExplosionDelay>
+
+  <!-- StatParts -->
+  <M4_StatPart_TimeTable_ExplanationString>时刻表的安排为 {0}</M4_StatPart_TimeTable_ExplanationString>
+
+  <!-- Settings -->
+  <M4_GreySettingsIgnored>灰色的设置不会生效</M4_GreySettingsIgnored>
+  <M4_SettingCatsCanHunt>猫是捕食者</M4_SettingCatsCanHunt>
+  <M4_SettingCatsCanHunt_Desc>修复原版的错误：允许动物(如猫)捕食体型比其更小的动物(兔子)。</M4_SettingCatsCanHunt_Desc>
+
+  <M4_SettingBigAnimalMigrations>大型动物迁徙回归</M4_SettingBigAnimalMigrations>
+  <M4_SettingBigAnimalMigrations_Desc>如该选项启用，则兽群迁徙事件不管迁徙动物的体型大小，迁徙数量在30到50之间。</M4_SettingBigAnimalMigrations_Desc>
+
+  <M4_SettingModifyAutoUndrafter>自动解除征召调整</M4_SettingModifyAutoUndrafter>
+  <M4_SettingModifyAutoUndrafter_Desc>自定义延长殖民者自动解除征召的时间。</M4_SettingModifyAutoUndrafter_Desc>
+  <M4_SettingWithGunsBlazing>炮火砸脸后保持征召不动</M4_SettingWithGunsBlazing>
+  <M4_SettingGunsBlazing_Desc>只要地图上的战斗不息，征召不止。</M4_SettingGunsBlazing_Desc>
+  <M4_SettingExtendUndraftTimeBy>在该时长后解除征召:</M4_SettingExtendUndraftTimeBy>
+  <M4_SettingExtendUndraftTimeBy_Desc>游戏默认时长为5000ticks，但这与游戏的小时时长稍微不符。该设置将时长增加了5000ticks。提示，当殖民者处于战斗状态时不会解除征召（正常情况下）。</M4_SettingExtendUndraftTimeBy_Desc>
+  <M4_SettingLowMoodUndraft>但在以下条件时解除征召:</M4_SettingLowMoodUndraft>
+  <M4_SettingLowMoodUndraft_Desc>当殖民者符合以下崩溃风险时解除征召(由上到下分别为：崩溃风险(低)、(中)、(高))。</M4_SettingLowMoodUndraft_Desc>
+
+  <M4_SettingEnableLargePacks>允许大规模猎杀人类事件?</M4_SettingEnableLargePacks>
+  <M4_SettingLargePack_Desc>默认情况下，游戏不会出现超大型猎杀人类的动物事件。勾选以启用。</M4_SettingLargePack_Desc>
+
+  <M4_SettingVariableRaidRetreat>更改敌人逃跑界限</M4_SettingVariableRaidRetreat>
+  <M4_SettingVariableRaid_Desc>默认情况下，敌人损员50%后开始逃跑。你可以在这里更改。不会对机械族和不会逃跑的派系生效。</M4_SettingVariableRaid_Desc>
+  <M4_SettingRandomRaidRetreat>随机逃跑界限?</M4_SettingRandomRaidRetreat>
+  <M4_SettingRandomRaidRetreat_Desc>敌人会在损员 {0} 到 {1} 后逃跑。</M4_SettingRandomRaidRetreat_Desc>
+  <M4_SettingRetreatAtPercentageDefeated>当敌人损员该数值后逃跑:</M4_SettingRetreatAtPercentageDefeated>
+
+  <M4_SettingDontLeaveJustYet>延长远征队自动离开事件地图的时长</M4_SettingDontLeaveJustYet>
+  <M4_SettingDontLeaveJustYet_Desc>提示：更改后对当前已发生的事件地图无效，且该设置需重启生效。</M4_SettingDontLeaveJustYet_Desc>
+  <M4_SettingDaysUntilKickedOut>于此天数后自动离开:</M4_SettingDaysUntilKickedOut>
+
+  <M4_ColonistNeedsUrgentCare>殖民者需要急救。</M4_ColonistNeedsUrgentCare>
+
+  <M4_HarvestYieldThing>收获物</M4_HarvestYieldThing>
+  <M4_HarvestYieldThingDetailInit>殖民者收获该植物时的产出物， {0} 的信息如下：</M4_HarvestYieldThingDetailInit>
+
+  <M4_TutorialStyleRolling>禁用随机到无暴力能力角色</M4_TutorialStyleRolling>
+  <M4_TutorialStyleRolling_Desc>若启用该项，则在“创建角色”界面你不会随机到无暴力能力的殖民者。这意味着你永远不会随机到“下层世界性奴”或类似无暴力能力的特性。</M4_TutorialStyleRolling_Desc>
+
+  <M4_NotifyDeadAnimals>提示殖民地每只动物的死亡!</M4_NotifyDeadAnimals>
+  <M4_NotifyDeadAnimals_Desc>禁用后，禁用殖民地动物的死亡通知。羁绊动物也不例外。</M4_NotifyDeadAnimals_Desc>
+
+  <M4_LessLitterLouting>小人污物产生速度</M4_LessLitterLouting>
+  <M4_LessLitterLouting_Desc>小人每行走1000步产生的污物数量。默认数值为5。</M4_LessLitterLouting_Desc>
+
+  <M4_NoForcedMortarSlowDown>移除迫击炮冷却</M4_NoForcedMortarSlowDown>
+  <M4_NoForcedMortarSlowDown_Desc>若此处为X，则你的迫击炮每射出一枚炮弹都需要等待冷却。</M4_NoForcedMortarSlowDown_Desc>
+
+  <M4_ObedientPredatorsDontHuntTameDesignatedPawns>你的捕食者不会捕猎你想驯服的动物</M4_ObedientPredatorsDontHuntTameDesignatedPawns>
+  <M4_ObedientPredatorsDontHuntTameDesignatedPawns_Desc>启用后，已驯化了“顺从”的肉食动物(捕食者)会推迟对已标记“驯服”的动物的捕猎行为。</M4_ObedientPredatorsDontHuntTameDesignatedPawns_Desc>
+  <M4_AnimalInteractionHourLimit>在此时间后禁止训练动物</M4_AnimalInteractionHourLimit>
+  <M4_AnimalInteractionHourLimit_Desc>被指派“驯兽”工作的殖民者会在每天此时间后停止驯服动物的工作，因为动物在入睡后进行驯服/训练成功的几率极小，这几乎是在浪费粮食。将时间设为24效果最好。</M4_AnimalInteractionHourLimit_Desc>
+  <M4_CantInteractAnimalWillFallAsleepSoon>动物快要睡觉了</M4_CantInteractAnimalWillFallAsleepSoon>
+
+  <M4_TimetableAssignmentMatters>尊重时刻表的安排</M4_TimetableAssignmentMatters>
+  <M4_TimetableAssignmentMatters_Desc>殖民者时刻表中不同类型的安排会影响他们的全局工作速度。\n译者注：殖民者在“管制”中时刻表安排为“工作”时，全局工作效率会提升。</M4_TimetableAssignmentMatters_Desc>
+
+  <M4_BetterHostileReadouts>更好的敌军数量显示</M4_BetterHostileReadouts>
+  <M4_BetterHostileReadouts_Desc>“被追捕的逃生者”信息会显示完整的追捕方敌军人数，并且非人类的危险事件下方会有一个标志以便你更容易找到他们 - 不会再有神出鬼没的机械族了！</M4_BetterHostileReadouts_Desc>
+
+  <M4_DisplayRangedDPS>显示各距离DPS</M4_DisplayRangedDPS>
+  <M4_DisplayRangedDPS_Desc>具备远程攻击能力的武器和小人在其面板会分别显示贴身、近、中、远的DPS数据。若你使用战斗拓展(Combat Extended)则最好关闭该选项。</M4_DisplayRangedDPS_Desc>
+
+  <M4_ThingFilterInfoCards>物品列表快捷跳转</M4_ThingFilterInfoCards>
+  <M4_ThingFilterInfoCards_Desc>启用后，在你查看“储存筛选”或设定清单材料时，点击物品旁的“i”标志，可查看物品的详细信息。</M4_ThingFilterInfoCards_Desc>
+
+  <M4_NPDNeedsSpace>营养膏合成机使用受阻</M4_NPDNeedsSpace>
+  <M4_NPDNeedsSpace_Desc>有一个营养膏合成机的入料口受物体阻拦无法正常工作，这会导致你的殖民者无法正常使用营养膏合成机。\n\n营养膏合成机需要解禁入料口才能正常运作。</M4_NPDNeedsSpace_Desc>
+
+</LanguageData>
