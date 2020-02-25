@@ -32,7 +32,7 @@ namespace Mehni.Misc.Modifications
                 && req.Def is ThingDef def && def.IsRangedWeapon && def.Verbs?[0]?.defaultProjectile != null
                 && def.Verbs[0].defaultProjectile.projectile.damageDef.harmsHealth;
 
-        public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq)
+        public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq, bool finalized)
             => value.ToStringByStyle(stat.toStringStyle, numberSense);
 
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)

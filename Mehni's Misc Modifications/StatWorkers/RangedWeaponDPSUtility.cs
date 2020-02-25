@@ -59,7 +59,7 @@ namespace Mehni.Misc.Modifications
             expBuilder.AppendLine();
 
             // Cooldown and Warmup
-            string singleUseText = (singleUse) ? " (" + "M4_WeaponSingleUse".Translate() + ")" : "";
+            var singleUseText = singleUse ? " (" + "M4_WeaponSingleUse".Translate() + ")" : TaggedString.Empty;
             expBuilder.AppendLine($"{"CooldownTime".Translate()}: {cooldown.ToString("F2")} s{singleUseText}");
             if (pawn != null)
                 expBuilder.AppendLine($"{"WarmupTime".Translate()}: {warmup.ToString("F2")} s ({verb.warmupTime.ToString("F2")} x {pawn.GetStatValue(StatDefOf.AimingDelayFactor).ToStringPercent()})");
@@ -105,7 +105,7 @@ namespace Mehni.Misc.Modifications
                 baseAimOn *= ShotReport.HitFactorFromShooter(pawn, dist);
             int affectedCellCount = (verb.CausesExplosion) ? GenRadial.NumCellsInRadius(projectile.explosionRadius) : 1;
 
-            float accuracy = 0f;
+            float accuracy;
             if (forcedMissRadius > 0.5f)
             {
                 int affectableCellCount = GenRadial.NumCellsInRadius(forcedMissRadius);

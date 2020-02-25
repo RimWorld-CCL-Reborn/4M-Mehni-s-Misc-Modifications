@@ -33,7 +33,7 @@ namespace Mehni.Misc.Modifications
         public override bool IsDisabledFor(Thing thing) =>
             base.IsDisabledFor(thing) || StatDefOf.ShootingAccuracyPawn.Worker.IsDisabledFor(thing);
 
-        public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq) =>
+        public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq, bool finalized) =>
             value.ToStringByStyle(stat.toStringStyle, numberSense);
 
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true) =>
