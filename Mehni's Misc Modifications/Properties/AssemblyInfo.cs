@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Mehni Misc Modifications")]
-[assembly: AssemblyCopyright("Copyright © Mehni 2018")]
+[assembly: AssemblyCopyright("Copyright © Mehni 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,4 +33,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.1.1.7")]
-[assembly: AssemblyFileVersion("0.1.1.8")]
+[assembly: AssemblyFileVersion("0.1.2.0")]

@@ -168,26 +168,15 @@ namespace Mehni.Misc.Modifications
 
         public class LabeledRadioValue<T>
         {
-            private string label;
-            private T val;
-
             public LabeledRadioValue(string label, T val)
             {
                 Label = label;
                 Value = val;
             }
 
-            public string Label
-            {
-                get => label;
-                set => label = value;
-            }
+            public string Label { get; set; }
 
-            public T Value
-            {
-                get => val;
-                set => val = value;
-            }
+            public T Value { get; set; }
 
         }
     }

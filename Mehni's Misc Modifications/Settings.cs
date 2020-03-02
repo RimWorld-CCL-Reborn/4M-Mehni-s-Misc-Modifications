@@ -5,7 +5,6 @@ using System.Text;
 using RimWorld;
 using Verse;
 using UnityEngine;
-using Harmony;
 
 namespace Mehni.Misc.Modifications
 {

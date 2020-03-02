@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using RimWorld;
     using Verse;
+    using System.Linq;
 
     public class Alert_NPDBlocked : Alert
     {
@@ -12,7 +13,7 @@
             this.defaultLabel = "M4_NPDNeedsSpace".Translate();
         }
 
-        public override AlertReport GetReport() => AlertReport.CulpritsAre(BlockedNPDs);
+        public override AlertReport GetReport() => AlertReport.CulpritsAre(BlockedNPDs.ToList());
 
         // ReSharper disable once InconsistentNaming
         private static IEnumerable<Thing> BlockedNPDs
