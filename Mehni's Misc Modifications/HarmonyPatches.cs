@@ -315,7 +315,7 @@ namespace Mehni.Misc.Modifications
         public static IEnumerable<CodeInstruction> NewGeneratedStartingPawns_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
         {
             MethodInfo tutorialMode = AccessTools.Property(typeof(TutorSystem), nameof(TutorSystem.TutorialMode)).GetGetMethod();
-            MethodInfo noNonViolents = AccessTools.Property(typeof(HarmonyPatches), nameof(HarmonyPatches.NoNonViolents)).GetGetMethod();
+            MethodInfo noNonViolents = AccessTools.Property(typeof(HarmonyPatches), nameof(NoNonViolents)).GetGetMethod();
 
             List<CodeInstruction> instructionList = codeInstructions.ToList();
             foreach (CodeInstruction t in instructionList)
@@ -614,7 +614,6 @@ namespace Mehni.Misc.Modifications
                 {
                     lWidthCalls++;
                 }
-
 
                 if (lWidthCalls != 3 && instruction.Calls(AccessTools.Property(typeof(Listing_Tree), "LabelWidth").GetGetMethod(true)))
                 {
