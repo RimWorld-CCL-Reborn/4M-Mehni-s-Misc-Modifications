@@ -17,10 +17,6 @@ Ever had colonists auto undraft themselves while positioning them? Not anymore.
 
 Raiders flee at 50% by default. That's boring. Want a bigger challenge? Up the threshold or turn off fleeing entirely. Want a laid back game? Set it lower! Want randomness? Custom upper and lower retreat ranges!
 
-## Extend the time before you get kicked out of caravan maps
-
-Because sometimes you need more time. Changing this setting requires a restart.
-
 ## Information improvements
 
 - Show who wants to sleep with who on beds.
@@ -36,7 +32,7 @@ Because sometimes you need more time. Changing this setting requires a restart.
 - Don't roll pacifists.
 - [XND] Set a custom filth rate for humans.
 - [XND] Don't interact with animals just before their naptime.
-- [XND] Animals marked for taming are less tasty to your hungry predators. ("Bad bear! I said *tame* the turtle, not eat it!")
+- [XND] Animals marked for taming are less tasty to your guard-trained predators. ("Bad bear! I said *tame* the turtle, not eat it!")
 - Increase the size of Herd Migrations. Bring on the herd!
 
 ## Mods for modders
@@ -51,8 +47,6 @@ All settings that influence gameplay are optional and can be configured or turne
 
 ## Links
 
-- Ludeon: [https://ludeon.com/forums/index.php?topic=35832.0](https://ludeon.com/forums/index.php?topic=35832.0)
-- Steam: [https://steamcommunity.com/sharedfiles/filedetails/?id=1366888108](https://steamcommunity.com/sharedfiles/filedetails/?id=1366888108)
-- GitHub: [https://github.com/Mehni/4M-Mehni-s-Misc-Modifications/releases/latest](https://github.com/Mehni/4M-Mehni-s-Misc-Modifications/releases/latest)
+- Steam: [https://steamcommunity.com/sharedfiles/filedetails/?id=2228765246](https://steamcommunity.com/sharedfiles/filedetails/?id=2228765246)
 
 Credit to Dianne for the preview image. Check out her stuff [here](https://steamcommunity.com/id/diannetea/myworkshopfiles/?appid=294100)!
