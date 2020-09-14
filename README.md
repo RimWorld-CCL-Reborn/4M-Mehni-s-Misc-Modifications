@@ -17,6 +17,9 @@ Ever had colonists auto undraft themselves while positioning them? Not anymore.
 
 Raiders flee at 50% by default. That's boring. Want a bigger challenge? Up the threshold or turn off fleeing entirely. Want a laid back game? Set it lower! Want randomness? Custom upper and lower retreat ranges!
 
+## Get an alert when the Nutrient Paste Dispenser can't be used
+Pawns won't eat Nutrient Paste for some reason? Odds are there's a chunk blocking access to the interaction spot. 4M gives you a warning if this is the case.
+
 ## Information improvements
 
 - Show who wants to sleep with who on beds.
@@ -26,6 +29,7 @@ Raiders flee at 50% by default. That's boring. Want a bigger challenge? Up the t
 - Confirmation before embarking if currently viewed colonist is not one you selected (AKA "I noticed you rolled fifty colonists on a naked brutality start but the one you just rolled isn't the one you're about the start the game with. Are you suuuuure?").
 - [XND] Better raider visibility. No more ninja mechanoids! All hostiles will have their label draw in red, whether they're a raider, mechanoid or hostile animal.
 - [XND] Chased refugees will give a full headcount of their raid.
+- Add item information buttons at item filter.
 
 ## Various (AI) tweaks and settings
 
