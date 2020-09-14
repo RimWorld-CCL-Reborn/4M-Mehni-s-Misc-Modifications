@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using UnityEngine;
 using Verse;
@@ -60,24 +58,24 @@ namespace Mehni.Misc.Modifications
 
             // Cooldown and Warmup
             var singleUseText = singleUse ? " (" + "M4_WeaponSingleUse".Translate() + ")" : TaggedString.Empty;
-            expBuilder.AppendLine($"{"CooldownTime".Translate()}: {cooldown.ToString("F2")} s{singleUseText}");
+            expBuilder.AppendLine($"{"CooldownTime".Translate()}: {cooldown:F2} s{singleUseText}");
             if (pawn != null)
-                expBuilder.AppendLine($"{"WarmupTime".Translate()}: {warmup.ToString("F2")} s ({verb.warmupTime.ToString("F2")} x {pawn.GetStatValue(StatDefOf.AimingDelayFactor).ToStringPercent()})");
+                expBuilder.AppendLine($"{"WarmupTime".Translate()}: {warmup:F2} s ({verb.warmupTime:F2} x {pawn.GetStatValue(StatDefOf.AimingDelayFactor).ToStringPercent()})");
             else
-                expBuilder.AppendLine($"{"WarmupTime".Translate()}: {warmup.ToString("F2")} s");
+                expBuilder.AppendLine($"{"WarmupTime".Translate()}: {warmup:F2} s");
 
             // - delay between burst shots
             if (bCMinOne > 0)
-                expBuilder.AppendLine($"{"M4_BurstShotDelay".Translate()}: {(bCMinOne * burstShotDelay).ToString("F2")} s ({bCMinOne} x {burstShotDelay.ToString("F2")})");
+                expBuilder.AppendLine($"{"M4_BurstShotDelay".Translate()}: {bCMinOne * burstShotDelay:F2} s ({bCMinOne} x {burstShotDelay:F2})");
 
             // Projectile 
-            expBuilder.AppendLine($"{"M4_ProjectileTravelTime".Translate()}: {projectileTravelTime.ToString("F2")} s");
+            _ = expBuilder.AppendLine($"{"M4_ProjectileTravelTime".Translate()}: {projectileTravelTime:F2} s");
             if (explosionDelay > 0f)
-                expBuilder.AppendLine($"{"M4_ProjectileExplosionDelay".Translate()}: {explosionDelay.ToString("F2")} s");
+                _ = expBuilder.AppendLine($"{"M4_ProjectileExplosionDelay".Translate()}: {explosionDelay:F2} s");
 
             expBuilder.AppendLine();
             expBuilder.AppendLine($"DPS = ({burstCount * damage} x {accuracy.ToStringPercent()}) /" +
-                $" {(cooldown + warmup + (bCMinOne * burstShotDelay) + projectileTravelTime + explosionDelay).ToString("F2")}");
+                $" {cooldown + warmup + (bCMinOne * burstShotDelay) + projectileTravelTime + explosionDelay:F2}");
 
             return expBuilder.ToString();
         }

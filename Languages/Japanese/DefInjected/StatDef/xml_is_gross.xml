@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Ranged DPS - Weapon -->
+
+  <!--EN: ranged DPS (close)-->
+  <RangedWeapon_TouchDPS.label>遠隔ダメージ(至近)</RangedWeapon_TouchDPS.label>
+  <!--EN: The weapon's damage per second at a distance of 3 cells or less. The actual damage per second will also be affected by other factors.-->
+  <RangedWeapon_TouchDPS.description>この武器が3セル以内の距離で与えるDPS（1秒あたりのダメージ）。実際のDPSは、他の因子の影響も受ける。</RangedWeapon_TouchDPS.description>
+
+  <!--EN: ranged DPS (short)-->
+  <RangedWeapon_ShortDPS.label>遠隔ダメージ(近)</RangedWeapon_ShortDPS.label>
+  <!--EN: The weapon's damage per second at a distance of 12 cells. The actual damage per second will also be affected by other factors.-->
+  <RangedWeapon_ShortDPS.description>この武器が12セルの距離で与えるDPS（1秒あたりのダメージ）。実際のDPSは、他の因子の影響も受ける。</RangedWeapon_ShortDPS.description>
+
+  <!--EN: ranged DPS (medium)-->
+  <RangedWeapon_MediumDPS.label>遠隔ダメージ(中)</RangedWeapon_MediumDPS.label>
+  <!--EN: The weapon's damage per second at a distance of 25 cells. The actual damage per second will also be affected by other factors.-->
+  <RangedWeapon_MediumDPS.description>この武器が25セルの距離で与えるDPS（1秒あたりのダメージ）。実際のDPSは、他の因子の影響も受ける。</RangedWeapon_MediumDPS.description>
+
+  <!--EN: ranged DPS (long)-->
+  <RangedWeapon_LongDPS.label>遠隔ダメージ(遠)</RangedWeapon_LongDPS.label>
+  <!--EN: The weapon's damage per second at a distance of 40 cells or more. The actual damage per second will also be affected by other factors.-->
+  <RangedWeapon_LongDPS.description>この武器が40セル以上の距離で与えるDPS（1秒あたりのダメージ）。実際のDPSは、他の因子の影響も受ける。</RangedWeapon_LongDPS.description>
+
+  <!-- Ranged DPS - Pawn -->
+
+  <!--EN: ranged DPS (close)-->
+  <RangedWeapon_TouchDPSPawn.label>遠隔ダメージ(至近)</RangedWeapon_TouchDPSPawn.label>
+  <!--EN: Average damage per second in ranged combat at a distance of 3 cells. This stat ignores target defenses like armor, as well as other factors such as the target's body size and environmental factors.-->
+  <RangedWeapon_TouchDPSPawn.description>3セル以内の距離で与えるDPS（1秒あたりのダメージ）。相手のアーマー・体格および環境因子などの影響は考慮しない。</RangedWeapon_TouchDPSPawn.description>
+
+  <!--EN: ranged DPS (short)-->
+  <RangedWeapon_ShortDPSPawn.label>遠隔ダメージ(近)</RangedWeapon_ShortDPSPawn.label>
+  <!--EN: Average damage per second in ranged combat at a distance of 12 cells. This stat ignores target defenses like armor, as well as other factors such as the target's body size and environmental factors.-->
+  <RangedWeapon_ShortDPSPawn.description>12セルの距離で与えるDPS（1秒あたりのダメージ）。相手のアーマー・体格および環境因子などの影響は考慮しない。</RangedWeapon_ShortDPSPawn.description>
+
+  <!--EN: ranged DPS (medium)-->
+  <RangedWeapon_MediumDPSPawn.label>遠隔ダメージ(中)</RangedWeapon_MediumDPSPawn.label>
+  <!--EN: Average damage per second in ranged combat at a distance of 25 cells. This stat ignores target defenses like armor, as well as other factors such as the target's body size and environmental factors.-->
+  <RangedWeapon_MediumDPSPawn.description>25セルの距離で与えるDPS（1秒あたりのダメージ）。相手のアーマー・体格および環境因子などの影響は考慮しない。</RangedWeapon_MediumDPSPawn.description>
+
+  <!--EN: ranged DPS (long)-->
+  <RangedWeapon_LongDPSPawn.label>遠隔ダメージ(遠)</RangedWeapon_LongDPSPawn.label>
+  <!--EN: Average damage per second in ranged combat at a distance of 40 cells. This stat ignores target defenses like armor, as well as other factors such as the target's body size and environmental factors.-->
+  <RangedWeapon_LongDPSPawn.description>40セル以上の距離で与えるDPS（1秒あたりのダメージ）。相手のアーマー・体格および環境因子などの影響は考慮しない。</RangedWeapon_LongDPSPawn.description>
+
+</LanguageData>

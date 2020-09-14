@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Stats -->
+  <!--EN: Damage per burst-->
+  <M4_DamagePerBurst>單發傷害</M4_DamagePerBurst>
+  <!--EN: Single-use-->
+  <M4_WeaponSingleUse>一次性</M4_WeaponSingleUse>
+  <!--EN: Burst length-->
+  <M4_BurstShotDelay>開火間隔</M4_BurstShotDelay>
+  <!--EN: Travel time-->
+  <M4_ProjectileTravelTime>空中飛行時間</M4_ProjectileTravelTime>
+  <!--EN: Explosion delay-->
+  <M4_ProjectileExplosionDelay>爆炸延時</M4_ProjectileExplosionDelay>
+
+  <!-- StatParts -->
+  <!--EN: Timetabled for {0}-->
+  <M4_StatPart_TimeTable_ExplanationString>時刻表的安排為 {0}</M4_StatPart_TimeTable_ExplanationString>
+
+  <!-- Settings -->
+  <!--EN: Greyed out settings are ignored-->
+  <M4_GreySettingsIgnored>灰色的設定不會生效</M4_GreySettingsIgnored>
+
+  <!--EN: Bring back big herd migrations-->
+  <M4_SettingBigAnimalMigrations>大型動物遷徙迴歸</M4_SettingBigAnimalMigrations>
+  <!--EN: With this setting enabled, expect herd migrations to contain between 30 and 50 animals, regardless of bodysize.-->
+  <M4_SettingBigAnimalMigrations_Desc>如該選項啟用，則獸群遷徙事件將包含30至50頭動物，無關體型大小。</M4_SettingBigAnimalMigrations_Desc>
+
+  <!--EN: Modify the Auto Undrafter-->
+  <M4_SettingModifyAutoUndrafter>修改自動解除徵召設定</M4_SettingModifyAutoUndrafter>
+  <!--EN: Various options for lengthening the time it takes for a colonist to undraft themselves.-->
+  <M4_SettingModifyAutoUndrafter_Desc>通過以下選項來增加殖民者自動解除徵召的時長。</M4_SettingModifyAutoUndrafter_Desc>
+  <!--EN: Stay drafted when there's gunfire on the map.-->
+  <M4_SettingWithGunsBlazing>地圖上有戰鬥時不會自動解除徵召</M4_SettingWithGunsBlazing>
+  <!--EN: Pawns stay drafted as long as someone is firing a gun on the map.-->
+  <M4_SettingGunsBlazing_Desc>只要地圖上的戰鬥不息，徵召不止。</M4_SettingGunsBlazing_Desc>
+  <!--EN: Extend the time to undraft by:-->
+  <M4_SettingExtendUndraftTimeBy>延長自動解除徵召的時間：</M4_SettingExtendUndraftTimeBy>
+  <!--EN: The vanilla value is 5000 ticks, a little under a RimWorld hour. This setting *adds* to the 5000 ticks. Note that colonists actively engaged in combat will not undraft themselves (under normal circumstances).-->
+  <M4_SettingExtendUndraftTimeBy_Desc>遊戲預設時長為5000 ticks，稍小於RimWorld中的一個小時。該設定將更多的時間*加到*預設時長上。請注意，當殖民者處於戰鬥狀態時不會解除徵召（正常情況下）。</M4_SettingExtendUndraftTimeBy_Desc>
+  <!--EN: ... but undraft when at:-->
+  <M4_SettingLowMoodUndraft>……但在發生以下事件時解除徵召(由上到下分別為低、中、高崩潰風險)：</M4_SettingLowMoodUndraft>
+  <!--EN: Allow the regular AutoUndrafter to kick in when colonists are at low mood.-->
+  <M4_SettingLowMoodUndraft_Desc>當殖民者符合以下崩潰風險時解除徵召。</M4_SettingLowMoodUndraft_Desc>
+
+  <!--EN: Allow large manhunter packs?-->
+  <M4_SettingEnableLargePacks>允許超大型獵殺人類動物事件?</M4_SettingEnableLargePacks>
+  <!--EN: By default, RimWorld stops sending manhunter packs at high raid points. This changes that.-->
+  <M4_SettingLargePack_Desc>預設情況下，當入侵點數較高時，遊戲內將不會出現動物獵殺人類事件。勾選本項以啟用該事件。</M4_SettingLargePack_Desc>
+
+  <!--EN: Change the threshold at which raids flee-->
+  <M4_SettingVariableRaidRetreat>更改觸發敵人逃跑的損員比例</M4_SettingVariableRaidRetreat>
+  <!--EN: By default, raiders give up at 50% losses. This allows you to change it. Does not apply to mechanoids and other factions which don't flee.-->
+  <M4_SettingVariableRaid_Desc>預設情況下，敵人損員50%後開始逃跑。你可以在這裡更改此比例。不會對機械族和不會逃跑的派系生效。</M4_SettingVariableRaid_Desc>
+  <!--DO NOT TRANSLATE
+  <M4_SettingRandomRaidRetreat></M4_SettingRandomRaidRetreat>-->
+  <!--EN: Raiders will flee somewhere between {0} and {1} losses.-->
+  <M4_SettingRandomRaidRetreat_Desc>敵人會在損員 {0} 到 {1} （在當中隨機抽取一個數值）後逃跑。</M4_SettingRandomRaidRetreat_Desc>
+  <!--EN: Flee when this many raiders have died:-->
+  <M4_SettingRetreatAtPercentageDefeated>當敵人損員該比例後逃跑:</M4_SettingRetreatAtPercentageDefeated>
+
+  <!--EN: Harvested product-->
+  <M4_HarvestYieldThing>收穫物</M4_HarvestYieldThing>
+  <!--EN: What this plant yields when harvested by a colonist. Information about {0} is as follows...-->
+  <M4_HarvestYieldThingDetailInit>殖民者收穫該植物時的產出物。{0} 的資訊如下：</M4_HarvestYieldThingDetailInit>
+
+  <!--EN: Disable pacifists during rolling-->
+  <M4_TutorialStyleRolling>隨機抽取人物時不會抽到非暴力角色</M4_TutorialStyleRolling>
+  <!--EN: If this is enabled, non-violents will be removed from the available colonist pool during the starting screen. That means you'll never roll Emmie the Sex Slave, or Roughchild the Reporter-->
+  <M4_TutorialStyleRolling_Desc>若啟用該項，則在「建立角色」介面你不會隨機到無暴力能力的殖民者。這意味著你永遠不會抽到Emmie the Sex Slave或Roughchild the Reporter。</M4_TutorialStyleRolling_Desc>
+
+  <!--EN: Tell me about every dead colony animal!-->
+  <M4_NotifyDeadAnimals>通知殖民地每隻動物的死亡！</M4_NotifyDeadAnimals>
+  <!--EN: When disabled, this removes the Death notification message for colony animals. This includes bonded animals.-->
+  <M4_NotifyDeadAnimals_Desc>禁用此項將遮蔽所有殖民地動物的死亡通知。羈絆動物也不例外。</M4_NotifyDeadAnimals_Desc>
+
+  <!--EN: Human filth rate-->
+  <M4_LessLitterLouting>人類汙物產生速度</M4_LessLitterLouting>
+  <!--EN: How much filth and trash a human produces per 1000 cells. Default value is 5.-->
+  <M4_LessLitterLouting_Desc>人類每行走1000步產生的汙物數量。預設數值為5。</M4_LessLitterLouting_Desc>
+
+  <!--EN: Animals marked for taming aren't tasty to your guarding predators-->
+  <M4_GuardingPredatorsDontHuntTameDesignatedPawns>你的護衛用捕食者不會去捕獵你正試圖馴服的動物</M4_GuardingPredatorsDontHuntTameDesignatedPawns>
+  <!--EN: When enabled, any tame predator that is guard-trained will defer hunting any wild animals that are designated to be tamed.-->
+  <M4_GuardingPredatorsDontHuntTameDesignatedPawns_Desc>啟用後，擁有「護衛」技能的已馴化肉食動物捕食\n被標記為「馴服」的野生動物的概率將大大降低。</M4_GuardingPredatorsDontHuntTameDesignatedPawns_Desc>
+  <!--EN: Stop interacting with animals past-->
+  <M4_AnimalInteractionHourLimit>在此時間後禁止訓練動物</M4_AnimalInteractionHourLimit>
+  <!--EN: Colonists that are assigned to animal handling will stop trying to interact with animals past this hour of the day, so that animals are less likely to fall asleep on them during taming/training which wastes food. Set to 24 to effectively disable (useful when you're playing with Nocturnal Animals).-->
+  <M4_AnimalInteractionHourLimit_Desc>被指派「馴獸」工作的殖民者會在每天此時間後停止馴服動物的工作，以防馴服途中動物睡著、白白浪費糧食。將時間設為24時會將本選項完全禁用（適用於Nocturnal Animals夜行性動物mod）。</M4_AnimalInteractionHourLimit_Desc>
+  <!--EN: animal will fall asleep soon-->
+  <M4_CantInteractAnimalWillFallAsleepSoon>動物快要睡覺了</M4_CantInteractAnimalWillFallAsleepSoon>
+
+  <!--EN: Timetable assignment matters more-->
+  <M4_TimetableAssignmentMatters>時刻表的作用變得更加強大</M4_TimetableAssignmentMatters>
+  <!--EN: Colonists' timetable assignments will affect their global work speed stats.-->
+  <M4_TimetableAssignmentMatters_Desc>殖民者時刻表中不同的時間段會影響他們的全域性工作速度。\n\n譯者注：當時刻表內安排為「工作」時，殖民者的工作效率會提升。</M4_TimetableAssignmentMatters_Desc>
+
+  <!--EN: Better hostile readouts-->
+  <M4_BetterHostileReadouts>檢視敵軍資訊變得更方便</M4_BetterHostileReadouts>
+  <!--EN: Chased refugee letters will show an overall head count for the pursuing group and non-human threats will have labels underneath them to make it easier to find them - no more ninja mechanoids!-->
+  <M4_BetterHostileReadouts_Desc>「被追捕的逃生者」資訊窗中會顯示完整的追捕者人數，並且非人類的敵對單位下方都會有一個標籤，讓你更容易找到他們——不會再有神出鬼沒的機械族了！</M4_BetterHostileReadouts_Desc>
+
+  <!--EN: Display ranged DPS-->
+  <M4_DisplayRangedDPS>顯示遠端DPS</M4_DisplayRangedDPS>
+  <!--EN: Ranged weapons and pawns will show their ranged DPS at close, short, medium and long distances. Advisable to disable if running Combat Extended.-->
+  <M4_DisplayRangedDPS_Desc>具備遠端攻擊能力的武器和小人在其面板會分別顯示貼身、近、中、遠的DPS資料。若你使用戰鬥拓展(Combat Extended)則最好關閉該選項。</M4_DisplayRangedDPS_Desc>
+
+  <!--EN: Add info button to filters-->
+  <M4_ThingFilterInfoCards>在物品篩選介面新增資訊檢視按鈕</M4_ThingFilterInfoCards>
+  <!--EN: When viewing stockpile filters or configuring recipe ingredients, there will be a clickable i to bring up that item's info card.-->
+  <M4_ThingFilterInfoCards_Desc>勾選此項後，在你檢視儲存區物品篩選介面或設定清單材料時，點選物品旁的「i」標誌，可檢視物品的詳細資訊。</M4_ThingFilterInfoCards_Desc>
+
+  <!--EN: Paste dispenser needs space-->
+  <M4_NPDNeedsSpace>營養膏合成機使用受阻</M4_NPDNeedsSpace>
+  <!--EN: One of your nutrient paste dispensers has its interaction cell blocked by an obstruction that will prevent colonists from using it.\n\nA nutrient paste dispenser needs an unblocked interaction cell to be usable.-->
+  <M4_NPDNeedsSpace_Desc>某臺營養膏合成機的取餐點被物體封住，這會導致你的殖民者無法正常使用它。\n\n營養膏合成機需要解禁取餐點才能正常運作。</M4_NPDNeedsSpace_Desc>
+
+  <!--EN: Currently viewed colonist is not selected for landing. Are you sure you wish to embark without {0}?-->
+  <M4_HaveNotDraggedColonist>當前所檢視的人物尚未被拖拽至初始殖民者列表。真的不想將 {0} 用作初始殖民者嗎？</M4_HaveNotDraggedColonist>
+</LanguageData>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using Verse;
@@ -21,76 +20,85 @@ namespace Mehni.Misc.Modifications
         static HarmonyPatches()
         {
             var harmony = new Harmony("Mehni.RimWorld.4M.Main");
-#if debug
+#if DEBUG
             Harmony.DEBUG = true;
 #endif
-            harmony.Patch(AccessTools.Method(typeof(IncidentWorker_HerdMigration), "GenerateAnimals"),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(IncidentWorker_HerdMigration), "GenerateAnimals"),
                 transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(BigHerds_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(AutoUndrafter), "ShouldAutoUndraft"),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(AutoUndrafter), "ShouldAutoUndraft"),
                 postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(StayWhereIPutYou_Postfix)));
 
-            harmony.Patch(AccessTools.Method(typeof(Lord), nameof(Lord.SetJob)),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(Lord), "SetJob"),
                 postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(FleeTrigger_PostFix)));
 
-            harmony.Patch(AccessTools.Method(typeof(ManhunterPackIncidentUtility), nameof(ManhunterPackIncidentUtility.ManhunterAnimalWeight)),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(ManhunterPackIncidentUtility), "ManhunterAnimalWeight"),
                 prefix: new HarmonyMethod(typeof(HarmonyPatches), nameof(BigManhunterPackFix)));
 
-            harmony.Patch(AccessTools.Method(typeof(CaravansBattlefield), "CheckWonBattle"),
-                transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(ForceExitTimeExtender_Transpiler)));
-
-            harmony.Patch(AccessTools.Method(typeof(SettlementDefeatUtility), nameof(SettlementDefeatUtility.CheckDefeated)),
-                transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(ForceExitTimeExtender_Transpiler)));
-
-            harmony.Patch(AccessTools.Method(typeof(Site), "CheckStartForceExitAndRemoveMapCountdown"),
-                transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(CheckStartForceExitAndRemoveMapCountdown_Transpiler)));
-
-            harmony.Patch(AccessTools.Method(typeof(PlantProperties), "SpecialDisplayStats"),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(PlantProperties), "SpecialDisplayStats"),
                 postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(DisplayYieldInfo)));
 
-            harmony.Patch(AccessTools.Method(typeof(StartingPawnUtility), nameof(StartingPawnUtility.NewGeneratedStartingPawn)),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(StartingPawnUtility), "NewGeneratedStartingPawn"),
                 transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(NewGeneratedStartingPawns_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(Dialog_AssignBuildingOwner), nameof(Dialog_AssignBuildingOwner.DoWindowContents)),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(Dialog_AssignBuildingOwner), "DoWindowContents"),
                 transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(DoWindowContents_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(Pawn_HealthTracker), nameof(Pawn_HealthTracker.NotifyPlayerOfKilled)),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(Pawn_HealthTracker), "NotifyPlayerOfKilled"),
                 prefix: new HarmonyMethod(typeof(HarmonyPatches), nameof(NotifyPlayerOfKilledAnimal_Prefix)));
 
-            harmony.Patch(AccessTools.Method(typeof(PawnUtility), nameof(PawnUtility.HumanFilthChancePerCell)),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(PawnUtility), "HumanFilthChancePerCell"),
                 postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(HumanFilthChancePerCell_Postfix)));
 
             //harmony.Patch(AccessTools.Method(typeof(Building_Turret), "OnAttackedTarget"), null, null,
             //    new HarmonyMethod(typeof(HarmonyPatches), nameof(OnAttackedTarget_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(FoodUtility), nameof(FoodUtility.GetPreyScoreFor)),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(FoodUtility), "GetPreyScoreFor"),
                 postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(GetPreyScoreFor_Postfix)));
 
-            harmony.Patch(AccessTools.Method(typeof(WorkGiver_InteractAnimal), "CanInteractWithAnimal"),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(WorkGiver_InteractAnimal), "CanInteractWithAnimal"),
                 postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(CanInteractWithAnimal_Postfix)));
 
-            harmony.Patch(AccessTools.Property(typeof(Dialog_MessageBox), "InteractionDelayExpired").GetGetMethod(true),
+            harmony.Patch(
+                original: AccessTools.Property(typeof(Dialog_MessageBox), "InteractionDelayExpired").GetGetMethod(true),
                 postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(YesImAModderStopAskingMe)));
 
-            harmony.Patch(AccessTools.Method(typeof(DebugThingPlaceHelper), nameof(DebugThingPlaceHelper.DebugSpawn)),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(DebugThingPlaceHelper), "DebugSpawn"),
                 transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(TranspileDebugSpawn)));
 
-            harmony.Patch(AccessTools.Property(typeof(Log), "ReachedMaxMessagesLimit").GetGetMethod(true),
-                postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(ReachedMaxMessagesLimit_Postfix)));
+            //Remove the 1000 messages limit.
+            harmony.Patch(
+                original: AccessTools.Method(typeof(Log), "Notify_MessageReceivedThreadedInternal"),
+                prefix: new HarmonyMethod(typeof(HarmonyPatches), nameof(Notify_MessageReceivedThreadedInternal_Prefix)));
 
             //harmony.Patch(AccessTools.Method(typeof(RelationsUtility), nameof(RelationsUtility.IsDisfigured)), null,
             //    new HarmonyMethod(typeof(HarmonyPatches), nameof(IsDisfigured_Postfix)));
 
-            harmony.Patch(AccessTools.Method(typeof(Page_ConfigureStartingPawns), "DoNext"),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(Page_ConfigureStartingPawns), "DoNext"),
                 prefix: new HarmonyMethod(typeof(HarmonyPatches), nameof(ConfigureStartingPawnsDoNextPrefix)));
 
             //harmony.Patch(AccessTools.Method(typeof(IncidentWorker_RefugeeChased), "TryExecuteWorker"),
             //    transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(TryExecuteWorker_Transpiler)));
 
-            harmony.Patch(AccessTools.Method(typeof(PawnUIOverlay), nameof(PawnUIOverlay.DrawPawnGUIOverlay)),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(PawnUIOverlay), "DrawPawnGUIOverlay"),
                 postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(DrawPawnGUIOverlay_Postfix)));
 
-            harmony.Patch(AccessTools.Method(typeof(Listing_TreeThingFilter), "DoThingDef"),
+            harmony.Patch(
+                original: AccessTools.Method(typeof(Listing_TreeThingFilter), "DoThingDef"),
                 transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(DoThingDef_Transpiler)));
         }
 
@@ -120,7 +128,7 @@ namespace Mehni.Misc.Modifications
         }
 
 
-#region StayWhereIPutYou
+        #region StayWhereIPutYou
         private static void StayWhereIPutYou_Postfix(ref bool __result, int ___lastNonWaitingTick, Pawn ___pawn)
         {
             if (MeMiMoSettings.modifyAutoUndrafter)
@@ -167,9 +175,9 @@ namespace Mehni.Misc.Modifications
             }
             return false;
         }
-#endregion
+        #endregion
 
-#region DynamicFleeing
+        #region DynamicFleeing
 
         private static void FleeTrigger_PostFix(ref LordJob lordJob)
         {
@@ -192,9 +200,9 @@ namespace Mehni.Misc.Modifications
                 }
             }
         }
-#endregion DynamicFleeing
+        #endregion DynamicFleeing
 
-#region BigManhunterPacks
+        #region BigManhunterPacks
         private static bool BigManhunterPackFix(PawnKindDef animal, float points, ref float __result)
         {
             //6000 is based on the Manhunter results table in the devtools. At around 6~7k points, there's only one or two critters dangerous enough.
@@ -206,77 +214,9 @@ namespace Mehni.Misc.Modifications
             }
             return true;
         }
-#endregion
+        #endregion
 
-#region INeedMoreTime
-        public static IEnumerable<CodeInstruction> ForceExitTimeExtender_Transpiler(IEnumerable<CodeInstruction> instructions)
-        {
-            if (MeMiMoSettings.allowLongerStays)
-            {
-                bool patched = false;
-                MethodInfo countDown = AccessTools.Method(typeof(TimedForcedExit), nameof(TimedForcedExit.StartForceExitAndRemoveMapCountdown), new Type[] { });
-                MethodInfo countDownWithCount = AccessTools.Method(typeof(TimedForcedExit), nameof(TimedForcedExit.StartForceExitAndRemoveMapCountdown), new Type[] { typeof(int) });
-                int timeInTicksToLeave = GenDate.TicksPerDay + (MeMiMoSettings.extraDaysUntilKickedOut * GenDate.TicksPerDay);
-
-                List<CodeInstruction> instructionList = instructions.ToList();
-                for (int i = 0; i < instructionList.Count; i++)
-                {
-                    CodeInstruction instruction = instructionList[i];
-                    if (instruction.opcode == OpCodes.Ldc_I4)
-                    {
-                        //change message to leave
-                        instruction.operand = timeInTicksToLeave;
-                    }
-
-                    yield return instructionList[i];
-
-                    if (!patched && instructionList[i + 1].Calls(countDown))
-                    {
-                        //change actual time to leave
-                        patched = true;
-                        yield return new CodeInstruction(OpCodes.Ldc_I4, timeInTicksToLeave);
-                        instructionList[i + 1].operand = countDownWithCount;
-                    }
-                }
-            }
-            else //becomes a no-op otherwise.
-            {
-                foreach (CodeInstruction i in instructions)
-                {
-                    yield return i;
-                }
-            }
-        }
-
-        public static IEnumerable<CodeInstruction> CheckStartForceExitAndRemoveMapCountdown_Transpiler(IEnumerable<CodeInstruction> instructions)
-        {
-            if (MeMiMoSettings.allowLongerStays)
-            {
-                float timeInTicksToLeave = MeMiMoSettings.extraDaysUntilKickedOut * GenDate.TicksPerDay;
-                List<CodeInstruction> instructionList = instructions.ToList();
-
-                for (int i = 0; i < instructionList.Count; i++)
-                {
-                    CodeInstruction instruction = instructionList[i];
-                    yield return instruction;
-                    if (instruction.opcode == OpCodes.Mul)
-                    {
-                        yield return new CodeInstruction(OpCodes.Ldc_R4, timeInTicksToLeave);
-                        yield return new CodeInstruction(OpCodes.Add);
-                    }
-                }
-            }
-            else //becomes a no-op otherwise.
-            {
-                foreach (CodeInstruction i in instructions)
-                {
-                    yield return i;
-                }
-            }
-        }
-#endregion
-
-#region DisplayYieldInfo
+        #region DisplayYieldInfo
         //Thanks to XeoNovaDan
         public static void DisplayYieldInfo(PlantProperties __instance, ref IEnumerable<StatDrawEntry> __result)
         {
@@ -309,9 +249,9 @@ namespace Mehni.Misc.Modifications
                 __result = __result.AddItem(statDrawEntry);
             }
         }
-#endregion DisplayYieldInfo
+        #endregion DisplayYieldInfo
 
-#region TutorialStyleRolling (No non-violents)
+        #region TutorialStyleRolling (No non-violents)
         public static IEnumerable<CodeInstruction> NewGeneratedStartingPawns_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
         {
             MethodInfo tutorialMode = AccessTools.Property(typeof(TutorSystem), nameof(TutorSystem.TutorialMode)).GetGetMethod();
@@ -338,17 +278,24 @@ namespace Mehni.Misc.Modifications
             tmpList.AddRange(Find.GameInitData.startingAndOptionalPawns.Take(Find.GameInitData.startingPawnCount));
             if (!tmpList.Contains(___curPawn))
             {
-                Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation($"Currently viewed colonist is not selected for landing. Are you sure you wish to embark without {___curPawn.LabelCap}?",
-                                                            () => { returnvalue = true; runMe.Invoke(__instance, new object[] { }); }));
+                Find.WindowStack.Add(
+                    Dialog_MessageBox.CreateConfirmation(
+                        text: "M4_HaveNotDraggedColonist".Translate(___curPawn.LabelCap),
+                        confirmedAct: () => {
+                            returnvalue = true;
+                            runMe.Invoke(__instance, new object[] { });
+                        }
+                        )
+                    );
             }
             else returnvalue = true;
             tmpList.Clear();
             return returnvalue;
         }
 
-#endregion
+        #endregion
 
-#region showLovers
+        #region showLovers
         public static IEnumerable<CodeInstruction> DoWindowContents_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
         {
             MethodInfo getViewRectWidth = AccessTools.Property(typeof(Rect), nameof(Rect.width)).GetGetMethod();
@@ -369,7 +316,15 @@ namespace Mehni.Misc.Modifications
                     yield return new CodeInstruction(OpCodes.Ldloc_2); //y
                     yield return new CodeInstruction(instructionList[i - 2]); //pawn
                     yield return new CodeInstruction(OpCodes.Call, makeReeect);
-                    yield return new CodeInstruction(OpCodes.Brtrue, instructionList.Where(x => x != null && x.labels != null && x.labels.Any()).Skip(instructionList.Where(x => x != null && x.labels != null && x.labels.Any()).Count() - 2).First().labels.First()); //2nd to last ret
+                    yield return new CodeInstruction(OpCodes.Brtrue,
+                        instructionList.Where(
+                            x => x != null && x.labels != null && x.labels.Any()
+                            )
+                        .Skip(
+                            instructionList.Where(
+                                x => x != null && x.labels != null && x.labels.Any()
+                                ).Count() - 2
+                        ).First().labels.First()); //2nd to last ret
                 }
                 else
                     yield return instructionList[i];
@@ -404,43 +359,34 @@ namespace Mehni.Misc.Modifications
                 Rect drawRect = new Rect(x, y, iconSize.x, iconSize.y);
                 TooltipHandler.TipRegion(drawRect, directPawnRelation.otherPawn.LabelCap);
                 GUI.DrawTexture(drawRect, iconFor);
-
-                if (iconFor == BondBrokenIcon && Mouse.IsOver(drawRect) && Input.GetMouseButtonDown(0))
-                {
-                    if (pawn.ownership?.OwnedBed?.SleepingSlotsCount >= 2)
-                    {
-                        pawn.ownership.OwnedBed.GetComp<CompAssignableToPawn>().TryAssignPawn(directPawnRelation.otherPawn);
-                        return true;
-                    }
-                }
             }
             return false;
         }
-#endregion showLovers
+        #endregion showLovers
 
-#region DeathMessagesForAnimals;
+        #region DeathMessagesForAnimals;
         private static bool NotifyPlayerOfKilledAnimal_Prefix(Pawn ___pawn)
         {
             return !___pawn.RaceProps.Animal || MeMiMoSettings.deathMessagesForAnimals;
         }
-#endregion DeathMessagesForAnimals
+        #endregion DeathMessagesForAnimals
 
-#region LessLitterLouting
+        #region LessLitterLouting
         public static void HumanFilthChancePerCell_Postfix(ref float __result)
         {
             __result *= (MeMiMoSettings.humanFilthRate / 5);
         }
-#endregion
+        #endregion
 
 
 
         //Courtesy XND
 
-#region AnimalHandlingSanity
+        #region AnimalHandlingSanity
         // 'Totally didn't almost forget to actually copypaste the testing code' edition
         public static void GetPreyScoreFor_Postfix(Pawn predator, Pawn prey, ref float __result)
         {
-            if (predator.Faction == Faction.OfPlayer && MeMiMoSettings.obedientPredatorsDeferHuntingTameDesignatedAnimals
+            if (predator.Faction == Faction.OfPlayer && MeMiMoSettings.guardingPredatorsDeferHuntingTameDesignatedAnimals
                                                      && predator.training.HasLearned(TrainableDefOf.Obedience)
                                                      && prey.Map.designationManager.DesignationOn(prey, DesignationDefOf.Tame) != null)
             {
@@ -457,7 +403,7 @@ namespace Mehni.Misc.Modifications
                 __result = false;
             }
         }
-#endregion
+        #endregion
 
         //#region HideDisfigurement
         //public static void IsDisfigured_Postfix(ref bool __result, Pawn pawn)
@@ -488,14 +434,15 @@ namespace Mehni.Misc.Modifications
         //}
         //#endregion
 
-#region ToolsForModders
+        #region ToolsForModders
         private static void YesImAModderStopAskingMe(ref bool __result)
         {
             if (MeMiMoSettings.iAmAModder)
                 __result = true;
+            Debug.unityLogger.logEnabled = false;
         }
 
-#region DevModeSpawning
+        #region DevModeSpawning
         public static IEnumerable<CodeInstruction> TranspileDebugSpawn(IEnumerable<CodeInstruction> instructions)
         {
             List<CodeInstruction> instructionList = instructions.ToList();
@@ -533,34 +480,33 @@ namespace Mehni.Misc.Modifications
             if (!MeMiMoSettings.forceItemQuality)
                 return QualityUtility.GenerateQualityRandomEqualChance();
 
-            switch (MeMiMoSettings.forcedItemQuality)
+            return MeMiMoSettings.forcedItemQuality switch
             {
-                case 0:
-                    return QualityCategory.Awful;
-                case 1:
-                    return QualityCategory.Poor;
-                case 3:
-                    return QualityCategory.Good;
-                case 4:
-                    return QualityCategory.Excellent;
-                case 5:
-                    return QualityCategory.Masterwork;
-                case 6:
-                    return QualityCategory.Legendary;
-                default:
-                    return QualityCategory.Normal;
-            }
+                0 => QualityCategory.Awful,
+                1 => QualityCategory.Poor,
+                3 => QualityCategory.Good,
+                4 => QualityCategory.Excellent,
+                5 => QualityCategory.Masterwork,
+                6 => QualityCategory.Legendary,
+                _ => QualityCategory.Normal,
+            };
         }
-#endregion DevModeSpawning
+        #endregion DevModeSpawning
 
-        public static void ReachedMaxMessagesLimit_Postfix(ref bool __result)
+        private static bool Notify_MessageReceivedThreadedInternal_Prefix(ref int ___messageCount)
         {
             if (MeMiMoSettings.iAmAModder)
-                __result = false;
+            {
+                ___messageCount++;
+                return false;
+            }
+            else
+                return true;
         }
-#endregion ToolsForModders
 
-#region BetterHostileReadouts
+        #endregion ToolsForModders
+
+        #region BetterHostileReadouts
         // Thanks Mehni... :sadwinnie:
         public static IEnumerable<CodeInstruction> TryExecuteWorker_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
@@ -597,9 +543,9 @@ namespace Mehni.Misc.Modifications
             if (MeMiMoSettings.betterHostileReadouts && !___pawn.RaceProps.Humanlike && ___pawn.Faction != Faction.OfPlayer && ___pawn.HostileTo(Faction.OfPlayer))
                 GenMapUI.DrawPawnLabel(___pawn, GenMapUI.LabelDrawPosFor(___pawn, -0.6f), font: GameFont.Tiny);
         }
-#endregion
+        #endregion
 
-#region IngredientFilterInfoCards
+        #region IngredientFilterInfoCards
         public static IEnumerable<CodeInstruction> DoThingDef_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             List<CodeInstruction> instructionList = instructions.ToList();
@@ -651,19 +597,19 @@ namespace Mehni.Misc.Modifications
         }
 
         //[TweakValue("AAAMehniMiscMods", -50f, 50f)]
-        private static float widthOffset = -19f;
+        private static readonly float widthOffset = -19f;
 
         //[TweakValue("AAAMehniMiscMods", -50f, 50f)]
-        private static float xOffset = -21f;
+        private static readonly float xOffset = -21f;
 
         //[TweakValue("AAAMehniMiscMods", -50f, 50f)]
-        private static float yOffset = -2.25f;
-#endregion
+        private static readonly float yOffset = -2.25f;
+        #endregion
 
         //[TweakValue("AAAAMehniMiscMods", 0f, 1f)]
-        private static float resizeHeart = 0.50f;
+        private static readonly float resizeHeart = 0.50f;
 
-        private static float offsetPosition = 0.62f;
+        private static readonly float offsetPosition = 0.62f;
 
     }
 

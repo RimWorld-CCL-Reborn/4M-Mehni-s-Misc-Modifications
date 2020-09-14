@@ -1,16 +1,16 @@
-﻿namespace Mehni.Misc.Modifications
-{
-    using System.Collections.Generic;
-    using RimWorld;
-    using Verse;
-    using System.Linq;
+﻿using System.Collections.Generic;
+using RimWorld;
+using Verse;
+using System.Linq;
 
+namespace Mehni.Misc.Modifications
+{
     public class Alert_NPDBlocked : Alert
     {
         public Alert_NPDBlocked()
         {
-            this.defaultExplanation = "M4_NPDNeedsSpace_Desc".Translate();
-            this.defaultLabel = "M4_NPDNeedsSpace".Translate();
+            defaultExplanation = "M4_NPDNeedsSpace_Desc".Translate();
+            defaultLabel = "M4_NPDNeedsSpace".Translate();
         }
 
         public override AlertReport GetReport() => AlertReport.CulpritsAre(BlockedNPDs.ToList());
