@@ -116,5 +116,5 @@
   <M4_NPDNeedsSpace_Desc>1台のペーストディスペンサーは出口が障害物に塞がれ、利用できません。\n\n障害物を取り除いてください。</M4_NPDNeedsSpace_Desc>
 
   <!--EN: Currently viewed colonist is not selected for landing. Are you sure you wish to embark without {0}?-->
-  <M4_HaveNotDraggedColonist>今見ているキャラクターはまだ初期入植者として選択していません。本当に {0} 抜きにゲームを開始しますか？</M4_HaveNotDraggedColonist>
+  <M4_HaveNotDraggedColonist>今見ているキャラクターはまだ初期入植者として選択していません。本当に {0} 抜きでゲームを開始しますか？</M4_HaveNotDraggedColonist>
 </LanguageData>

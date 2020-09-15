@@ -25,5 +25,10 @@ Upgraded for RimWorld 1.2 version.
   2. Remove the onclick funciton on the broken heart at the bed assignment window since it will cause game crash.
   3. Refine Chinese translation. Add Japanese traslation.
   4. Other minor fixes and adjustments.
-</description>
+  </description>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>Ludeon.RimWorld</li>
+    <li>Ludeon.RimWorld.Royalty</li>
+  </loadAfter>
 </ModMetaData>
