@@ -1,35 +1,26 @@
-# Unmaintained
-**For a 1.2 version, see [GitHub](https://github.com/ZXfkSIE/4M-Mehni-s-Misc-Modifications) and [Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=2228765246).**
-_____
-## 4M Mehni's Misc Modifications
+# 4M Mehni's Misc Modifications
 
 Adds various settings to customise your RimWorld experience.
 
 Main features include:
 
-### Bugfixes for vanilla issues
+## Bugfixes for vanilla issues
 
 The game gives up on sending you manhunter packs once you reach a certain size. No more!
 
-### Extend the time for pawns to undraft themselves
+## Extend the time for pawns to undraft themselves
 
 Stay where I put you!
 Ever had colonists auto undraft themselves while positioning them? Not anymore.
 
-### Change the threshold at which pawns retreat
+## Change the threshold at which pawns retreat
 
 Raiders flee at 50% by default. That's boring. Want a bigger challenge? Up the threshold or turn off fleeing entirely. Want a laid back game? Set it lower! Want randomness? Custom upper and lower retreat ranges!
 
-<<<<<<< HEAD
 ## Get an alert when the Nutrient Paste Dispenser can't be used
 Pawns won't eat Nutrient Paste for some reason? Odds are there's a chunk blocking access to the interaction spot. 4M gives you a warning if this is the case.
-=======
-### Extend the time before you get kicked out of caravan maps
 
-Because sometimes you need more time. Changing this setting requires a restart.
->>>>>>> upstream/master
-
-### Information improvements
+## Information improvements
 
 - Show who wants to sleep with who on beds.
 - [XND] Display yield info on plants.
@@ -40,7 +31,7 @@ Because sometimes you need more time. Changing this setting requires a restart.
 - [XND] Chased refugees will give a full headcount of their raid.
 - Add item information buttons at item filter.
 
-### Various (AI) tweaks and settings
+## Various (AI) tweaks and settings
 
 - Don't roll pacifists.
 - [XND] Set a custom filth rate for humans.
@@ -48,7 +39,7 @@ Because sometimes you need more time. Changing this setting requires a restart.
 - [XND] Animals marked for taming are less tasty to your guard-trained predators. ("Bad bear! I said *tame* the turtle, not eat it!")
 - Increase the size of Herd Migrations. Bring on the herd!
 
-### Mods for modders
+## Mods for modders
 
 - Remove the 6 second cooldown for uploading a mod.
 - [XND] Devmode spawn tweaks. Pick the stuff and quality for the item you wish to spawn.
@@ -58,7 +49,7 @@ All settings that influence gameplay are optional and can be configured or turne
 
 [Major thanks to XeoNovaDan for direct code contributions. He makes very cool mods, check 'em out here!](https://steamcommunity.com/profiles/76561198168346339/myworkshopfiles/?appid=294100&p=1&numperpage=30)
 
-### Links
+## Links
 
 - Steam: [https://steamcommunity.com/sharedfiles/filedetails/?id=2228765246](https://steamcommunity.com/sharedfiles/filedetails/?id=2228765246)
 
