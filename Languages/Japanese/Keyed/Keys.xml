@@ -91,9 +91,9 @@
   <M4_CantInteractAnimalWillFallAsleepSoon>動物たちはもうすぐ寝入る</M4_CantInteractAnimalWillFallAsleepSoon>
 
   <!--EN: Timetable assignment matters more-->
-  <M4_TimetableAssignmentMatters>時刻表はより大きな効果を発揮する</M4_TimetableAssignmentMatters>
+  <M4_TimetableAssignmentMatters>時間割りはより大きな効果を発揮する</M4_TimetableAssignmentMatters>
   <!--EN: Colonists' timetable assignments will affect their global work speed stats.-->
-  <M4_TimetableAssignmentMatters_Desc>入植者の時刻表での割り当ては、基本的な作業速度に影響を及ぼします。</M4_TimetableAssignmentMatters_Desc>
+  <M4_TimetableAssignmentMatters_Desc>入植者の時間割りでの割り当ては、基本的な作業速度に影響を及ぼします。</M4_TimetableAssignmentMatters_Desc>
 
   <!--EN: Better hostile readouts-->
   <M4_BetterHostileReadouts>敵の情報は読みやすくなる</M4_BetterHostileReadouts>
@@ -108,7 +108,7 @@
   <!--EN: Add info button to filters-->
   <M4_ThingFilterInfoCards>アイテムフィルターに情報ボタンを追加</M4_ThingFilterInfoCards>
   <!--EN: When viewing stockpile filters or configuring recipe ingredients, there will be a clickable i to bring up that item's info card.-->
-  <M4_ThingFilterInfoCards_Desc>備蓄ゾーンのフィルターページ及びレシピの原材料設定ページにて、アイテムの隣に「i」ボタンを追加します。それをクリックするとアイテムの情報を確認できます。</M4_ThingFilterInfoCards_Desc>
+  <M4_ThingFilterInfoCards_Desc>備蓄ゾーンのフィルターページ及びレシピの原材料設定ページにて、アイテムの隣に「i」ボタンを追加します。それをクリックするとアイテムの情報ページを確認できます。</M4_ThingFilterInfoCards_Desc>
 
   <!--EN: Paste dispenser needs space-->
   <M4_NPDNeedsSpace>ペーストディスペンサーにスペースが必要</M4_NPDNeedsSpace>
