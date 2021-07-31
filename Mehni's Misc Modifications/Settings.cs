@@ -37,10 +37,6 @@ namespace Mehni.Misc.Modifications
         public static bool deathMessagesForAnimals = true;
         #endregion
 
-        #region LessLitterLouting
-        public static float humanFilthRate = 5f;
-        #endregion
-
         #region AnimalHandlingSanity
         public static bool guardingPredatorsDeferHuntingTameDesignatedAnimals = true;
         public static int animalInteractionHourLimit = 20;
@@ -93,17 +89,17 @@ namespace Mehni.Misc.Modifications
 
         //Value where the rect stops.
         //[TweakValue("AAAMehniMiscMods", 0, 1200f)]
-        private static readonly float yMax = 620;
+        private static readonly float yMax = 620f;
 
         //Do not touch.
         //[TweakValue("AAAMehniMiscMods", 0, 1200f)]
-        private static readonly float height = 640;
+        private static readonly float height = 640f;
 
         private static Vector2 scrollVector2;
 
         public void DoWindowContents(Rect wrect)
         {
-            Listing_Standard options = new Listing_Standard();
+            Listing_Standard options = new();
             Color defaultColor = GUI.color;
             options.Begin(wrect);
 
@@ -127,9 +123,6 @@ namespace Mehni.Misc.Modifications
             options.GapLine();
 
             options.CheckboxLabeled("M4_BetterHostileReadouts".Translate(), ref betterHostileReadouts, "M4_BetterHostileReadouts_Desc".Translate());
-            options.GapLine();
-
-            options.SliderLabeled("M4_LessLitterLouting".Translate(), ref humanFilthRate, Math.Round(humanFilthRate, 2).ToString(), 0, 25, "M4_LessLitterLouting_Desc".Translate());
             options.GapLine();
 
             options.SliderLabeled(
@@ -164,24 +157,27 @@ namespace Mehni.Misc.Modifications
 
             // More options
 
-            Listing_Standard gapline = new Listing_Standard();
-            Rect gapliRect = new Rect(wrect.x, wrect.y + moreOptionsRecty -35f, wrect.width, wrect.height);
+            Listing_Standard gapline = new();
+            Rect gapliRect = new(wrect.x, wrect.y + moreOptionsRecty -35f, wrect.width, wrect.height);
             gapline.Begin(gapliRect);
             gapline.GapLine();
             gapline.End();
 
-            Listing_Standard moreOptions = new Listing_Standard();
+            Listing_Standard moreOptions = new();
             Rect moreOptionsRect = wrect;
             moreOptionsRect.y = (moreOptionsRecty + 20f) / 2;
             moreOptionsRect.height = height / 2;
             moreOptionsRect.yMax = yMax;
 
-            Rect viewRect = new Rect(0,0,wrect.width -18f, viewHeight);
+            Rect viewRect = new(0,0,wrect.width -18f, viewHeight);
             viewRect.width -= 18f;
 
             moreOptions.Begin(moreOptionsRect);
 
-            moreOptions.BeginScrollView(moreOptionsRect, ref scrollVector2, ref viewRect);
+            Widgets.BeginScrollView(moreOptionsRect, ref scrollVector2, viewRect, true);
+            moreOptionsRect.height = 100000f;
+            moreOptionsRect.width -= 20f;
+            moreOptions.Begin(moreOptionsRect.AtZero());
 
             moreOptions.CheckboxLabeled("M4_GuardingPredatorsDontHuntTameDesignatedPawns".Translate(),
                 ref guardingPredatorsDeferHuntingTameDesignatedAnimals, "M4_GuardingPredatorsDontHuntTameDesignatedPawns_Desc".Translate());
@@ -236,7 +232,8 @@ namespace Mehni.Misc.Modifications
                 moreOptions.SliderLabeled("Item quality", ref forcedItemQuality, ((QualityCategory)forcedItemQuality).ToString(), 0, 6);
                 moreOptions.GapLine();
             }
-            moreOptions.EndScrollView(ref viewRect);
+
+            Widgets.EndScrollView();
             moreOptions.End();
         }
 
@@ -253,7 +250,6 @@ namespace Mehni.Misc.Modifications
             Scribe_Values.Look(ref retreatDefeatRange, "retreatDefeatRange", new FloatRange(0.5f, 0.5f));
             Scribe_Values.Look(ref enableTutorialStyleRolling, "tutorialStyleRolling", true);
             Scribe_Values.Look(ref deathMessagesForAnimals, "deathMessageForAnimals", true);
-            Scribe_Values.Look(ref humanFilthRate, "humanFilthRate", 5f);
             Scribe_Values.Look(ref guardingPredatorsDeferHuntingTameDesignatedAnimals, "guardingPredatorsDeferHuntingTameDesignatedAnimals", true);
             Scribe_Values.Look(ref animalInteractionHourLimit, "animalInteractionHourLimit", 20);
             Scribe_Values.Look(ref workAssignmentMatters, "workAssignmentMatters", false);

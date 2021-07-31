@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
-using UnityEngine;
 using Verse;
 using RimWorld;
+using UnityEngine;
 
 namespace Mehni.Misc.Modifications
 {
@@ -97,7 +97,7 @@ namespace Mehni.Misc.Modifications
 
         private static float GetAccuracy(Thing weapon, VerbProperties verb, ProjectileProperties projectile, float dist, Pawn pawn = null)
         {
-            float forcedMissRadius = CalculateAdjustedForcedMissDist(verb.forcedMissRadius, dist);
+            float forcedMissRadius = CalculateAdjustedForcedMissDist(verb.ForcedMissRadius, dist);
             float baseAimOn = verb.GetHitChanceFactor(weapon, dist);
             if (pawn != null)
                 baseAimOn *= ShotReport.HitFactorFromShooter(pawn, dist);

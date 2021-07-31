@@ -54,20 +54,19 @@ namespace Mehni.Misc.Modifications
             harmony.Patch(
                 original: AccessTools.Method(typeof(Pawn_HealthTracker), "NotifyPlayerOfKilled"),
                 prefix: new HarmonyMethod(typeof(HarmonyPatches), nameof(NotifyPlayerOfKilledAnimal_Prefix)));
-
-            harmony.Patch(
-                original: AccessTools.Method(typeof(PawnUtility), "HumanFilthChancePerCell"),
-                postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(HumanFilthChancePerCell_Postfix)));
-
-            //harmony.Patch(AccessTools.Method(typeof(Building_Turret), "OnAttackedTarget"), null, null,
-            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(OnAttackedTarget_Transpiler)));
-
+            /*
+            harmony.Patch(AccessTools.Method(typeof(Building_Turret), "OnAttackedTarget"), null, null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(OnAttackedTarget_Transpiler)));
+            */
             harmony.Patch(
                 original: AccessTools.Method(typeof(FoodUtility), "GetPreyScoreFor"),
                 postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(GetPreyScoreFor_Postfix)));
 
             harmony.Patch(
-                original: AccessTools.Method(typeof(WorkGiver_InteractAnimal), "CanInteractWithAnimal"),
+                original: AccessTools.Method(
+                    typeof(WorkGiver_InteractAnimal), "CanInteractWithAnimal",
+                    new[] { typeof(Pawn), typeof(Pawn), typeof(string).MakeByRefType(), typeof(bool), typeof(bool), typeof(bool), typeof(bool) }
+                ),
                 postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(CanInteractWithAnimal_Postfix)));
 
             harmony.Patch(
@@ -77,11 +76,6 @@ namespace Mehni.Misc.Modifications
             harmony.Patch(
                 original: AccessTools.Method(typeof(DebugThingPlaceHelper), "DebugSpawn"),
                 transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(TranspileDebugSpawn)));
-
-            //Remove the 1000 messages limit.
-            harmony.Patch(
-                original: AccessTools.Method(typeof(Log), "Notify_MessageReceivedThreadedInternal"),
-                prefix: new HarmonyMethod(typeof(HarmonyPatches), nameof(Notify_MessageReceivedThreadedInternal_Prefix)));
 
             //harmony.Patch(AccessTools.Method(typeof(RelationsUtility), nameof(RelationsUtility.IsDisfigured)), null,
             //    new HarmonyMethod(typeof(HarmonyPatches), nameof(IsDisfigured_Postfix)));
@@ -371,15 +365,6 @@ namespace Mehni.Misc.Modifications
         }
         #endregion DeathMessagesForAnimals
 
-        #region LessLitterLouting
-        public static void HumanFilthChancePerCell_Postfix(ref float __result)
-        {
-            __result *= (MeMiMoSettings.humanFilthRate / 5);
-        }
-        #endregion
-
-
-
         //Courtesy XND
 
         #region AnimalHandlingSanity
@@ -492,17 +477,6 @@ namespace Mehni.Misc.Modifications
             };
         }
         #endregion DevModeSpawning
-
-        private static bool Notify_MessageReceivedThreadedInternal_Prefix(ref int ___messageCount)
-        {
-            if (MeMiMoSettings.iAmAModder)
-            {
-                ___messageCount++;
-                return false;
-            }
-            else
-                return true;
-        }
 
         #endregion ToolsForModders
 

@@ -34,7 +34,7 @@ Pawns won't eat Nutrient Paste for some reason? Odds are there's a chunk blockin
 ## Various (AI) tweaks and settings
 
 - Don't roll pacifists.
-- [XND] Set a custom filth rate for humans.
+- [XND] ~~Set a custom filth rate for humans.~~ (Removed in 1.3 version)
 - [XND] Don't interact with animals just before their naptime.
 - [XND] Animals marked for taming are less tasty to your guard-trained predators. ("Bad bear! I said *tame* the turtle, not eat it!")
 - Increase the size of Herd Migrations. Bring on the herd!
@@ -43,7 +43,7 @@ Pawns won't eat Nutrient Paste for some reason? Odds are there's a chunk blockin
 
 - Remove the 6 second cooldown for uploading a mod.
 - [XND] Devmode spawn tweaks. Pick the stuff and quality for the item you wish to spawn.
-- Remove the 999 messages limit. Because sometimes you want to get spammed.
+- ~~Remove the 999 messages limit. Because sometimes you want to get spammed.~~ (Removed in 1.3 version)
 
 All settings that influence gameplay are optional and can be configured or turned off. More options are planned, leave me a comment with your ideas. I prioritise by popular and easy-to-do ;-)
 
