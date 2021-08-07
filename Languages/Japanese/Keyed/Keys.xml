@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Stats -->
+  <!--EN: Damage per burst-->
+  <M4_DamagePerBurst>単発ダメージ</M4_DamagePerBurst>
+  <!--EN: Single-use-->
+  <M4_WeaponSingleUse>1回限り</M4_WeaponSingleUse>
+  <!--EN: Burst length-->
+  <M4_BurstShotDelay>発砲間隔</M4_BurstShotDelay>
+  <!--EN: Travel time-->
+  <M4_ProjectileTravelTime>弾丸飛行時間</M4_ProjectileTravelTime>
+  <!--EN: Explosion delay-->
+  <M4_ProjectileExplosionDelay>爆発遅延時間</M4_ProjectileExplosionDelay>
+
+  <!-- StatParts -->
+  <!--EN: Timetabled for {0}-->
+  <M4_StatPart_TimeTable_ExplanationString>{0} の時間と設定されている</M4_StatPart_TimeTable_ExplanationString>
+
+  <!-- Settings -->
+  <!--EN: Greyed out settings are ignored-->
+  <M4_GreySettingsIgnored>灰色となった設定は無視されます</M4_GreySettingsIgnored>
+
+  <!--EN: Bring back big herd migrations-->
+  <M4_SettingBigAnimalMigrations>大型動物の大群の移動を取り戻す</M4_SettingBigAnimalMigrations>
+  <!--EN: With this setting enabled, expect herd migrations to contain between 30 and 50 animals, regardless of bodysize.-->
+  <M4_SettingBigAnimalMigrations_Desc>本設定を有効化すると、30から50頭の動物（大きさ不問）が大群となり移動することを期待できます。</M4_SettingBigAnimalMigrations_Desc>
+
+  <!--EN: Modify the Auto Undrafter-->
+  <M4_SettingModifyAutoUndrafter>徴兵自動解除に関する設定</M4_SettingModifyAutoUndrafter>
+  <!--EN: Various options for lengthening the time it takes for a colonist to undraft themselves.-->
+  <M4_SettingModifyAutoUndrafter_Desc>下記のオプションを通し、入植者の徴兵自動解除期間を延長させます。</M4_SettingModifyAutoUndrafter_Desc>
+  <!--EN: Stay drafted when there's gunfire on the map.-->
+  <M4_SettingWithGunsBlazing>マップで戦闘があれば、徴兵を終えない</M4_SettingWithGunsBlazing>
+  <!--EN: Pawns stay drafted as long as someone is firing a gun on the map.-->
+  <M4_SettingGunsBlazing_Desc>マップで戦闘がある限り、「徴兵」状態は終了しません。</M4_SettingGunsBlazing_Desc>
+  <!--EN: Extend the time to undraft by:-->
+  <M4_SettingExtendUndraftTimeBy>徴兵自動解除期間をこれぐらい延長させる：</M4_SettingExtendUndraftTimeBy>
+  <!--EN: The vanilla value is 5000 ticks, a little under a RimWorld hour. This setting *adds* to the 5000 ticks. Note that colonists actively engaged in combat will not undraft themselves (under normal circumstances).-->
+  <M4_SettingExtendUndraftTimeBy_Desc>バニラゲームにて、徴兵自動解除期間は5000ティックであり、ゲーム内の1時間より少し短いです。この本項目で設定された期間はそれに*加算*します。ご注意：戦闘に巻き込まれた入植者は通常、「徴兵」状態を自動解除しません。</M4_SettingExtendUndraftTimeBy_Desc>
+  <!--EN: ... but undraft when at:-->
+  <M4_SettingLowMoodUndraft>…但し、下記の事件が起こると、徴兵を解除する（上から順に精神変調・精神衰弱・精神崩壊リスク）：</M4_SettingLowMoodUndraft>
+  <!--EN: Allow the regular AutoUndrafter to kick in when colonists are at low mood.-->
+  <M4_SettingLowMoodUndraft_Desc>入植者が精神リスクにいると「徴兵」状態を自動解除します。</M4_SettingLowMoodUndraft_Desc>
+
+  <!--EN: Allow large manhunter packs?-->
+  <M4_SettingEnableLargePacks>超大型の人狩りの群れを可能にする</M4_SettingEnableLargePacks>
+  <!--EN: By default, RimWorld stops sending manhunter packs at high raid points. This changes that.-->
+  <M4_SettingLargePack_Desc>バニラゲームでは、襲撃ポイントが高くなると「人狩りの群れ」イベントが発生しません。本設定はこのイベントを取り戻せます。</M4_SettingLargePack_Desc>
+
+  <!--EN: Change the threshold at which raids flee-->
+  <M4_SettingVariableRaidRetreat>襲撃側の逃げ頃合を調整する</M4_SettingVariableRaidRetreat>
+  <!--EN: By default, raiders give up at 50% losses. This allows you to change it. Does not apply to mechanoids and other factions which don't flee.-->
+  <M4_SettingVariableRaid_Desc>バニラゲームにて、襲撃者は50%のメンバーを失うと逃げ始めます。メカノイドや決して逃げない派閥には影響を及ぼしません。</M4_SettingVariableRaid_Desc>
+  <!--DO NOT TRANSLATE
+  <M4_SettingRandomRaidRetreat></M4_SettingRandomRaidRetreat>-->
+  <!--EN: Raiders will flee somewhere between {0} and {1} losses.-->
+  <M4_SettingRandomRaidRetreat_Desc>襲撃者は {0} から {1} （この範囲から比率をランダムに生成）のメンバーを失うと逃げ始めます。</M4_SettingRandomRaidRetreat_Desc>
+  <!--EN: Flee when this many raiders have died:-->
+  <M4_SettingRetreatAtPercentageDefeated>襲撃者がこれぐらい倒れると逃げる：</M4_SettingRetreatAtPercentageDefeated>
+
+  <!--EN: Harvested product-->
+  <M4_HarvestYieldThing>収穫物</M4_HarvestYieldThing>
+  <!--EN: What this plant yields when harvested by a colonist. Information about {0} is as follows...-->
+  <M4_HarvestYieldThingDetailInit>この植物を収穫すると得られる物です。{0} の情報：</M4_HarvestYieldThingDetailInit>
+
+  <!--EN: Disable pacifists during rolling-->
+  <M4_TutorialStyleRolling>暴力ができない入植者は抽選できない</M4_TutorialStyleRolling>
+  <!--EN: If this is enabled, non-violents will be removed from the available colonist pool during the starting screen. That means you'll never roll Emmie the Sex Slave, or Roughchild the Reporter-->
+  <M4_TutorialStyleRolling_Desc>本設定を有効化すると、初期入植者を抽選している時に、暴力ができない人（Emmie the Sex Slave と Roughchild the Reporter を含む）は出て来ません。</M4_TutorialStyleRolling_Desc>
+
+  <!--EN: Tell me about every dead colony animal!-->
+  <M4_NotifyDeadAnimals>コロニーの動物の死を全部知らせて！</M4_NotifyDeadAnimals>
+  <!--EN: When disabled, this removes the Death notification message for colony animals. This includes bonded animals.-->
+  <M4_NotifyDeadAnimals_Desc>本設定を無効化すると、全てのコロニー動物の死亡通知メッセージは出なくなります。絆を結んだ動物も。</M4_NotifyDeadAnimals_Desc>
+
+  <!--EN: Human filth rate-->
+  <M4_LessLitterLouting>人による汚物の産出率</M4_LessLitterLouting>
+  <!--EN: How much filth and trash a human produces per 1000 cells. Default value is 5.-->
+  <M4_LessLitterLouting_Desc>人が1000セル歩く度に生ずる汚物やゴミの量。既定値は5。</M4_LessLitterLouting_Desc>
+
+  <!--EN: Animals marked for taming aren't tasty to your guarding predators-->
+  <M4_GuardingPredatorsDontHuntTameDesignatedPawns>あなたの護衛用捕食動物は、あなたが手懐けようとしている野生動物は美味しくないと思う</M4_GuardingPredatorsDontHuntTameDesignatedPawns>
+  <!--EN: When enabled, any tame predator that is guard-trained will defer hunting any wild animals that are designated to be tamed.-->
+  <M4_GuardingPredatorsDontHuntTameDesignatedPawns_Desc>本設定を有効化すると、護衛※スキルを身につけたコロニー派閥の捕食動物は、あなたが手懐けようとしている野生動物をできるだけ捕食しないようになります。\n\n※護衛スキル：バージョン1.0まででは「obedience」（服従）であったが、バージョン1.1より「guard」（護衛）となる。にもかかわらず、公式日本語訳では未だに「服従」と表している。</M4_GuardingPredatorsDontHuntTameDesignatedPawns_Desc>
+  <!--EN: Stop interacting with animals past-->
+  <M4_AnimalInteractionHourLimit>この時間が過ぎたら、動物関係の仕事はしない</M4_AnimalInteractionHourLimit>
+  <!--EN: Colonists that are assigned to animal handling will stop trying to interact with animals past this hour of the day, so that animals are less likely to fall asleep on them during taming/training which wastes food. Set to 24 to effectively disable (useful when you're playing with Nocturnal Animals).-->
+  <M4_AnimalInteractionHourLimit_Desc>「調教」仕事を割り当てられた入植者は、毎日この時間になると、動物関係の仕事をしません。こうして、手懐ける或いは調教する途中に動物が寝入り、食物を無駄にすることを避けられます。本項目を「24時」にすると無効化できます（Nocturnal Animalsに最適）。</M4_AnimalInteractionHourLimit_Desc>
+  <!--EN: animal will fall asleep soon-->
+  <M4_CantInteractAnimalWillFallAsleepSoon>動物たちはもうすぐ寝入る</M4_CantInteractAnimalWillFallAsleepSoon>
+
+  <!--EN: Timetable assignment matters more-->
+  <M4_TimetableAssignmentMatters>時間割りはより大きな効果を発揮する</M4_TimetableAssignmentMatters>
+  <!--EN: Colonists' timetable assignments will affect their global work speed stats.-->
+  <M4_TimetableAssignmentMatters_Desc>入植者の時間割りでの割り当ては、基本的な作業速度に影響を及ぼします。</M4_TimetableAssignmentMatters_Desc>
+
+  <!--EN: Better hostile readouts-->
+  <M4_BetterHostileReadouts>敵の情報は読みやすくなる</M4_BetterHostileReadouts>
+  <!--EN: Chased refugee letters will show an overall head count for the pursuing group and non-human threats will have labels underneath them to make it easier to find them - no more ninja mechanoids!-->
+  <M4_BetterHostileReadouts_Desc>「追跡された逃亡者」メッセージは、追われてきた敵の人数を示します。さらに、見つかりやすいために、全ての非人類の敵は下にラベルがあります。忍者のように潜入してくるメカノイドはもうありません！</M4_BetterHostileReadouts_Desc>
+
+  <!--EN: Display ranged DPS-->
+  <M4_DisplayRangedDPS>遠隔DPSを表示する</M4_DisplayRangedDPS>
+  <!--EN: Ranged weapons and pawns will show their ranged DPS at close, short, medium and long distances. Advisable to disable if running Combat Extended.-->
+  <M4_DisplayRangedDPS_Desc>遠隔武器とそれを持っている入植者の情報ページにて、至近・近・中・遠距離のDPSを表示します。Combat Extendedを使っていれば、本項目を無効化するのを薦めます。</M4_DisplayRangedDPS_Desc>
+
+  <!--EN: Add info button to filters-->
+  <M4_ThingFilterInfoCards>アイテムフィルターに情報ボタンを追加</M4_ThingFilterInfoCards>
+  <!--EN: When viewing stockpile filters or configuring recipe ingredients, there will be a clickable i to bring up that item's info card.-->
+  <M4_ThingFilterInfoCards_Desc>備蓄ゾーンのフィルターページ及びレシピの原材料設定ページにて、アイテムの隣に「i」ボタンを追加します。それをクリックするとアイテムの情報ページを確認できます。</M4_ThingFilterInfoCards_Desc>
+
+  <!--EN: Paste dispenser needs space-->
+  <M4_NPDNeedsSpace>ペーストディスペンサーにスペースが必要</M4_NPDNeedsSpace>
+  <!--EN: One of your nutrient paste dispensers has its interaction cell blocked by an obstruction that will prevent colonists from using it.\n\nA nutrient paste dispenser needs an unblocked interaction cell to be usable.-->
+  <M4_NPDNeedsSpace_Desc>1台のペーストディスペンサーは出口が障害物に塞がれ、利用できません。\n\n障害物を取り除いてください。</M4_NPDNeedsSpace_Desc>
+
+  <!--EN: Currently viewed colonist is not selected for landing. Are you sure you wish to embark without {0}?-->
+  <M4_HaveNotDraggedColonist>今見ているキャラクターはまだ初期入植者として選択していません。本当に {0} 抜きでゲームを開始しますか？</M4_HaveNotDraggedColonist>
+</LanguageData>

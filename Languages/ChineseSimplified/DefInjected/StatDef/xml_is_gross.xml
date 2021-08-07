@@ -3,31 +3,46 @@
 
   <!-- Ranged DPS - Weapon -->
 
-  <RangedWeapon_TouchDPS.label>武器秒伤(贴近)</RangedWeapon_TouchDPS.label>
-  <RangedWeapon_TouchDPS.description>武器在3格或更近距离的每秒伤害(DPS)。实际DPS也受其他因素影响。</RangedWeapon_TouchDPS.description>
+  <!--EN: ranged DPS (close)-->
+  <RangedWeapon_TouchDPS.label>远程秒伤(贴身)</RangedWeapon_TouchDPS.label>
+  <!--EN: The weapon's damage per second at a distance of 3 cells or less. The actual damage per second will also be affected by other factors.-->
+  <RangedWeapon_TouchDPS.description>武器在3格以内的距离造成的每秒伤害(DPS)。实际环境中DPS还会受其他因素影响。</RangedWeapon_TouchDPS.description>
 
-  <RangedWeapon_ShortDPS.label>武器秒伤(近)</RangedWeapon_ShortDPS.label>
-  <RangedWeapon_ShortDPS.description>武器在12格距离和附近范围内的每秒伤害(DPS)。实际DPS也受其他因素影响。</RangedWeapon_ShortDPS.description>
+  <!--EN: ranged DPS (short)-->
+  <RangedWeapon_ShortDPS.label>远程秒伤（近）</RangedWeapon_ShortDPS.label>
+  <!--EN: The weapon's damage per second at a distance of 12 cells. The actual damage per second will also be affected by other factors.-->
+  <RangedWeapon_ShortDPS.description>武器在12格距离处造成的每秒伤害(DPS)。实际环境中DPS还会受其他因素影响。</RangedWeapon_ShortDPS.description>
 
-  <RangedWeapon_MediumDPS.label>武器秒伤(中)</RangedWeapon_MediumDPS.label>
-  <RangedWeapon_MediumDPS.description>武器在25格距离和附近范围内的每秒伤害(DPS)。实际DPS也受其他因素影响。</RangedWeapon_MediumDPS.description>
+  <!--EN: ranged DPS (medium)-->
+  <RangedWeapon_MediumDPS.label>远程秒伤（中）</RangedWeapon_MediumDPS.label>
+  <!--EN: The weapon's damage per second at a distance of 25 cells. The actual damage per second will also be affected by other factors.-->
+  <RangedWeapon_MediumDPS.description>武器在25格距离处造成的每秒伤害(DPS)。实际环境中DPS还会受其他因素影响。</RangedWeapon_MediumDPS.description>
 
-  <RangedWeapon_LongDPS.label>武器秒伤(远)</RangedWeapon_LongDPS.label>
-  <RangedWeapon_LongDPS.description>武器在40格或更远距离的每秒伤害(DPS)。实际DPS也受其他因素影响。</RangedWeapon_LongDPS.description>
-
+  <!--EN: ranged DPS (long)-->
+  <RangedWeapon_LongDPS.label>远程秒伤（远）</RangedWeapon_LongDPS.label>
+  <!--EN: The weapon's damage per second at a distance of 40 cells or more. The actual damage per second will also be affected by other factors.-->
+  <RangedWeapon_LongDPS.description>武器在40格开外处造成的每秒伤害(DPS)。实际环境中DPS还会受其他因素影响。</RangedWeapon_LongDPS.description>
 
   <!-- Ranged DPS - Pawn -->
 
-  <RangedWeapon_TouchDPSPawn.label>角色秒伤(贴近)</RangedWeapon_TouchDPSPawn.label>
-  <RangedWeapon_TouchDPSPawn.description>角色在3格或更近距离的每秒伤害(DPS)。该数值为不计算如敌方的护甲值、体型大小及环境等因素的理想值。</RangedWeapon_TouchDPSPawn.description>
+  <!--EN: ranged DPS (close)-->
+  <RangedWeapon_TouchDPSPawn.label>远程秒伤(贴身)</RangedWeapon_TouchDPSPawn.label>
+  <!--EN: Average damage per second in ranged combat at a distance of 3 cells. This stat ignores target defenses like armor, as well as other factors such as the target's body size and environmental factors.-->
+  <RangedWeapon_TouchDPSPawn.description>该角色在在3格以内的距离造成的每秒平均伤害(DPS)。该数值为不计算敌方的护甲值、体型大小及环境等因素的理想值。</RangedWeapon_TouchDPSPawn.description>
 
-  <RangedWeapon_ShortDPSPawn.label>角色秒伤(近)</RangedWeapon_ShortDPSPawn.label>
-  <RangedWeapon_ShortDPSPawn.description>角色在12格距离和附近范围内的每秒伤害(DPS)。该数值为不计算如敌方的护甲值、体型大小及环境等因素的理想值。</RangedWeapon_ShortDPSPawn.description>
+  <!--EN: ranged DPS (short)-->
+  <RangedWeapon_ShortDPSPawn.label>远程秒伤（近）</RangedWeapon_ShortDPSPawn.label>
+  <!--EN: Average damage per second in ranged combat at a distance of 12 cells. This stat ignores target defenses like armor, as well as other factors such as the target's body size and environmental factors.-->
+  <RangedWeapon_ShortDPSPawn.description>该角色在12格距离处造成的平均每秒伤害(DPS)。该数值为不计算敌方的护甲值、体型大小及环境等因素的理想值。</RangedWeapon_ShortDPSPawn.description>
 
-  <RangedWeapon_MediumDPSPawn.label>角色秒伤(中)</RangedWeapon_MediumDPSPawn.label>
-  <RangedWeapon_MediumDPSPawn.description>角色在25格距离和附近范围内的每秒伤害(DPS)。该数值为不计算如敌方的护甲值、体型大小及环境等因素的理想值。</RangedWeapon_MediumDPSPawn.description>
+  <!--EN: ranged DPS (medium)-->
+  <RangedWeapon_MediumDPSPawn.label>远程秒伤（中）</RangedWeapon_MediumDPSPawn.label>
+  <!--EN: Average damage per second in ranged combat at a distance of 25 cells. This stat ignores target defenses like armor, as well as other factors such as the target's body size and environmental factors.-->
+  <RangedWeapon_MediumDPSPawn.description>该角色在25格距离处造成的平均每秒伤害(DPS)。该数值为不计算敌方的护甲值、体型大小及环境等因素的理想值。</RangedWeapon_MediumDPSPawn.description>
 
-  <RangedWeapon_LongDPSPawn.label>角色秒伤(远)</RangedWeapon_LongDPSPawn.label>
-  <RangedWeapon_LongDPSPawn.description>角色在40格或更远距离的每秒伤害(DPS)。该数值为不计算如敌方的护甲值、体型大小及环境等因素的理想值。</RangedWeapon_LongDPSPawn.description>
+  <!--EN: ranged DPS (long)-->
+  <RangedWeapon_LongDPSPawn.label>远程秒伤（远）</RangedWeapon_LongDPSPawn.label>
+  <!--EN: Average damage per second in ranged combat at a distance of 40 cells. This stat ignores target defenses like armor, as well as other factors such as the target's body size and environmental factors.-->
+  <RangedWeapon_LongDPSPawn.description>该角色在40格开外处造成的平均每秒伤害(DPS)。该数值为不计算敌方的护甲值、体型大小及环境等因素的理想值。</RangedWeapon_LongDPSPawn.description>
 
 </LanguageData>

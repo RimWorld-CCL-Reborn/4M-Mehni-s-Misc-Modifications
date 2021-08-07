@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -17,7 +14,7 @@ namespace Mehni.Misc.Modifications
         public static void SliderLabeled(this Listing_Standard ls, string label, ref int val, string format, float min = 0f, float max = 100f, string tooltip = null)
         {
             float fVal = val;
-            ls.SliderLabeled(label, ref fVal, format, min, max);
+            ls.SliderLabeled(label, ref fVal, format, min, max, tooltip);
             val = (int)fVal;
         }
         public static void SliderLabeled(this Listing_Standard ls, string label, ref float val, string format, float min = 0f, float max = 1f, string tooltip = null)
