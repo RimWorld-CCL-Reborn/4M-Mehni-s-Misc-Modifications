@@ -69,4 +69,6 @@
     <M4_NPDNeedsSpace_Desc>One of your nutrient paste dispensers has its interaction cell blocked by an obstruction that will prevent colonists from using it.\n\nA nutrient paste dispenser needs an unblocked interaction cell to be usable.</M4_NPDNeedsSpace_Desc>
 
     <M4_HaveNotDraggedColonist>Currently viewed colonist is not selected for landing. Are you sure you wish to embark without {0}?</M4_HaveNotDraggedColonist>
+
+    <M4_LoverWarning>{0} is not assigned to a bed which has two sleeping slots - cannot assign them to sleep with their partner</M4_LoverWarning>
 </LanguageData>
