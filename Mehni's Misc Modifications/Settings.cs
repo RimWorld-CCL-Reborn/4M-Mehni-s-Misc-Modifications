@@ -1,5 +1,4 @@
-﻿using System;
-using RimWorld;
+﻿using RimWorld;
 using Verse;
 using UnityEngine;
 
@@ -99,6 +98,7 @@ namespace Mehni.Misc.Modifications
 
         public void DoWindowContents(Rect wrect)
         {
+            #region UpperOptions
             Listing_Standard options = new();
             Color defaultColor = GUI.color;
             options.Begin(wrect);
@@ -154,15 +154,17 @@ namespace Mehni.Misc.Modifications
 
             options.Gap();
             options.End();
+            #endregion
 
-            // More options
-
+            #region SeperationLine
             Listing_Standard gapline = new();
             Rect gapliRect = new(wrect.x, wrect.y + moreOptionsRecty -35f, wrect.width, wrect.height);
             gapline.Begin(gapliRect);
             gapline.GapLine();
             gapline.End();
+            #endregion
 
+            #region LowerOptions
             Listing_Standard moreOptions = new();
             Rect moreOptionsRect = wrect;
             moreOptionsRect.y = (moreOptionsRecty + 20f) / 2;
@@ -235,6 +237,8 @@ namespace Mehni.Misc.Modifications
 
             Widgets.EndScrollView();
             moreOptions.End();
+            moreOptions.End();
+            #endregion
         }
 
         public override void ExposeData()
@@ -273,6 +277,7 @@ namespace Mehni.Misc.Modifications
         public override void DoSettingsWindowContents(Rect inRect)
         {
             GetSettings<MeMiMoSettings>().DoWindowContents(inRect);
+            base.DoSettingsWindowContents(inRect);
         }
     }
 }

@@ -6,6 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+0Harmony.dll
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
